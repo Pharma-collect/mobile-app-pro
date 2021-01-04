@@ -5,7 +5,7 @@ Pharma collect is a mobile app which allow to send prescription/order to a parti
 - Pharma-collect Client  
 - Pharma-collect Pro  
   
-![](./app/src/main/res/drawable/doc/archi_doc.png)   
+![](./app/src/main/res/drawable/archi_doc.png)   
   
 # Pharma-Collect Pro  
   
@@ -29,7 +29,7 @@ The profesionnal part will allow the user to :
 The app is made with **Kotlin** and **Java** languages.  
 We work with fragment and **mvvm** technology (Model-View-ViewModel)  
   
-![](./app/src/main/res/drawable/doc/mvvm_doc.png)  
+![](./app/src/main/res/drawable/mvvm_doc.png)  
   
   
 The application is linked to a server (see previous drawing). We are able to talk with it thanks to an http request (in fact we have **https** request to get safer transactions). In addition, the most sensitive information are encrypted with **BCrypt** technolgy and cannot be violated.  
