@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Pharma-collect-pro</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_prescription">Prescription</string>
+    <string name="title_pharmacy">Pharmacy</string>
+    <string name="title_history">Documents</string>
+    <string name="title_locker">Boxes</string>
 
     <string name="login">Login</string>
     <string name="username">Username</string>

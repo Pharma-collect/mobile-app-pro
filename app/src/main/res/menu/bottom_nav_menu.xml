@@ -2,18 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_locker"
+        android:icon="@drawable/locker_logo"
+        android:title="@string/title_locker" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:id="@+id/navigation_prescription"
+        android:icon="@drawable/prescription_logo"
+        android:title="@string/title_prescription" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/placeholder"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/history_logo"
+        android:title="@string/title_history" />
+
+    <item
+        android:id="@+id/navigation_pharmacy"
+        android:icon="@drawable/pharmacy_logo"
+        android:title="@string/title_pharmacy" />
 
 </menu>

@@ -12,14 +12,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_locker"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.locker.LockerFragment"
+        android:label="@string/title_locker"
+        tools:layout="@layout/fragment_locker" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_prescription"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.PrescriptionFragment"
+        android:label="@string/title_prescription"
+        tools:layout="@layout/fragment_prescription" />
+
+    <fragment
+        android:id="@+id/navigation_pharmacy"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.pharmacy.PharmacyFragment"
+        android:label="@string/title_pharmacy"
+        tools:layout="@layout/fragment_pharmacy" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
 </navigation>
