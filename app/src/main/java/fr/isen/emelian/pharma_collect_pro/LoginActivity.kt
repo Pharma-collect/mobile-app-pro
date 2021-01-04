@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.EditText
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.Request
@@ -14,13 +13,12 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.services.EnableHttps.handleSSLHandshake
+import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
-    private var username_tf: EditText? = null
-    private var password_tf: EditText? = null
-    var backUrl = "https://88-122-235-110.traefik.me:61001/api/"
+    var backUrl = "https://88-122-235-110.traefik.me:61001/api"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun logRequest(username: String, password: String){
         val requestQueue = Volley.newRequestQueue(this)
-        val url = "$backUrl/api/user_pro/loginPro"
+        val url = "$backUrl/user_pro/loginPro"
         val stringRequest: StringRequest =
             object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
@@ -71,9 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
-        username_tf = findViewById<View>(R.id.etUsername) as EditText
-        password_tf = findViewById<View>(R.id.etPassword) as EditText
-        logRequest(username_tf!!.text.toString(), password_tf!!.text.toString())
+        logRequest(etUsername.text.toString(), etPassword.text.toString())
     }
 
 }
