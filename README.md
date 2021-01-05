@@ -48,6 +48,7 @@ C --> D((Home Page))
 D --> E[Box management]
 D --> F[Prescription management]
 D --> G[Pharmacy management]
+D --> I[History of order]
 G --> H{Logout}
 H --> C
 ```
