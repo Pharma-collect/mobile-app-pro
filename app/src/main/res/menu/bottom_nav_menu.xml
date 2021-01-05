@@ -12,7 +12,7 @@
         android:title="@string/title_prescription" />
 
     <item
-        android:id="@+id/placeholder"
+        android:id="@+id/navigation_home"
         android:title="" />
 
     <item

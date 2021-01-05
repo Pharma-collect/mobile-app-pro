@@ -1,6 +1,8 @@
 package fr.isen.emelian.pharma_collect_pro
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -15,17 +17,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val fab : View = findViewById(R.id.fab)
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_locker, R.id.navigation_prescription, R.id.navigation_history, R.id.navigation_pharmacy))
+                R.id.navigation_home, R.id.navigation_locker, R.id.navigation_prescription, R.id.navigation_history, R.id.navigation_pharmacy))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         bottomNavigationView.background = null
-        bottomNavigationView.menu.getItem(2).isEnabled = false
+        //bottomNavigationView.menu.getItem(2).isEnabled = false
 
+        fab.setOnClickListener {
+            intent = Intent(this@MainActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
