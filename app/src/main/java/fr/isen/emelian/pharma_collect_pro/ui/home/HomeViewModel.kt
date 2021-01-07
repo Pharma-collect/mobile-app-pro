@@ -34,7 +34,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
     init {
         launch{
             myUser = fileService.getData(context)
-            homeRepository.getUserInformations(context, myUser)
+            //homeRepository.getUserInformations(context, myUser)
             _welcomeText.value = "Welcome Back ${myUser.username}"
         }
     }
