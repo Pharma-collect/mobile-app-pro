@@ -71,3 +71,14 @@ F --> |Recovered| G[Deleted]
 
 - Let see the project board
 - All required http request are on the Web server repository
+
+# Gitflow :warning:
+
+This is the important things about the gitflow!
+Please apply these rules to get a clean repository
+
+* New branch for every task (**ONE** branch for **ONE** task)
+* A branch must be created from up to date **develop**
+- branch syntax : "feature/branchName"
+- When commit reference the id of the task
+- Make a pull request to integrate a branch to develop
