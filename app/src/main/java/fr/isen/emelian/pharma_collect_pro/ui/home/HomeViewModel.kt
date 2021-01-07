@@ -1,17 +1,20 @@
 package fr.isen.emelian.pharma_collect_pro.ui.home
 
 import android.app.Application
+import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import fr.isen.emelian.pharma_collect_pro.LoginActivity
+import fr.isen.emelian.pharma_collect_pro.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import fr.isen.emelian.pharma_collect_pro.services.MyRepository
-import org.json.JSONObject
-import java.io.File
+import fr.isen.emelian.pharma_collect_pro.repository.HomeRepository
+import fr.isen.emelian.pharma_collect_pro.services.FileService
 
 
 class HomeViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
@@ -23,36 +26,29 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
     }
     val welcomeText: LiveData<String> = _welcomeText
 
-    var user: User = User()
-    private val repository: MyRepository = MyRepository()
+    var myUser: User = User()
+    private val homeRepository: HomeRepository = HomeRepository()
+    private val fileService: FileService = FileService()
     private val context = getApplication<Application>().applicationContext
 
     init {
         launch{
-            getData()
-            repository.getUserInformations(context, user)
-            _welcomeText.value = "Welcome Back ${user.username}"
-            Log.d("HomeVM", "Welcome Back ${user.username}")
-            Log.d("HomeVM", "My Token :  ${user.token}")
+            myUser = fileService.getData(context)
+            homeRepository.getUserInformations(context, myUser)
+            _welcomeText.value = "Welcome Back ${myUser.username}"
         }
     }
 
-    fun onButtonClicked(){
-        Log.d("HomeVM", "button was clicked")
-    }
-
-    /*
-     * Read cache file which get informations
-     * To find file : "Device File Explorer" --> data --> data --> fr.isen.emelian .. --> cacheData_user.json
-     */
-    private fun getData() {
-        val datas: String = File(context.cacheDir.absolutePath + "Data_user.json").readText()
-        if (datas.isNotEmpty()) {
-            val jsonObject = JSONObject(datas)
-            user.id = jsonObject.optString("id")
-            user.token = jsonObject.optString("token")
-            user.username = jsonObject.optString("username")
-            user.pharma_id = jsonObject.optString("pharmaId")
+    fun onButtonClicked() {
+        Log.d("HomeVM", "ButtonClicked")
+        val deleteResponse = fileService.deleteData(context)
+        if(deleteResponse.equals(true)){
+            val i = Intent(context, LoginActivity::class.java)
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            context.startActivity(i)
+            Toast.makeText(context, "See you!", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, "Error, cannot disconnect for the moment", Toast.LENGTH_LONG).show()
         }
     }
 }

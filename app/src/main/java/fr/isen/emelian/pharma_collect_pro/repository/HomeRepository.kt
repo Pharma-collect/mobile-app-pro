@@ -1,7 +1,6 @@
-package fr.isen.emelian.pharma_collect_pro.services
+package fr.isen.emelian.pharma_collect_pro.repository
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
@@ -10,19 +9,22 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import org.json.JSONException
+import fr.isen.emelian.pharma_collect_pro.services.FileService
 import org.json.JSONObject
 
-class MyRepository {
+class HomeRepository {
 
     var backUrl = "https://88-122-235-110.traefik.me:61001/api"
+    private val fileService: FileService =
+        FileService()
 
     /*
      * Get user pro by id
      */
     fun getUserInformations(
         context: Context,
-        userData: User){
+        userData: User
+    ){
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/user_pro/getUserProById"
         val stringRequest: StringRequest =
@@ -57,5 +59,4 @@ class MyRepository {
             }
         requestQueue.add(stringRequest)
     }
-
 }
