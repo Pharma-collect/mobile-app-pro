@@ -5,14 +5,41 @@
     android:layout_height="match_parent"
     tools:context=".ui.pharmacy.PharmacyFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <ImageView
+        android:id="@+id/wave_profile"
         android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/wave_profile"
+        android:layout_marginTop="125dp"/>
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/pharmacy_profile" />
+
+    <TextView
+        android:id="@+id/pharmaName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:layout_marginTop="30dp"
+        android:textColor="@color/black"
+        android:text="Pharmacy name"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="170dp" />
+
+    <TextView
+        android:id="@+id/pharmaBoss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:textColor="@color/black"
+        android:text="Pharmacy name"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:layout_marginLeft="170dp" />
 
 </FrameLayout>
