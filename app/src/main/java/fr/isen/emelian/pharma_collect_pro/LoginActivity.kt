@@ -28,8 +28,4 @@ class LoginActivity : AppCompatActivity() {
         handleSSLHandshake()
         repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
     }
-
-
-
-
 }

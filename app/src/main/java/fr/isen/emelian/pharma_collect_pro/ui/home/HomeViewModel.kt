@@ -8,18 +8,19 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
-import fr.isen.emelian.pharma_collect_pro.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.HomeRepository
+import fr.isen.emelian.pharma_collect_pro.repository.PharmacyRepository
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 
 
 class HomeViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
     private val id: String = "0"
+    var backUrl = "https://88-122-235-110.traefik.me:61001/api"
 
     private val _welcomeText = MutableLiveData<String>().apply {
         value = "welcome back user $id"
@@ -28,13 +29,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
 
     var myUser: User = User()
     private val homeRepository: HomeRepository = HomeRepository()
+    private val pharmaRepository: PharmacyRepository = PharmacyRepository()
     private val fileService: FileService = FileService()
     private val context = getApplication<Application>().applicationContext
 
     init {
         launch{
             myUser = fileService.getData(context)
-            //homeRepository.getUserInformations(context, myUser)
+            //homeRepository.getUserInformations(myUser.id.toString(), context)
+            //pharmaRepository.getPharmacyInfo(myUser.pharma_id.toString(), context)
             _welcomeText.value = "Welcome Back ${myUser.username}"
         }
     }

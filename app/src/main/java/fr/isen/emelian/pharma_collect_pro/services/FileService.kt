@@ -35,10 +35,10 @@ class FileService {
         val datas: String = File(context.cacheDir.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
             val jsonObject = JSONObject(datas)
-            user.id = jsonObject.optString("id")
+            user.id = jsonObject.optInt("id")
             user.token = jsonObject.optString("token")
             user.username = jsonObject.optString("username")
-            user.pharma_id = jsonObject.optString("pharmaId")
+            user.pharma_id = jsonObject.optInt("pharmaId")
         }
         return user
     }
