@@ -8,6 +8,8 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
+import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 import org.json.JSONObject
 
@@ -16,6 +18,7 @@ class PharmacyRepository {
     var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val fileService: FileService =
             FileService()
+    var myPharma: Pharmacy = Pharmacy()
 
     /*
      * Get pharmacy information
@@ -29,6 +32,27 @@ class PharmacyRepository {
                         var jsonResponse: JSONObject = JSONObject(response)
                         if (jsonResponse["success"] == true) {
                             Log.d("ResponseJSON", jsonResponse.toString())
+                            var jsonArray = jsonResponse.optJSONArray("result")
+                            for (i in 0 until jsonResponse.length()) {
+                                myPharma.name = jsonResponse.optString("name").toString()
+                                myPharma.has_shop = jsonResponse.optString("has_shop").toString()
+                                myPharma.boss = jsonResponse.optString("boss").toString()
+                                myPharma.phone = jsonResponse.optString("phone").toString()
+                                myPharma.road = jsonResponse.optString("road").toString()
+                                myPharma.road_nb = jsonResponse.optString("road_nb").toString()
+                                myPharma.city = jsonResponse.optString("city").toString()
+                                myPharma.post_code = jsonResponse.optString("post_code").toString()
+                                Log.d("TESTTEST", myPharma.toString())
+                            }
+                            /*var data = JSONObject(jsonResponse.get("result").toString())
+                                myPharma.name = data["name"].toString()
+                                myPharma.has_shop = data["has_shop"].toString()
+                                myPharma.boss = data["boss"].toString()
+                                myPharma.phone = data["phone"].toString()
+                                myPharma.road = data["road"].toString()
+                                myPharma.road_nb = data["road_nb"].toString()
+                                myPharma.city = data["city"].toString()
+                                myPharma.post_code = data["post_code"].toString()*/
                         }else{
                             Log.d("ResponseJSON", jsonResponse.toString())
                         }

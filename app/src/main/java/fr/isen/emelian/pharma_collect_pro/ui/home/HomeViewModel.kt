@@ -20,7 +20,6 @@ import fr.isen.emelian.pharma_collect_pro.services.FileService
 class HomeViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
     private val id: String = "0"
-    var backUrl = "https://88-122-235-110.traefik.me:61001/api"
 
     private val _welcomeText = MutableLiveData<String>().apply {
         value = "welcome back user $id"
