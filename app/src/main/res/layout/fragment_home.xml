@@ -19,13 +19,13 @@
             android:id="@+id/layout_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:orientation="vertical">
             
             <RelativeLayout
                 android:id="@+id/header_home"
                 android:layout_width="match_parent"
-                android:layout_height="70dp">
+                android:layout_height="70dp"
+                android:background="@color/black">
 
                 <ImageView
                     android:id="@+id/pharma_logo"
@@ -33,7 +33,18 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_home_24"
                     android:padding="15dp"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/pharma_logo"/>
+
+                <ImageView
+                    android:id="@+id/pharma_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_settings_24"
+                    android:padding="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/pharma_logo"/>
 
 
                 <LinearLayout
@@ -47,49 +58,50 @@
                         android:id="@+id/pharma_name_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pharmacy Name"
+                        android:text="@string/pharma_name"
                         android:textSize="20sp"
-                        android:layout_marginLeft="70dp"/>
+                        android:layout_marginStart="70dp"/>
 
                     <TextView
                         android:id="@+id/pharma_boss_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Current user"
+                        android:text="@string/current_user"
                         android:textSize="15sp"
-                        android:layout_marginLeft="70dp"/>
+                        android:layout_marginStart="70dp"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/in_progress_tv"
+                android:id="@+id/current_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baloo"
-                android:text="En cours"
+                android:textColor="@color/black"
+                android:text="@string/current"
                 android:textSize="25sp"
                 android:padding="10dp"/>
 
             <RelativeLayout
                 android:id="@+id/order_in_progress_layout"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="70dp">
 
                 <RelativeLayout
                     android:id="@+id/in_progress_field"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:background="@drawable/shape_two"
-                    android:layout_margin="20dp">
-
+                    android:layout_margin="20dp"
+                    tools:ignore="UselessParent">
 
                     <TextView
                         android:id="@+id/in_progress_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No order in charge"
+                        android:text="@string/in_charge_order"
                         android:textSize="15sp"
                         android:fontFamily="@font/baloo"
                         android:layout_centerVertical="true"
@@ -104,7 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baloo"
-                android:text="Menu"
+                android:textColor="@color/black"
+                android:text="@string/menu"
                 android:textSize="25sp"
                 android:padding="10dp"/>
 
@@ -114,8 +127,7 @@
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="300dp">
-
+            android:layout_marginTop="270dp">
 
             <LinearLayout
                 android:id="@+id/scroll_view_layout"
@@ -128,41 +140,44 @@
                 <RelativeLayout
                     android:id="@+id/prescription_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:layout_height="125dp">
 
                     <RelativeLayout
                         android:id="@+id/prescription_layout_field"
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:background="@drawable/round_blue"
-                        android:layout_margin="20dp">
+                        android:layout_margin="10dp"
+                        tools:ignore="UselessParent">
 
                         <TextView
                             android:id="@+id/prescription_layout_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Prescription"
+                            android:text="@string/prescription"
                             android:textSize="30sp"
                             android:fontFamily="@font/baloo"
-                            android:padding="20dp"/>
+                            android:padding="10dp"
+                            tools:ignore="RelativeOverlap" />
 
                         <TextView
                             android:id="@+id/prescription_layout_waiting_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Waiting orders : 10"
-                            android:textSize="15dp"
-                            android:padding="20dp"
+                            android:text="@string/amount_waiting"
+                            android:textSize="15sp"
+                            android:padding="10dp"
                             android:layout_alignParentBottom="true"/>
 
                         <ImageView
                             android:id="@+id/prescription_layout_iv"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:src="@drawable/prescription_logo"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginTop="0dp"
-                            android:layout_centerInParent="true"/>
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@string/prescription_logo"/>
 
                     </RelativeLayout>
 
@@ -171,81 +186,87 @@
                 <RelativeLayout
                     android:id="@+id/shop_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:layout_height="125dp">
 
                     <RelativeLayout
                         android:id="@+id/shop_layout_field"
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:background="@drawable/round_green"
-                        android:layout_margin="20dp">
+                        android:layout_margin="10dp"
+                        tools:ignore="UselessParent">
 
                         <TextView
                             android:id="@+id/shop_layout_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Shop"
+                            android:text="@string/shop"
                             android:textSize="30sp"
                             android:fontFamily="@font/baloo"
-                            android:padding="25dp"/>
+                            android:padding="10dp"
+                            tools:ignore="RelativeOverlap" />
 
                         <TextView
                             android:id="@+id/shop_layout_waiting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Waiting orders : 10"
-                            android:textSize="15dp"
-                            android:padding="20dp"
+                            android:text="@string/amount_waiting"
+                            android:textSize="15sp"
+                            android:padding="10dp"
                             android:layout_alignParentBottom="true"/>
 
                         <ImageView
                             android:id="@+id/shop_layout_iv"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:src="@drawable/ic_baseline_shopping_cart_24"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_centerInParent="true"
-                            android:layout_marginTop="0dp"/>
+                            android:layout_marginTop="0dp"
+                            android:contentDescription="@string/shop_logo" />
 
                     </RelativeLayout>
 
                 </RelativeLayout>
 
+
                 <LinearLayout
                     android:id="@+id/locker_client_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="125dp"
                     android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/locker_layout"
                     android:layout_width="200dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="left">
+                    android:layout_height="125dp"
+                    tools:ignore="RtlHardcoded">
 
                     <RelativeLayout
                         android:id="@+id/locker_layout_field"
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:background="@drawable/round_orange"
-                        android:layout_margin="20dp">
+                        android:layout_margin="10dp"
+                        tools:ignore="UselessParent">
 
                         <TextView
                             android:id="@+id/locker_layout_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Locker"
+                            android:text="@string/locker"
                             android:textSize="20sp"
                             android:fontFamily="@font/baloo"
-                            android:padding="20dp"/>
+                            android:padding="10dp"
+                            tools:ignore="RelativeOverlap" />
 
                         <TextView
                             android:id="@+id/locker_layout_available"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Available : 10"
-                            android:textSize="15dp"
-                            android:padding="20dp"
+                            android:text="@string/amount_available"
+                            android:textSize="15sp"
+                            android:padding="10dp"
                             android:layout_alignParentBottom="true"/>
 
                         <ImageView
@@ -255,7 +276,8 @@
                             android:src="@drawable/locker_logo"
                             android:layout_alignParentRight="true"
                             android:layout_centerInParent="true"
-                            android:layout_marginTop="0dp"/>
+                            android:layout_marginTop="0dp"
+                            android:contentDescription="@string/locker_logo" />
 
                     </RelativeLayout>
 
@@ -264,42 +286,37 @@
                     <RelativeLayout
                         android:id="@+id/client_layout"
                         android:layout_width="200dp"
-                        android:layout_height="150dp">
+                        android:layout_height="125dp"
+                        tools:ignore="RtlHardcoded">
 
                         <RelativeLayout
                             android:id="@+id/client_layout_field"
                             android:layout_width="match_parent"
                             android:layout_height="125dp"
                             android:background="@drawable/round_blueclear"
-                            android:layout_margin="20dp">
+                            android:layout_margin="10dp"
+                            tools:ignore="UselessParent">
 
                             <TextView
-                                android:id="@+id/client_layout_tv_up"
+                                android:id="@+id/client_layout_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Client"
-                                android:textSize="20dp"
+                                android:text="@string/client"
+                                android:textSize="20sp"
                                 android:fontFamily="@font/baloo"
-                                android:padding="20dp"/>
+                                android:padding="10dp"
+                                tools:ignore="RelativeOverlap" />
 
-                            <TextView
-                                android:id="@+id/client_layout_tv_down"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="History"
-                                android:textSize="20dp"
-                                android:fontFamily="@font/baloo"
-                                android:padding="25dp"
-                                android:layout_alignParentBottom="true"/>
 
                             <ImageView
                                 android:id="@+id/client_layout_iv"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/ic_baseline_folder_shared_24"
+                                android:src="@drawable/history_logo"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerInParent="true"
-                                android:layout_marginTop="0dp"/>
+                                android:layout_marginTop="0dp"
+                                android:contentDescription="@string/locker_logo"/>
 
                         </RelativeLayout>
 
@@ -316,33 +333,34 @@
                     <RelativeLayout
                         android:id="@+id/pharma_layout"
                         android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="left">
+                        android:layout_height="125dp">
 
                         <RelativeLayout
                             android:id="@+id/pharma_layout_field"
                             android:layout_width="match_parent"
                             android:layout_height="125dp"
                             android:background="@drawable/round_brown"
-                            android:layout_margin="20dp">
+                            android:layout_margin="10dp"
+                            tools:ignore="UselessParent">
 
                             <TextView
                                 android:id="@+id/pharma_layout_tv_up"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="My"
-                                android:textSize="20dp"
+                                android:text="@string/my"
+                                android:textSize="20sp"
                                 android:fontFamily="@font/baloo"
-                                android:padding="20dp"/>
+                                android:padding="10dp"
+                                tools:ignore="RelativeOverlap" />
 
                             <TextView
                                 android:id="@+id/pharma_layout_tv_down"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pharma"
-                                android:textSize="20dp"
+                                android:text="@string/pharma"
+                                android:textSize="20sp"
                                 android:fontFamily="@font/baloo"
-                                android:padding="25dp"
+                                android:padding="10dp"
                                 android:layout_alignParentBottom="true"/>
 
                             <ImageView
@@ -350,9 +368,10 @@
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:src="@drawable/pharmacy_logo"
-                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
                                 android:layout_centerInParent="true"
-                                android:layout_marginTop="0dp"/>
+                                android:layout_marginTop="0dp"
+                                android:contentDescription="@string/pharma_logo"/>
 
                         </RelativeLayout>
 
@@ -361,29 +380,43 @@
                     <RelativeLayout
                         android:id="@+id/logout_layout"
                         android:layout_width="200dp"
-                        android:layout_height="150dp">
+                        android:layout_height="125dp">
 
                         <RelativeLayout
                             android:id="@+id/logout_layout_field"
                             android:layout_width="match_parent"
                             android:layout_height="125dp"
                             android:background="@drawable/round_red"
-                            android:layout_margin="20dp">
+                            android:layout_margin="10dp"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/logout_layout_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/logout"
+                                android:textSize="20sp"
+                                android:fontFamily="@font/baloo"
+                                android:padding="10dp"
+                                tools:ignore="RelativeOverlap" />
 
                             <ImageView
                                 android:id="@+id/logout_layout_iv"
-                                android:layout_width="75dp"
-                                android:layout_height="75dp"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:onClick="onButtonLogoutClicked"
                                 android:src="@drawable/ic_baseline_power_settings_new_24"
+                                android:layout_alignParentEnd="true"
                                 android:layout_centerInParent="true"
-                                android:layout_marginTop="0dp"/>
+                                android:layout_marginTop="0dp"
+                                android:contentDescription="@string/logout"/>
 
                         </RelativeLayout>
 
                     </RelativeLayout>
 
                 </LinearLayout>
+
 
             </LinearLayout>
 

@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- App / Navigation string -->
     <string name="app_name">Pharma-collect-pro</string>
     <string name="title_home">Home</string>
     <string name="title_prescription">Prescription</string>
@@ -6,9 +8,37 @@
     <string name="title_history">Documents</string>
     <string name="title_locker">Boxes</string>
 
+    <!-- Login page string -->
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="signin">Sign in</string>
+    <!-- Login page description-->
+    <string name="header_image">Pharma collect header blue</string>
+
+    <!-- Home page string -->
+    <string name="pharma_name">Pharmacy name</string>
+    <string name="current_user">Current user</string>
+    <string name="in_charge">In charge</string>
+    <string name="in_charge_order">No order in progress</string>
+    <string name="menu">Menu</string>
+    <string name="prescription">Prescription</string>
+    <string name="amount_waiting">To do : 10</string>
+    <string name="shop">Shop</string>
+    <string name="locker">Locker</string>
+    <string name="amount_available">Available : 4</string>
+    <string name="client">Client</string>
+    <string name="history">History</string>
+    <string name="my">My</string>
+    <string name="pharma">Pharma</string>
+    <string name="logout">Logout</string>
+    <string name="current">Current order</string>
+    <!-- Home page description -->
+    <string name="pharma_logo">Pharmacy logo</string>
+    <string name="prescription_logo">Prescription logo</string>
+    <string name="shop_logo">Shop logo</string>
+    <string name="locker_logo">Locker logo</string>
+    <string name="client_logo">Client logo</string>
+    <string name="logout_logo">Logout logo</string>
 
 </resources>

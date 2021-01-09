@@ -2,21 +2,17 @@ package fr.isen.emelian.pharma_collect_pro
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import fr.isen.emelian.pharma_collect_pro.repository.PharmacyRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-import fr.isen.emelian.pharma_collect_pro.services.EnableHttps.handleSSLHandshake
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
@@ -50,9 +46,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
     }
 
-    fun onButtonPrescriptionClicked(view: View){
-
-    }
 
     fun onButtonLogoutClicked(view: View) {
         val deleteResponse = fileService.deleteData(this)
