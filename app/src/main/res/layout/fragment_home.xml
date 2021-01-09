@@ -9,39 +9,445 @@
             type="fr.isen.emelian.pharma_collect_pro.ui.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment">
+        tools:context=".ui.home.HomeFragment"
+        android:layout_marginBottom="65dp">
 
-        <TextView
-            android:id="@+id/tvWelcomeBack"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{homeviewmodel.welcomeText}"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.265" />
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            
+            <RelativeLayout
+                android:id="@+id/header_home"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
 
-        <Button
-            android:id="@+id/btTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> homeviewmodel.onButtonClicked()}"
-            android:text="Logout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.818" />
+                <ImageView
+                    android:id="@+id/pharma_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_home_24"
+                    android:padding="15dp"
+                    android:layout_centerVertical="true"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:id="@+id/text_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/pharma_name_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pharmacy Name"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="70dp"/>
+
+                    <TextView
+                        android:id="@+id/pharma_boss_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current user"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="70dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/in_progress_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo"
+                android:text="En cours"
+                android:textSize="25sp"
+                android:padding="10dp"/>
+
+            <RelativeLayout
+                android:id="@+id/order_in_progress_layout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <RelativeLayout
+                    android:id="@+id/in_progress_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_two"
+                    android:layout_margin="20dp">
+
+
+                    <TextView
+                        android:id="@+id/in_progress_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No order in charge"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/baloo"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+
+                    <Button
+                        android:id="@+id/in_progress_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/menu_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo"
+                android:text="Menu"
+                android:textSize="25sp"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="300dp">
+
+
+            <LinearLayout
+                android:id="@+id/scroll_view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/prescription_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+                    <RelativeLayout
+                        android:id="@+id/prescription_layout_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:background="@drawable/round_blue"
+                        android:layout_margin="20dp">
+
+                        <TextView
+                            android:id="@+id/prescription_layout_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Prescription"
+                            android:textSize="30sp"
+                            android:fontFamily="@font/baloo"
+                            android:padding="20dp"/>
+
+                        <TextView
+                            android:id="@+id/prescription_layout_waiting_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Waiting orders : 10"
+                            android:textSize="15dp"
+                            android:padding="20dp"
+                            android:layout_alignParentBottom="true"/>
+
+                        <Button
+                            android:id="@+id/prescription_layout_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageView
+                            android:id="@+id/prescription_layout_iv"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:src="@drawable/prescription_logo"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/shop_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+                    <RelativeLayout
+                        android:id="@+id/shop_layout_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:background="@drawable/round_green"
+                        android:layout_margin="20dp">
+
+                        <TextView
+                            android:id="@+id/shop_layout_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shop"
+                            android:textSize="30sp"
+                            android:fontFamily="@font/baloo"
+                            android:padding="25dp"/>
+
+                        <TextView
+                            android:id="@+id/shop_layout_waiting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Waiting orders : 10"
+                            android:textSize="15dp"
+                            android:padding="20dp"
+                            android:layout_alignParentBottom="true"/>
+
+                        <Button
+                            android:id="@+id/shop_layout_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageView
+                            android:id="@+id/shop_layout_iv"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:src="@drawable/ic_baseline_shopping_cart_24"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="0dp"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/locker_client_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/locker_layout"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="left">
+
+                    <RelativeLayout
+                        android:id="@+id/locker_layout_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:background="@drawable/round_orange"
+                        android:layout_margin="20dp">
+
+                        <TextView
+                            android:id="@+id/locker_layout_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Locker"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/baloo"
+                            android:padding="20dp"/>
+
+                        <TextView
+                            android:id="@+id/locker_layout_available"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Available : 10"
+                            android:textSize="15dp"
+                            android:padding="20dp"
+                            android:layout_alignParentBottom="true"/>
+
+                        <Button
+                            android:id="@+id/locker_layout_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageView
+                            android:id="@+id/locker_layout_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/locker_logo"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="0dp"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/client_layout"
+                        android:layout_width="200dp"
+                        android:layout_height="150dp">
+
+                        <RelativeLayout
+                            android:id="@+id/client_layout_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:background="@drawable/round_blueclear"
+                            android:layout_margin="20dp">
+
+                            <TextView
+                                android:id="@+id/client_layout_tv_up"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Client"
+                                android:textSize="20dp"
+                                android:fontFamily="@font/baloo"
+                                android:padding="20dp"/>
+
+                            <TextView
+                                android:id="@+id/client_layout_tv_down"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="History"
+                                android:textSize="20dp"
+                                android:fontFamily="@font/baloo"
+                                android:padding="25dp"
+                                android:layout_alignParentBottom="true"/>
+
+                            <Button
+                                android:id="@+id/client_layout_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true"/>
+
+                            <ImageView
+                                android:id="@+id/client_layout_iv"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_baseline_folder_shared_24"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="0dp"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pharma_logout_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/pharma_layout"
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="left">
+
+                        <RelativeLayout
+                            android:id="@+id/pharma_layout_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:background="@drawable/round_brown"
+                            android:layout_margin="20dp">
+
+                            <TextView
+                                android:id="@+id/pharma_layout_tv_up"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="My"
+                                android:textSize="20dp"
+                                android:fontFamily="@font/baloo"
+                                android:padding="20dp"/>
+
+                            <TextView
+                                android:id="@+id/pharma_layout_tv_down"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pharma"
+                                android:textSize="20dp"
+                                android:fontFamily="@font/baloo"
+                                android:padding="25dp"
+                                android:layout_alignParentBottom="true"/>
+
+
+                            <Button
+                                android:id="@+id/pharma_layout_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true"/>
+
+                            <ImageView
+                                android:id="@+id/pharma_layout_iv"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/pharmacy_logo"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="0dp"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/logout_layout"
+                        android:layout_width="200dp"
+                        android:layout_height="150dp">
+
+                        <RelativeLayout
+                            android:id="@+id/logout_layout_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:background="@drawable/round_red"
+                            android:layout_margin="20dp">
+
+                            <Button
+                                android:id="@+id/logout_layout_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true"
+                                android:onClick="onButtonLogoutClicked"/>
+
+                            <ImageView
+                                android:id="@+id/logout_layout_iv"
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:src="@drawable/ic_baseline_power_settings_new_24"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="0dp"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
 </layout>

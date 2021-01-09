@@ -34,23 +34,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
 
     init {
         launch{
-            myUser = fileService.getData(context)
+            //myUser = fileService.getData(context)
             //homeRepository.getUserInformations(myUser.id.toString(), context)
             //pharmaRepository.getPharmacyInfo(myUser.pharma_id.toString(), context)
-            _welcomeText.value = "Welcome Back ${myUser.username}"
-        }
-    }
-
-    fun onButtonClicked() {
-        Log.d("HomeVM", "ButtonClicked")
-        val deleteResponse = fileService.deleteData(context)
-        if(deleteResponse.equals(true)){
-            val i = Intent(context, LoginActivity::class.java)
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            context.startActivity(i)
-            Toast.makeText(context, "See you!", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(context, "Error, cannot disconnect for the moment", Toast.LENGTH_LONG).show()
+            //_welcomeText.value = "Welcome Back ${myUser.username}"
         }
     }
 }

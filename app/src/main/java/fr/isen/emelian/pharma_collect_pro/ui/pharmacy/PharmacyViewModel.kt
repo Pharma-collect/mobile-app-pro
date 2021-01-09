@@ -1,12 +1,16 @@
 package fr.isen.emelian.pharma_collect_pro.ui.pharmacy
 
 import android.app.Application
+import android.content.Intent
+import android.util.Log
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
@@ -61,6 +65,4 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
             text8.value = "${myPharma.has_shop}"
         }
     }
-
-
 }

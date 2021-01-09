@@ -2,7 +2,9 @@ package fr.isen.emelian.pharma_collect_pro
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -20,6 +22,7 @@ import fr.isen.emelian.pharma_collect_pro.services.FileService
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     lateinit var id: String
+    private val fileService: FileService = FileService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +42,23 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         id = intent.getStringExtra("id").toString()
 
         bottomNavigationView.background = null
-        //bottomNavigationView.menu.getItem(2).isEnabled = false
+        bottomNavigationView.menu.getItem(2).isEnabled = false
 
         fab.setOnClickListener {
             intent = Intent(this@MainActivity, MainActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    fun onButtonLogoutClicked(view: View) {
+        val deleteResponse = fileService.deleteData(this)
+        if(deleteResponse.equals(true)){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "See you!", Toast.LENGTH_LONG).show()
+            finish()
+        } else {
+            Toast.makeText(this, "Error, cannot disconnect for the moment", Toast.LENGTH_LONG).show()
         }
     }
 }
