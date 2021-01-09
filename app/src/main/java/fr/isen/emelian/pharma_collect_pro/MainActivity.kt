@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
     }
 
+    fun onButtonPrescriptionClicked(view: View){
+
+    }
+
     fun onButtonLogoutClicked(view: View) {
         val deleteResponse = fileService.deleteData(this)
         if(deleteResponse.equals(true)){
