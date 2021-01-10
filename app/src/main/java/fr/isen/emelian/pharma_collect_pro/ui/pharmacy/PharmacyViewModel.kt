@@ -28,23 +28,23 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
     private val fileService: FileService = FileService()
     private val context = getApplication<Application>().applicationContext
 
-    private val text1 = MutableLiveData<String>().apply { value = "" }
-    private val text2 = MutableLiveData<String>().apply { value = "" }
-    private val text3 = MutableLiveData<String>().apply { value = "" }
-    private val text4 = MutableLiveData<String>().apply { value = "" }
-    private val text5 = MutableLiveData<String>().apply { value = "" }
-    private val text6 = MutableLiveData<String>().apply { value = "" }
-    private val text7 = MutableLiveData<String>().apply { value = "" }
-    private val text8 = MutableLiveData<String>().apply { value = "" }
+    /*private val tv_pharma_name = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_boss = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_city = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_postcode = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_road = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_roadnb = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_phone = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_shop = MutableLiveData<String>().apply { value = "" }
+    private val tv_pharma_id = MutableLiveData<String>().apply { value = "" }
 
-    val pharma_name: LiveData<String> = text1
-    val pharma_boss: LiveData<String> = text2
-    val pharma_city: LiveData<String> = text3
-    val pharma_postcode: LiveData<String> = text4
-    val pharma_road: LiveData<String> = text5
-    val pharma_roadnb: LiveData<String> = text6
-    val pharma_phone: LiveData<String> = text7
-    val pharma_shop: LiveData<String> = text8
+    val pharma_name: LiveData<String> = tv_pharma_name
+    val pharma_city: LiveData<String> = tv_pharma_city
+    val pharma_postcode: LiveData<String> = tv_pharma_postcode
+    val pharma_road_name: LiveData<String> = tv_pharma_road
+    val pharma_road_nb: LiveData<String> = tv_pharma_roadnb
+    val pharma_phone: LiveData<String> = tv_pharma_phone
+    val pharma_id: LiveData<String> = tv_pharma_id*/
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is pharmacy Fragment"
@@ -53,16 +53,15 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
 
     init {
         launch{
-            myUser = fileService.getData(context)
+            /*myUser = fileService.getData(context)
             pharmaRepository.getPharmacyInfo(myUser.pharma_id.toString(), context)
-            text1.value = "${myPharma.name}"
-            text2.value = "${myPharma.boss}"
-            text3.value = "${myPharma.city}"
-            text4.value = "${myPharma.post_code}"
-            text5.value = "${myPharma.road}"
-            text6.value = "${myPharma.road_nb}"
-            text7.value = "${myPharma.phone}"
-            text8.value = "${myPharma.has_shop}"
+            tv_pharma_name.value = "${myPharma.name}"
+            tv_pharma_city.value = "${myPharma.city}"
+            tv_pharma_postcode.value = "${myPharma.post_code}"
+            tv_pharma_road.value = "${myPharma.road}"
+            tv_pharma_roadnb.value = "${myPharma.road_nb}"
+            tv_pharma_phone.value = "${myPharma.phone}"
+            tv_pharma_id.value = "${myPharma.id}"*/
         }
     }
 }

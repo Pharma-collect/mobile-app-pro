@@ -40,22 +40,20 @@ class PharmacyFragment : Fragment() {
         layout.startAnimation(btt)*/
 
         val textView_name: TextView = root.findViewById(R.id.pharma_name)
-        val textView_boss: TextView = root.findViewById(R.id.pharma_boss)
-        val textView_road: TextView = root.findViewById(R.id.road_name)
-        val textView_roadnb: TextView = root.findViewById(R.id.road_nb)
-        val textView_postcode: TextView = root.findViewById(R.id.postcode)
-        val textView_city: TextView = root.findViewById(R.id.city)
-        val textView_phone: TextView = root.findViewById(R.id.phone)
-        val textView_shop: TextView = root.findViewById(R.id.has_shop)
+        val textView_id: TextView = root.findViewById(R.id.pharma_id)
+        val textView_road: TextView = root.findViewById(R.id.pharma_road_name)
+        val textView_roadnb: TextView = root.findViewById(R.id.pharma_road_nb)
+        val textView_postcode: TextView = root.findViewById(R.id.pharma_postcode)
+        val textView_city: TextView = root.findViewById(R.id.pharma_city)
+        val textView_phone: TextView = root.findViewById(R.id.pharma_phone)
 
-        pharmaViewModel.pharma_name.observe(viewLifecycleOwner, Observer { textView_name.text = it })
-        pharmaViewModel.pharma_boss.observe(viewLifecycleOwner, Observer { textView_boss.text = it })
-        pharmaViewModel.pharma_road.observe(viewLifecycleOwner, Observer { textView_road.text = it })
-        pharmaViewModel.pharma_roadnb.observe(viewLifecycleOwner, Observer { textView_roadnb.text = it })
+       /* pharmaViewModel.pharma_name.observe(viewLifecycleOwner, Observer { textView_name.text = it })
+        pharmaViewModel.pharma_road_name.observe(viewLifecycleOwner, Observer { textView_road.text = it })
+        pharmaViewModel.pharma_road_nb.observe(viewLifecycleOwner, Observer { textView_roadnb.text = it })
         pharmaViewModel.pharma_postcode.observe(viewLifecycleOwner, Observer { textView_postcode.text = it })
         pharmaViewModel.pharma_city.observe(viewLifecycleOwner, Observer { textView_city.text = it })
         pharmaViewModel.pharma_phone.observe(viewLifecycleOwner, Observer { textView_phone.text = it })
-        pharmaViewModel.pharma_shop.observe(viewLifecycleOwner, Observer { textView_shop.text = it })
+        pharmaViewModel.pharma_id.observe(viewLifecycleOwner, Observer { textView_id.text = it })*/
 
         return root
     }

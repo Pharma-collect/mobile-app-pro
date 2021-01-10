@@ -44,4 +44,22 @@
     <string name="user_logo">User logo</string>
     <string name="settings_logo">Settings logo</string>
 
+    <!-- Profile page string -->
+    <string name="pharma_name_profile">Pharmacy name</string>
+    <string name="id_pharma_profile">ID : 5</string>
+    <string name="number_user">6</string>
+    <string name="number_user_label">Users</string>
+    <string name="number_admin">1</string>
+    <string name="number_admin_label">Admin</string>
+    <string name="has_shop">Yes/No</string>
+    <string name="has_shop_label">Shop</string>
+    <string name="phone_profile">Phone</string>
+    <string name="address_profile">Address</string>
+    <string name="postcode_profile">Postcode</string>
+    <string name="city_profile">City</string>
+    <string name="road_profile">Road</string>
+    <string name="road_nb_profile">Road number</string>
+    <!-- Profile page description -->
+    <string name="pharma_logo_profile">Logo of the pharmacy</string>
+
 </resources>
