@@ -1,4 +1,4 @@
-package fr.isen.emelian.pharma_collect_pro.ui.history
+package fr.isen.emelian.pharma_collect_pro.ui.shop
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import fr.isen.emelian.pharma_collect_pro.R
 
-class HistoryFragment : Fragment() {
+class ShopFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HistoryFragment()
+        fun newInstance() = ShopFragment()
     }
 
-    private lateinit var viewModel: HistoryViewModel
+    private lateinit var viewModel: ShopViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class HistoryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

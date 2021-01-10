@@ -7,6 +7,11 @@
     <string name="title_pharmacy">Pharmacy</string>
     <string name="title_history">Documents</string>
     <string name="title_locker">Boxes</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_to_do">To Do</string>
+    <string name="title_in_progress">In Progress</string>
+    <string name="title_done">Done</string>
+    <string name="title_update">Update my pharmacy</string>
 
     <!-- Login page string -->
     <string name="login">Login</string>
@@ -61,5 +66,25 @@
     <string name="road_nb_profile">Road number</string>
     <!-- Profile page description -->
     <string name="pharma_logo_profile">Logo of the pharmacy</string>
+
+    <!-- Prescription page string -->
+    <string name="current_user_pres">Current user</string>
+    <string name="id_user_pres">ID : 5</string>
+    <string name="in_charge_pres">No order in charge</string>
+    <string name="to_do_pres">To do</string>
+    <string name="amount">Amount : 4</string>
+    <string name="in_progress_pres">In progress</string>
+    <string name="done_pres">Done</string>
+    <!-- Prescription page description -->
+    <string name="user_logo_pres">Logo user</string>
+    <string name="prescription_logo_pres">Prescription logo</string>
+    <string name="in_progress_logo_pres">In progress logo</string>
+    <string name="done_logo_pres">Done logo</string>
+
+    <!-- String button test back -->
+    <string name="go_back_test_to_do">Go back test</string>
+    <string name="go_back_test_in_progress">Go back test</string>
+    <string name="go_back_test_done">Go back test</string>
+    <string name="go_back_test_update">Go back test</string>
 
 </resources>

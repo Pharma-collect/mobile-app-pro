@@ -17,7 +17,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="277dp">
+                android:layout_height="250dp">
 
                     <com.google.android.material.appbar.CollapsingToolbarLayout
                         android:id="@+id/collapse_bar"
@@ -28,7 +28,7 @@
                         app:title="@string/pharma_name"
                         app:expandedTitleMarginStart="48dp"
                         app:expandedTitleMarginEnd="64dp"
-                        android:background="@drawable/my_pharma_home">
+                        android:background="@drawable/header_home">
                         
                         <androidx.appcompat.widget.Toolbar
                             android:id="@+id/toolbar_home"

@@ -12,7 +12,8 @@
         android:id="@+id/layout_profile_pharmacy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="65dp">
 
         <LinearLayout
             android:id="@+id/layout_profile_pharmacy_test"
@@ -134,7 +135,7 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/pharma_view_separation_right"
+                    android:id="@+id/pharma_view_separation_middle"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -166,6 +167,19 @@
                         android:textColor="#E0E0E0"/>
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/pharma_view_separation_right"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+                <Button
+                    android:id="@+id/update_pharma_btn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_baseline_edit_24"/>
 
             </LinearLayout>
 
@@ -259,6 +273,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

@@ -3,11 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.shop.ShopFragment">
+    tools:context=".ui.prescription.inProgress.InProgressFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Shop fragment" />
+        android:text="Hello" />
+
+    <Button
+        android:id="@+id/button_in_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_back_test_in_progress" />
 
 </FrameLayout>

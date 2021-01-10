@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_locker"
-        android:icon="@drawable/locker_logo"
-        android:title="@string/title_locker" />
+        android:id="@+id/navigation_shop"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/title_shop" />
 
     <item
         android:id="@+id/navigation_prescription"
@@ -16,9 +16,9 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_history"
-        android:icon="@drawable/history_logo"
-        android:title="@string/title_history" />
+        android:id="@+id/navigation_locker"
+        android:icon="@drawable/locker_logo"
+        android:title="@string/title_locker" />
 
     <item
         android:id="@+id/navigation_pharmacy"

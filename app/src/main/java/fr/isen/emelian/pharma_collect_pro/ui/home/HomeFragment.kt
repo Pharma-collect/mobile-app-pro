@@ -34,19 +34,15 @@ class HomeFragment : Fragment(), View.OnClickListener{
         view.findViewById<CardView>(R.id.prescription_layout_card_view).setOnClickListener(this)
         view.findViewById<CardView>(R.id.shop_layout_card_view).setOnClickListener(this)
         view.findViewById<CardView>(R.id.locker_layout_card_view).setOnClickListener(this)
-        //view.findViewById<CardView>(R.id.client_layout_card_view).setOnClickListener(this)
         view.findViewById<CardView>(R.id.pharma_layout_card_view).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
+        when (view?.id) {
             R.id.prescription_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_prescription)
-            R.id.shop_layout_card_view -> navController?.navigate(R.id.action_navigation_home_to_navigation_prescription)
+            R.id.shop_layout_card_view -> navController?.navigate(R.id.action_navigation_home_to_navigation_shop)
             R.id.locker_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_locker)
-            //R.id.client_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_history)
             R.id.pharma_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_pharmacy)
         }
-        //To make a return
-        //R.id.... -> activity?.onBackPressed
     }
 }

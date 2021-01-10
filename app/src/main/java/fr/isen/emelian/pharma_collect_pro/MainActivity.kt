@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_locker, R.id.navigation_prescription, R.id.navigation_history, R.id.navigation_pharmacy))
+                R.id.navigation_home, R.id.navigation_locker, R.id.navigation_prescription, R.id.navigation_shop, R.id.navigation_pharmacy))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

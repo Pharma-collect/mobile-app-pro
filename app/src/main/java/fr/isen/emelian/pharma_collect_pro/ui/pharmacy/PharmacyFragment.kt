@@ -9,19 +9,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.ui.home.HomeViewModel
 
-class PharmacyFragment : Fragment() {
+class PharmacyFragment : Fragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = PharmacyFragment()
     }
 
     private lateinit var pharmaViewModel: PharmacyViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +66,18 @@ class PharmacyFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         pharmaViewModel = ViewModelProvider(this).get(PharmacyViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.update_pharma_btn).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.update_pharma_btn -> navController.navigate(R.id.action_navigation_pharmacy_to_navigation_update)
+        }
     }
 
 }
