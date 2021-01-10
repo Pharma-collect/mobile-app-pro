@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -8,419 +8,377 @@
             type="fr.isen.emelian.pharma_collect_pro.ui.home.HomeViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment"
-        android:layout_marginBottom="65dp">
+        android:layout_marginBottom="65dp"
+        android:background="#fcfcfc">
 
-        <LinearLayout
-            android:id="@+id/layout_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            
-            <RelativeLayout
-                android:id="@+id/header_home"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@color/black">
+                android:layout_height="277dp">
 
-                <ImageView
-                    android:id="@+id/pharma_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_home_24"
-                    android:padding="15dp"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/pharma_logo"/>
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/collapse_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_scrollFlags="exitUntilCollapsed|scroll"
+                        app:contentScrim="#0E3C72"
+                        app:title="@string/pharma_name"
+                        app:expandedTitleMarginStart="48dp"
+                        app:expandedTitleMarginEnd="64dp"
+                        android:background="@drawable/my_pharma_home">
+                        
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/toolbar_home"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            app:layout_collapseMode="pin"/>
+                        
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-                <ImageView
-                    android:id="@+id/pharma_logout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_settings_24"
-                    android:padding="15dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:contentDescription="@string/pharma_logo"/>
+            </com.google.android.material.appbar.AppBarLayout>
 
-
-                <LinearLayout
-                    android:id="@+id/text_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/pharma_name_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pharma_name"
-                        android:textSize="20sp"
-                        android:layout_marginStart="70dp"/>
-
-                    <TextView
-                        android:id="@+id/pharma_boss_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/current_user"
-                        android:textSize="15sp"
-                        android:layout_marginStart="70dp"/>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/current_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/baloo"
-                android:textColor="@color/black"
-                android:text="@string/current"
-                android:textSize="25sp"
-                android:padding="10dp"/>
-
-            <RelativeLayout
-                android:id="@+id/order_in_progress_layout"
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-
-                <RelativeLayout
-                    android:id="@+id/in_progress_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/shape_two"
-                    android:layout_margin="20dp"
-                    tools:ignore="UselessParent">
-
-                    <TextView
-                        android:id="@+id/in_progress_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/in_charge_order"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/baloo"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"/>
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/menu_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/baloo"
-                android:textColor="@color/black"
-                android:text="@string/menu"
-                android:textSize="25sp"
-                android:padding="10dp"/>
-
-        </LinearLayout>
-
-        <ScrollView
-            android:id="@+id/scroll_view"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="270dp">
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
-                android:id="@+id/scroll_view_layout"
+                android:id="@+id/layout_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="#fcfcfc"
+                android:gravity="center">
 
 
                 <RelativeLayout
-                    android:id="@+id/prescription_layout"
+                    android:id="@+id/header_home"
                     android:layout_width="match_parent"
-                    android:layout_height="125dp">
+                    android:layout_height="100dp"
+                    android:background="@drawable/shape_two">
 
-                    <RelativeLayout
-                        android:id="@+id/prescription_layout_field"
+                    <ImageView
+                        android:id="@+id/user_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_person_24"
+                        android:padding="15dp"
+                        android:layout_alignParentTop="true"
+                        android:contentDescription="@string/pharma_logo"/>
+
+                    <ImageView
+                        android:id="@+id/pres_logo_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/prescription_logo"
+                        android:padding="15dp"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/prescription_logo"/>
+
+                    <ImageView
+                        android:id="@+id/pharma_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_power_settings_new_24"
+                        android:padding="15dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="onButtonLogoutClicked"
+                        android:contentDescription="@string/logout_logo"/>
+
+                    <ImageView
+                        android:id="@+id/pharma_settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_settings_24"
+                        android:padding="15dp"
+                        android:visibility="invisible"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="50dp"
+                        android:contentDescription="@string/settings_logo"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/text_info"
                         android:layout_width="match_parent"
-                        android:layout_height="125dp"
-                        android:background="@drawable/round_blue"
+                        android:layout_height="match_parent"
                         android:layout_margin="10dp"
-                        tools:ignore="UselessParent">
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/prescription_layout_tv"
+                            android:id="@+id/pharma_name_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/prescription"
-                            android:textSize="30sp"
-                            android:fontFamily="@font/baloo"
-                            android:padding="10dp"
-                            tools:ignore="RelativeOverlap" />
+                            android:text="@string/current_user"
+                            android:textSize="20sp"
+                            android:layout_marginStart="70dp"/>
 
                         <TextView
-                            android:id="@+id/prescription_layout_waiting_tv"
+                            android:id="@+id/user_id_header"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/amount_waiting"
+                            android:text="@string/id_user"
                             android:textSize="15sp"
-                            android:padding="10dp"
-                            android:layout_alignParentBottom="true"/>
+                            android:layout_marginStart="70dp"/>
 
-                        <ImageView
-                            android:id="@+id/prescription_layout_iv"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@drawable/prescription_logo"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginTop="0dp"
-                            android:layout_centerInParent="true"
-                            android:contentDescription="@string/prescription_logo"/>
+                        <TextView
+                            android:id="@+id/pharma_current_order"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/in_charge_order"
+                            android:textSize="15sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="70dp"/>
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/shop_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp">
-
-                    <RelativeLayout
-                        android:id="@+id/shop_layout_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="125dp"
-                        android:background="@drawable/round_green"
-                        android:layout_margin="10dp"
-                        tools:ignore="UselessParent">
-
-                        <TextView
-                            android:id="@+id/shop_layout_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/shop"
-                            android:textSize="30sp"
-                            android:fontFamily="@font/baloo"
-                            android:padding="10dp"
-                            tools:ignore="RelativeOverlap" />
-
-                        <TextView
-                            android:id="@+id/shop_layout_waiting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/amount_waiting"
-                            android:textSize="15sp"
-                            android:padding="10dp"
-                            android:layout_alignParentBottom="true"/>
-
-                        <ImageView
-                            android:id="@+id/shop_layout_iv"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@drawable/ic_baseline_shopping_cart_24"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="0dp"
-                            android:contentDescription="@string/shop_logo" />
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
 
                 <LinearLayout
-                    android:id="@+id/locker_client_layout"
+                    android:id="@+id/layout_home_top"
                     android:layout_width="match_parent"
-                    android:layout_height="125dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/locker_layout"
-                    android:layout_width="200dp"
-                    android:layout_height="125dp"
-                    tools:ignore="RtlHardcoded">
-
-                    <RelativeLayout
-                        android:id="@+id/locker_layout_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="125dp"
-                        android:background="@drawable/round_orange"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/prescription_layout_card_view"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
                         android:layout_margin="10dp"
-                        tools:ignore="UselessParent">
-
-                        <TextView
-                            android:id="@+id/locker_layout_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/locker"
-                            android:textSize="20sp"
-                            android:fontFamily="@font/baloo"
-                            android:padding="10dp"
-                            tools:ignore="RelativeOverlap" />
-
-                        <TextView
-                            android:id="@+id/locker_layout_available"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/amount_available"
-                            android:textSize="15sp"
-                            android:padding="10dp"
-                            android:layout_alignParentBottom="true"/>
-
-                        <ImageView
-                            android:id="@+id/locker_layout_iv"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/locker_logo"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="0dp"
-                            android:contentDescription="@string/locker_logo" />
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/client_layout"
-                        android:layout_width="200dp"
-                        android:layout_height="125dp"
-                        tools:ignore="RtlHardcoded">
-
-                        <RelativeLayout
-                            android:id="@+id/client_layout_field"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true">
+    
+                        <LinearLayout
+                            android:id="@+id/prescription_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="125dp"
-                            android:background="@drawable/round_blueclear"
-                            android:layout_margin="10dp"
-                            tools:ignore="UselessParent">
-
-                            <TextView
-                                android:id="@+id/client_layout_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/client"
-                                android:textSize="20sp"
-                                android:fontFamily="@font/baloo"
-                                android:padding="10dp"
-                                tools:ignore="RelativeOverlap" />
-
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="#fcfcfc"
+                            android:gravity="center">
 
                             <ImageView
-                                android:id="@+id/client_layout_iv"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/history_logo"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="0dp"
-                                android:contentDescription="@string/locker_logo"/>
+                                android:id="@+id/prescription_layout_iv"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/cercle_background_blue"
+                                android:src="@drawable/prescription_logo"
+                                android:padding="13dp"
+                                android:contentDescription="@string/prescription_logo"/>
 
-                        </RelativeLayout>
+                            <TextView
+                                android:id="@+id/prescription_layout_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#6E6E6E"
+                                android:text="@string/prescription"/>
+                            
+                            <View
+                                android:id="@+id/prescription_layout_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/cardview_light_background"
+                                android:layout_margin="10dp"/>
 
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/prescription_layout_tv_waiting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:text="@string/amount_waiting"
+                                android:textColor="#6E6E6E"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/shop_layout_card_view"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true">
+
+                        <LinearLayout
+                            android:id="@+id/shop_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="#fcfcfc"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/shop_layout_iv"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/cercle_background_green"
+                                android:src="@drawable/ic_baseline_shopping_cart_24"
+                                android:padding="13dp"
+                                android:contentDescription="@string/shop_logo"/>
+
+                            <TextView
+                                android:id="@+id/shop_layout_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#6E6E6E"
+                                android:text="@string/shop"/>
+
+                            <View
+                                android:id="@+id/shop_layout_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/cardview_light_background"
+                                android:layout_margin="10dp"/>
+
+                            <TextView
+                                android:id="@+id/shop_layout_tv_waiting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:text="@string/amount_waiting"
+                                android:textColor="#6E6E6E"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/pharma_logout_layout"
+                    android:id="@+id/layout_home_middle"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:id="@+id/pharma_layout"
-                        android:layout_width="200dp"
-                        android:layout_height="125dp">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pharma_layout_card_view"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true">
 
-                        <RelativeLayout
-                            android:id="@+id/pharma_layout_field"
+                        <LinearLayout
+                            android:id="@+id/pharma_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="125dp"
-                            android:background="@drawable/round_brown"
-                            android:layout_margin="10dp"
-                            tools:ignore="UselessParent">
-
-                            <TextView
-                                android:id="@+id/pharma_layout_tv_up"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/my"
-                                android:textSize="20sp"
-                                android:fontFamily="@font/baloo"
-                                android:padding="10dp"
-                                tools:ignore="RelativeOverlap" />
-
-                            <TextView
-                                android:id="@+id/pharma_layout_tv_down"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/pharma"
-                                android:textSize="20sp"
-                                android:fontFamily="@font/baloo"
-                                android:padding="10dp"
-                                android:layout_alignParentBottom="true"/>
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="#fcfcfc"
+                            android:gravity="center">
 
                             <ImageView
                                 android:id="@+id/pharma_layout_iv"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/cercle_background_orange"
                                 android:src="@drawable/pharmacy_logo"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="0dp"
-                                android:contentDescription="@string/pharma_logo"/>
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/logout_layout"
-                        android:layout_width="200dp"
-                        android:layout_height="125dp">
-
-                        <RelativeLayout
-                            android:id="@+id/logout_layout_field"
-                            android:layout_width="match_parent"
-                            android:layout_height="125dp"
-                            android:background="@drawable/round_red"
-                            android:layout_margin="10dp"
-                            tools:ignore="UselessParent">
+                                android:padding="13dp"
+                                android:contentDescription="@string/locker_logo"/>
 
                             <TextView
-                                android:id="@+id/logout_layout_tv"
+                                android:id="@+id/pharma_layout_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/logout"
-                                android:textSize="20sp"
-                                android:fontFamily="@font/baloo"
-                                android:padding="10dp"
-                                tools:ignore="RelativeOverlap" />
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#6E6E6E"
+                                android:text="@string/pharma"/>
+
+                            <View
+                                android:id="@+id/pharma_layout_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/cardview_light_background"
+                                android:layout_margin="10dp"/>
+
+                            <TextView
+                                android:id="@+id/pharma_layout_tv_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:text="@string/pharma_info"
+                                android:textColor="#6E6E6E"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/locker_layout_card_view"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true">
+
+                        <LinearLayout
+                            android:id="@+id/locker_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="#fcfcfc"
+                            android:gravity="center">
 
                             <ImageView
-                                android:id="@+id/logout_layout_iv"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:onClick="onButtonLogoutClicked"
-                                android:src="@drawable/ic_baseline_power_settings_new_24"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="0dp"
-                                android:contentDescription="@string/logout"/>
+                                android:id="@+id/locker_layout_iv"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/cercle_background_blue_clear"
+                                android:src="@drawable/locker_logo"
+                                android:padding="13dp"
+                                android:contentDescription="@string/locker_logo"/>
 
-                        </RelativeLayout>
+                            <TextView
+                                android:id="@+id/locker_layout_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#6E6E6E"
+                                android:text="@string/locker"/>
 
-                    </RelativeLayout>
+                            <View
+                                android:id="@+id/locker_layout_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/cardview_light_background"
+                                android:layout_margin="10dp"/>
+
+                            <TextView
+                                android:id="@+id/locker_layout_tv_waiting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:text="@string/amount_available"
+                                android:textColor="#6E6E6E"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </layout>

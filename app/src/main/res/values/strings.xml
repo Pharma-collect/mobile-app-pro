@@ -29,10 +29,11 @@
     <string name="amount_available">Available : 4</string>
     <string name="client">Client</string>
     <string name="history">History</string>
-    <string name="my">My</string>
-    <string name="pharma">Pharma</string>
+    <string name="pharma">My Pharmacy</string>
     <string name="logout">Logout</string>
     <string name="current">Current order</string>
+    <string name="pharma_info">Pharmacy profile</string>
+    <string name="id_user">ID : 5</string>
     <!-- Home page description -->
     <string name="pharma_logo">Pharmacy logo</string>
     <string name="prescription_logo">Prescription logo</string>
@@ -40,5 +41,7 @@
     <string name="locker_logo">Locker logo</string>
     <string name="client_logo">Client logo</string>
     <string name="logout_logo">Logout logo</string>
+    <string name="user_logo">User logo</string>
+    <string name="settings_logo">Settings logo</string>
 
 </resources>

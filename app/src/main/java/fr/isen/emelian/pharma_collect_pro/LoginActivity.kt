@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         //When testing server up
         //repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
         //When testing design server down
-        if(etUsername.text.toString() == "a" && etPassword.text.toString() == "a"){
+        if(etUsername.text.toString().isEmpty() && etPassword.text.toString().isEmpty()){
             startActivity(
                     Intent(this@LoginActivity, MainActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

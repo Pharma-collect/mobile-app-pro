@@ -3,11 +3,11 @@
     <style name="Theme.Pharmacollectpro" parent="Theme.MaterialComponents">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">#0E3C72</item>
-        <item name="colorOnPrimary">#0E3C72</item>
+        <item name="colorPrimaryVariant">#efefef</item>
+        <item name="colorOnPrimary">#6E6E6E</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#0E3C72</item>
-        <item name="colorSecondaryVariant">#0E3C72</item>
+        <item name="colorSecondaryVariant">#0000FF</item>
         <item name="colorOnSecondary">#0E3C72</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
