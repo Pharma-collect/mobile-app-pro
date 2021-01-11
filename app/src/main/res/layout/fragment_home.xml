@@ -29,7 +29,7 @@
                         app:expandedTitleMarginStart="48dp"
                         app:expandedTitleMarginEnd="64dp"
                         android:background="@drawable/header_home">
-                        
+
                         <androidx.appcompat.widget.Toolbar
                             android:id="@+id/toolbar_home"
                             android:layout_width="match_parent"
@@ -179,7 +179,7 @@
                                 android:textStyle="bold"
                                 android:layout_marginTop="10dp"
                                 android:textColor="#6E6E6E"
-                                android:text="@string/prescription"/>
+                                android:text="@string/order"/>
                             
                             <View
                                 android:id="@+id/prescription_layout_view"
@@ -248,7 +248,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:gravity="center"
-                                android:text="@string/amount_waiting"
+                                android:text="@string/shop_info"
                                 android:textColor="#6E6E6E"/>
 
                         </LinearLayout>

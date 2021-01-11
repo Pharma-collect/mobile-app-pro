@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
+import fr.isen.emelian.pharma_collect_pro.ui.home.HomeFragment
 import org.json.JSONObject
 import java.io.File
 
@@ -18,9 +19,9 @@ class FileService {
     /*
      * Write a cache file with user informations.
      */
-    fun saveData(id: String, username: String, pharmaId: String, token: String, context: Context){
+    fun saveData(id: String, username: String, pharmaId: String, pharmaName: String, token: String, context: Context){
         if(id.isNotEmpty() && username.isNotEmpty() && pharmaId.isNotEmpty() && token.isNotEmpty()){
-            val donnees = "{'id': '$id', 'username': '$username', 'pharmaId': '$pharmaId', 'token': '$token'}"
+            val donnees = "{'id': '$id', 'username': '$username', 'pharmaId': '$pharmaId', 'pharmaName': '$pharmaName', 'token': '$token'}"
             File(context.cacheDir.absolutePath + "Data_user.json").writeText(donnees)
             Toast.makeText(context, "Welcome into Pharma-collect", Toast.LENGTH_LONG).show()
         }else{
@@ -39,6 +40,7 @@ class FileService {
             user.token = jsonObject.optString("token")
             user.username = jsonObject.optString("username")
             user.pharma_id = jsonObject.optInt("pharmaId")
+            user.pharma_name = jsonObject.optString("pharmaName")
         }
         return user
     }
@@ -51,5 +53,4 @@ class FileService {
         val response = file.deleteRecursively()
         return response
     }
-
 }

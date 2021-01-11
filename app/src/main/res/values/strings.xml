@@ -57,9 +57,9 @@
     <string name="number_admin">1</string>
     <string name="number_admin_label">Admin</string>
     <string name="has_shop">Yes/No</string>
-    <string name="has_shop_label">Shop</string>
-    <string name="phone_profile">Phone</string>
-    <string name="address_profile">Address</string>
+    <string name="has_shop_label">Shop ?</string>
+    <string name="phone_profile">Phone :</string>
+    <string name="address_profile">Address :</string>
     <string name="postcode_profile">Postcode</string>
     <string name="city_profile">City</string>
     <string name="road_profile">Road</string>
@@ -75,6 +75,8 @@
     <string name="amount">Amount : 4</string>
     <string name="in_progress_pres">In progress</string>
     <string name="done_pres">Done</string>
+    <string name="order">Orders</string>
+    <string name="shop_info">Shop information</string>
     <!-- Prescription page description -->
     <string name="user_logo_pres">Logo user</string>
     <string name="prescription_logo_pres">Prescription logo</string>

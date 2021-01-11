@@ -5,4 +5,5 @@ class User {
     var token: String? = null
     var id:Int? = null
     var pharma_id:Int? = null
+    var pharma_name: String? = null
 }
