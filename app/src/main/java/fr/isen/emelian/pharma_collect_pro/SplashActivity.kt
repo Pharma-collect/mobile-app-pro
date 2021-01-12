@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         //Get windows size fully fill
-        window.setFlags(
+        /*window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
@@ -33,14 +33,14 @@ class SplashActivity : AppCompatActivity() {
             )
 //            customType(this@SplashActivity, "bottom-to-up")
             finish()
-        }, 4000)
+        }, 4000)*/
     }
 
-    var runnable: Runnable = object : Runnable {
+    /*var runnable: Runnable = object : Runnable {
         override fun run() {
             if (index < charSequence!!.length) {
                 handler.postDelayed(this, delay)
             }
         }
-    }
+    }*/
 }

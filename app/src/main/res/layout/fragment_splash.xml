@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.intro.SplashFragment"
+    android:background="#272B2F">
+
+    <ImageView
+        android:id="@+id/headertitle_splash"
+        android:layout_width="360dp"
+        android:layout_height="266dp"
+        android:layout_above="@+id/iv_beat"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/mypharma_blanc"
+        android:contentDescription="@string/splash_logo"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/iv_beat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/pill" />
+
+</FrameLayout>

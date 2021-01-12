@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab : View = findViewById(R.id.fab)
 

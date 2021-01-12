@@ -35,6 +35,7 @@ class UserRepository {
                             var pharma = JSONObject(data.get("pharmacy").toString())
                             fileService.saveData(data["id"].toString(), data["username"].toString(), pharma["id"].toString(),
                                 pharma["name"].toString(), data["token"].toString(), context)
+
                             val intent = Intent(context, MainActivity::class.java)
                             context.startActivity(intent)
                         }else{
