@@ -94,12 +94,13 @@
                         android:id="@+id/pharma_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_settings_24"
+                        android:src="@drawable/ic_baseline_help_outline_24"
                         android:padding="15dp"
                         android:visibility="invisible"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="50dp"
+                        android:onClick="onButtonHelpClicked"
                         android:contentDescription="@string/settings_logo"/>
 
 

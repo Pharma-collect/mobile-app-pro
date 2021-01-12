@@ -7,12 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
-import kotlinx.android.synthetic.main.fragment_first_screen.view.*
 import kotlinx.android.synthetic.main.fragment_third_screen.view.*
 
 
@@ -28,7 +25,15 @@ class ThirdScreenFragment : Fragment() {
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
 
-        view.finish.setOnClickListener {
+        view.next3.setOnClickListener {
+            viewPager?.currentItem = 3
+        }
+
+        view.back3.setOnClickListener{
+            viewPager?.currentItem = 1
+        }
+
+        view.skip3.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             context?.startActivity(intent)
             onBoradingFinished()

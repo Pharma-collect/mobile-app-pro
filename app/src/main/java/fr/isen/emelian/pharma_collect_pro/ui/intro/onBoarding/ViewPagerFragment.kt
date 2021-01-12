@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import fr.isen.emelian.pharma_collect_pro.R
-import fr.isen.emelian.pharma_collect_pro.ui.intro.onBoarding.screens.FirstScreenFragment
-import fr.isen.emelian.pharma_collect_pro.ui.intro.onBoarding.screens.SecondScreenFragment
-import fr.isen.emelian.pharma_collect_pro.ui.intro.onBoarding.screens.ThirdScreenFragment
+import fr.isen.emelian.pharma_collect_pro.ui.intro.onBoarding.screens.*
 import kotlinx.android.synthetic.main.fragment_view_pager.view.*
 
 
@@ -24,7 +22,10 @@ class ViewPagerFragment : Fragment() {
         val fragmentList = arrayListOf<Fragment>(
             FirstScreenFragment(),
             SecondScreenFragment(),
-            ThirdScreenFragment()
+            ThirdScreenFragment(),
+            FourthScreenFragment(),
+            FifthScreenFragment(),
+            SixthScreenFragment()
         )
 
         val adapter = ViewPagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)

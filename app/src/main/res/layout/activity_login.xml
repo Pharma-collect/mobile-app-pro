@@ -50,7 +50,7 @@
             android:id="@+id/button_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#0E3C72"
+            android:background="@drawable/shape_three"
             android:onClick="onValidateClicked"
             android:text="@string/signin"
             app:layout_constraintBottom_toBottomOf="parent"

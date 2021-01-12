@@ -1,6 +1,8 @@
 package fr.isen.emelian.pharma_collect_pro
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     lateinit var id: String
     private val fileService: FileService = FileService()
+    var prefs: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,4 +62,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             Toast.makeText(this, "Error, cannot disconnect for the moment", Toast.LENGTH_LONG).show()
         }
     }
+
+    fun onButtonHelpClicked(view: View) {
+        val editor = prefs!!.edit()
+        editor.putBoolean("Finished", false)
+        editor.apply()
+        val intent = Intent(this, SplashActivity::class.java)
+        startActivity(intent)
+    }
+
 }

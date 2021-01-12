@@ -1,5 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import fr.isen.emelian.pharma_collect_pro.R
+import fr.isen.emelian.pharma_collect_pro.SplashActivity
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 
