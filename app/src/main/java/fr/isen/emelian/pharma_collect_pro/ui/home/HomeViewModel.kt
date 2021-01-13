@@ -122,10 +122,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
         var assignee = 0
         for (i in 0 until jsonArray.length()) {
             val item = jsonArray.getJSONObject(i)
-            if(item.optString("status").toString() == "0") {
+            if(item.optString("status").toString() == "pending") {
                 waiting++
             }
-            if(item.optString("status").toString() == id) {
+            if(item.optString("id_preparator").toString() == id) {
                 assignee++
             }
         }

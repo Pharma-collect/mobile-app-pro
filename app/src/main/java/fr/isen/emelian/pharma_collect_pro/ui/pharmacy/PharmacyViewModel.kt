@@ -170,10 +170,9 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
         var user = -1
         var admin = 0
         var jsonArray = jsonResponse.optJSONArray("result")
-        var data = JSONObject(jsonResponse.get("result").toString())
-
-        for (i in 0 until jsonResponse.length()) {
-            if(data["is_admin"] != "1"){
+        for (i in 0 until jsonArray.length()) {
+            val item = jsonArray.getJSONObject(i)
+            if(item["is_admin"] != "1"){
                 user++
             } else {
                 admin++

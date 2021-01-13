@@ -15,7 +15,7 @@ import fr.isen.emelian.pharma_collect_pro.R
 
 class PrescriptionFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var notificationsViewModel: PrescriptionViewModel
+    private lateinit var prescriptionViewModel: PrescriptionViewModel
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -23,9 +23,26 @@ class PrescriptionFragment : Fragment(), View.OnClickListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
+        prescriptionViewModel =
                 ViewModelProvider(this).get(PrescriptionViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_prescription, container, false)
+
+        val textView_current: TextView = root.findViewById(R.id.pharma_name_pres)
+        val textView_id: TextView = root.findViewById(R.id.user_id_pres)
+        val textView_order: TextView = root.findViewById(R.id.pharma_current_order_pres)
+        val textView_waiting: TextView = root.findViewById(R.id.to_do_layout_tv_waiting)
+        val textView_doing: TextView = root.findViewById(R.id.in_progress_layout_tv_waiting)
+        val textView_done: TextView = root.findViewById(R.id.done_layout_tv_amount)
+        val textView_all: TextView = root.findViewById(R.id.all_layout_tv_amount)
+
+        prescriptionViewModel.currentUser.observe(viewLifecycleOwner, Observer { textView_current.text = it })
+        prescriptionViewModel.idUser.observe(viewLifecycleOwner, Observer { textView_id.text = it })
+        prescriptionViewModel.orderCurrent.observe(viewLifecycleOwner, Observer { textView_order.text = it })
+        prescriptionViewModel.pending.observe(viewLifecycleOwner, Observer { textView_waiting.text = it })
+        prescriptionViewModel.container.observe(viewLifecycleOwner, Observer { textView_doing.text = it })
+        prescriptionViewModel.finish.observe(viewLifecycleOwner, Observer { textView_done.text = it })
+        prescriptionViewModel.ready.observe(viewLifecycleOwner, Observer { textView_all.text = it })
+
         return root
     }
 

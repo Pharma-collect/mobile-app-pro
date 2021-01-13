@@ -7,7 +7,7 @@
     <string name="title_pharmacy">Pharmacy</string>
     <string name="title_history">Documents</string>
     <string name="title_locker">Boxes</string>
-    <string name="title_shop">Shop</string>
+    <string name="title_shop">Stats</string>
     <string name="title_to_do">To Do</string>
     <string name="title_in_progress">In Progress</string>
     <string name="title_done">Done</string>
@@ -35,7 +35,7 @@
     <string name="not_allowed">The application is only a support for orders and management. All actions about creation of a pharmacy, management of users and shop management must be done with the Base Object given with the application.</string>
     <string name="not_allowed_next">Every action are management by the pharmacy boss. Any action except order management are allowed for basic users</string>
     <string name="order_info">Order items allows you to see all waiting, in process or done orders. Preparator, id, pharmacy, client or locker are mentionned. A very useful part to manage orders of the pharmacy</string>
-    <string name="shop_infos">Shop info allows you to get all important information about your pharmacy shop if you have one. Amount of items, price or amount of orders are mentionnes</string>
+    <string name="shop_infos"> This part allows you to get stats about the infulence on the app with graph</string>
     <string name="locker_info">Locker item allows to see which locker is empty and available or not. You can manage it by adding or deleting and get their status.</string>
     <string name="pharma_infos">Allow you to get all main information about the pharmacy you are working in.</string>
     <string name="items">Pharma-collect items</string>
@@ -111,12 +111,25 @@
     <string name="in_progress_pres">In progress</string>
     <string name="done_pres">Done</string>
     <string name="order">Orders</string>
-    <string name="shop_info">Shop information</string>
+    <string name="stats">Get stats</string>
+    <string name="all">All orders</string>
+    <string name="ready">Ready</string>
+    <string name="container">Container</string>
+    <string name="finished">Finish</string>
     <!-- Prescription page description -->
     <string name="user_logo_pres">Logo user</string>
     <string name="prescription_logo_pres">Prescription logo</string>
     <string name="in_progress_logo_pres">In progress logo</string>
     <string name="done_logo_pres">Done logo</string>
+
+    <!-- String stats -->
+    <string name="order_stat">Orders state of progress</string>
+    <string name="filter">Filter</string>
+    <string name="user_stat">App users graph</string>
+    <string name="user_pro_stat">Pro user graph</string>
+    <string name="locker_stat">Locker state</string>
+    <string name="product_graph">All products</string>
+    <string name="product_graph_amount">Amount of products</string>
 
     <!-- String button test back -->
     <string name="go_back_test_to_do">Go back test</string>

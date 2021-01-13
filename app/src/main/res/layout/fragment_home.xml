@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -11,8 +12,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="65dp"
-        android:background="#fcfcfc">
+        android:layout_marginBottom="65dp">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
@@ -51,7 +51,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:background="#fcfcfc"
                 android:gravity="center">
 
 
@@ -59,7 +58,7 @@
                     android:id="@+id/header_home"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/shape_two">
+                    android:background="@drawable/shape_four">
 
                     <ImageView
                         android:id="@+id/user_logo"
@@ -74,7 +73,7 @@
                         android:id="@+id/pres_logo_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/prescription_logo"
+                        android:src="@drawable/prescription_logo_grey"
                         android:padding="15dp"
                         android:layout_alignParentBottom="true"
                         android:contentDescription="@string/prescription_logo"/>
@@ -85,6 +84,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_baseline_power_settings_new_24"
                         android:padding="15dp"
+                        app:tint="#6E6E6E"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
                         android:onClick="onButtonLogoutClicked"
@@ -116,6 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/current_user"
+                            android:textColor="#6E6E6E"
                             android:textSize="20sp"
                             android:layout_marginStart="70dp"/>
 
@@ -125,6 +126,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/id_user"
                             android:textSize="15sp"
+                            android:textColor="#6E6E6E"
                             android:layout_marginStart="70dp"/>
 
                         <TextView
@@ -133,6 +135,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/in_charge_order"
                             android:textSize="15sp"
+                            android:textColor="#6E6E6E"
                             android:layout_marginTop="8dp"
                             android:layout_marginStart="70dp"/>
 
@@ -154,7 +157,9 @@
                         android:layout_height="190dp"
                         android:layout_margin="10dp"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true">
+                        android:clickable="true"
+                        app:cardCornerRadius="30dp"
+                        card_view:cardElevation="30dp">
     
                         <LinearLayout
                             android:id="@+id/prescription_layout"
@@ -208,7 +213,9 @@
                         android:layout_height="190dp"
                         android:layout_margin="10dp"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true">
+                        android:clickable="true"
+                        app:cardCornerRadius="30dp"
+                        card_view:cardElevation="30dp">
 
                         <LinearLayout
                             android:id="@+id/shop_layout"
@@ -223,7 +230,7 @@
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:background="@drawable/cercle_background_green"
-                                android:src="@drawable/ic_baseline_shopping_cart_24"
+                                android:src="@drawable/ic_baseline_query_stats_24"
                                 android:padding="13dp"
                                 android:contentDescription="@string/shop_logo"/>
 
@@ -234,7 +241,7 @@
                                 android:textStyle="bold"
                                 android:layout_marginTop="10dp"
                                 android:textColor="#6E6E6E"
-                                android:text="@string/shop"/>
+                                android:text="@string/title_shop"/>
 
                             <View
                                 android:id="@+id/shop_layout_view"
@@ -249,7 +256,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:gravity="center"
-                                android:text="@string/shop_info"
+                                android:text="@string/stats"
                                 android:textColor="#6E6E6E"/>
 
                         </LinearLayout>
@@ -271,7 +278,9 @@
                         android:layout_height="190dp"
                         android:layout_margin="10dp"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true">
+                        android:clickable="true"
+                        app:cardCornerRadius="30dp"
+                        card_view:cardElevation="30dp">
 
                         <LinearLayout
                             android:id="@+id/pharma_layout"
@@ -325,7 +334,9 @@
                         android:layout_height="190dp"
                         android:layout_margin="10dp"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true">
+                        android:clickable="true"
+                        app:cardCornerRadius="30dp"
+                        card_view:cardElevation="30dp">
 
                         <LinearLayout
                             android:id="@+id/locker_layout"

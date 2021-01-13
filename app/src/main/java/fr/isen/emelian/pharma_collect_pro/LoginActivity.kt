@@ -38,6 +38,5 @@ class LoginActivity : AppCompatActivity() {
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
         repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
-
     }
 }

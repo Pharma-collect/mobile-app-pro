@@ -89,9 +89,13 @@
 
     <fragment
         android:id="@+id/navigation_shop"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.shop.ShopFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.StatsFragment"
         android:label="@string/title_shop"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_stats" >
+        <action
+            android:id="@+id/action_navigation_shop_to_orderGraphFragment"
+            app:destination="@id/orderGraphFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_to_do"
@@ -116,5 +120,10 @@
         android:name="fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update.UpdateFragment"
         android:label="@string/title_update"
         tools:layout="@layout/update_fragment" />
+    <fragment
+        android:id="@+id/orderGraphFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.graphs.OrderGraphFragment"
+        android:label="fragment_order_graph"
+        tools:layout="@layout/fragment_order_graph" />
 
 </navigation>
