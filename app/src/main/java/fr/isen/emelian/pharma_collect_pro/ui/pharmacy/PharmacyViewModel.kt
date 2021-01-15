@@ -2,6 +2,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.pharmacy
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -51,6 +52,7 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
         launch {
             myUser = fileService.getData(context)
             getPharmaData(myUser.pharma_id.toString(), context)
+            getUsersData(myUser.pharma_id.toString(), context)
         }
     }
 
@@ -62,41 +64,15 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
         implInfo(response)
     }
 
-    /*
-     * Get all user
-     */
-//    fun countUserOfPharmacy(id: String) {
-//        val requestQueue = Volley.newRequestQueue(context)
-//        val url = "$backUrl/user_pro/getUserProByPharmacy"
-//        val stringRequest: StringRequest =
-//                object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-//                    override fun onResponse(response: String?) {
-//                        var jsonResponse: JSONObject = JSONObject(response)
-//                        if (jsonResponse["success"] == true) {
-//                            implBossAdminAmount(jsonResponse)
-//                        }else{
-//                            Toast.makeText(context, jsonResponse.toString(), Toast.LENGTH_LONG).show()
-//                        }
-//                    }
-//                }, object : Response.ErrorListener {
-//                    override fun onErrorResponse(error: VolleyError) {
-//                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-//                    }
-//                }) {
-//                    override fun getHeaders(): Map<String, String> {
-//                        val params: MutableMap<String, String> = HashMap()
-//                        params["Host"] = "node"
-//                        params["Authorization"] = fileService.getData(context).token.toString()
-//                        return params
-//                    }
-//                    override fun getParams(): MutableMap<String, String>? {
-//                        val params: MutableMap<String, String> = HashMap()
-//                        params["pharmacy_id"] = id
-//                        return params
-//                    }
-//                }
-//        requestQueue.add(stringRequest)
-//    }
+    suspend fun getUsersData(id: String, context: Context){
+        myRepo.countUserOfPharmacy(id, context)
+        while (myRepo.numUsersAdmins["admins"] == null){
+            delay(50)
+            Log.d("PharmaInfo", myRepo.numUsersAdmins.toString())
+        }
+        _admin.value = myRepo.numUsersAdmins["admins"]
+        _user.value = myRepo.numUsersAdmins["users"]
+    }
 
 
     fun implInfo(pharmacy: Pharmacy){
@@ -114,19 +90,4 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
         _id.value = "ID : ${pharmacy.id}"
     }
 
-    fun implBossAdminAmount(jsonResponse: JSONObject){
-        var user = -1
-        var admin = 0
-        var jsonArray = jsonResponse.optJSONArray("result")
-        for (i in 0 until jsonArray.length()) {
-            val item = jsonArray.getJSONObject(i)
-            if(item["is_admin"] != "1"){
-                user++
-            } else {
-                admin++
-            }
-        }
-        _admin.value = user.toString()
-        _user.value = admin.toString()
-    }
 }

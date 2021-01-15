@@ -57,7 +57,7 @@
                     android:textSize="18sp"
                     android:textStyle="normal"
                     android:textColor="#6E6E6E"
-                    android:text="@string/id_pharma_profile"
+                    android:text="@{pharmaviewmodel.id}"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"/>
 
@@ -93,7 +93,7 @@
                         android:id="@+id/pharma_number_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/number_user"
+                        android:text="@{pharmaviewmodel.user}"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"/>
@@ -127,7 +127,7 @@
                         android:id="@+id/pharma_number_admin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/number_admin"
+                        android:text="@{pharmaviewmodel.admin}"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"/>
@@ -161,7 +161,7 @@
                         android:id="@+id/profile_has_shop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/has_shop"
+                        android:text="@{pharmaviewmodel.shop}"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"/>
