@@ -135,11 +135,10 @@
     <string name="type">Type</string>
     <string name="amount_locker">All locker by state</string>
 
-    <!-- String button test back -->
-    <string name="go_back_test_to_do">Go back test</string>
-    <string name="go_back_test_in_progress">Go back test</string>
-    <string name="go_back_test_done">Go back test</string>
-    <string name="go_back_test_update">Go back test</string>
+    <!-- String Prescription pending -->
+    <string name="list_pres">List of pending prescriptions</string>
+    <string name="list_order">List of pending orders</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

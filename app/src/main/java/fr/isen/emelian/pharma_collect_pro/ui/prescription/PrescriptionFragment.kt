@@ -56,9 +56,7 @@ class PrescriptionFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when(view?.id){
-            R.id.to_do_layout_card_view -> navController.navigate(R.id.action_navigation_prescription_to_navigation_to_do)
-            R.id.in_progress_layout_card_view -> navController.navigate(R.id.action_navigation_prescription_to_navigation_in_progress)
-            R.id.done_layout_card_view -> navController.navigate(R.id.action_navigation_prescription_to_navigation_done)
+            R.id.to_do_layout_card_view -> navController.navigate(R.id.action_navigation_prescription_to_choiceTypeFragment)
         }
     }
 }

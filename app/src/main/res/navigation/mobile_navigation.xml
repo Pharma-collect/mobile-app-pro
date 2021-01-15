@@ -51,26 +51,8 @@
         android:label="@string/title_prescription"
         tools:layout="@layout/fragment_prescription" >
         <action
-            android:id="@+id/action_navigation_prescription_to_navigation_to_do"
-            app:destination="@id/navigation_to_do"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
-        <action
-            android:id="@+id/action_navigation_prescription_to_navigation_in_progress"
-            app:destination="@id/navigation_in_progress"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
-        <action
-            android:id="@+id/action_navigation_prescription_to_navigation_done"
-            app:destination="@id/navigation_done"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            android:id="@+id/action_navigation_prescription_to_choiceTypeFragment"
+            app:destination="@id/choiceTypeFragment" />
     </fragment>
 
     <fragment
@@ -115,24 +97,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_to_do"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.toDo.ToDoFragment"
-        android:label="@string/title_to_do"
-        tools:layout="@layout/to_do_fragment" />
-
-    <fragment
-        android:id="@+id/navigation_in_progress"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.inProgress.InProgressFragment"
-        android:label="@string/title_in_progress"
-        tools:layout="@layout/in_progress_fragment" />
-
-    <fragment
-        android:id="@+id/navigation_done"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.inProgress.InProgressFragment"
-        android:label="@string/title_done"
-        tools:layout="@layout/in_progress_fragment" />
-
-    <fragment
         android:id="@+id/navigation_update"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update.UpdateFragment"
         android:label="@string/title_update"
@@ -157,5 +121,34 @@
         android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.graphs.UserProGraphFragment"
         android:label="fragment_user_pro_graph"
         tools:layout="@layout/fragment_user_pro_graph" />
+    <fragment
+        android:id="@+id/choiceTypeFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders.ChoiceTypeFragment"
+        android:label="fragment_choice_type"
+        tools:layout="@layout/fragment_choice_type" >
+        <action
+            android:id="@+id/action_choiceTypeFragment_to_pendingOrderFragment"
+            app:destination="@id/pendingOrderFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_choiceTypeFragment_to_pendingPresFragment"
+            app:destination="@id/pendingPresFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/pendingPresFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders.PendingPresFragment"
+        android:label="PendingPresFragment" />
+    <fragment
+        android:id="@+id/pendingOrderFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders.PendingOrderFragment"
+        android:label="fragment_pending_order"
+        tools:layout="@layout/fragment_pending_order" />
 
 </navigation>
