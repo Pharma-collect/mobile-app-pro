@@ -121,13 +121,13 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
                                 val x = pieChart.data.getDataSetForEntry(e).getEntryIndex(e as PieEntry?)
                                 val type: String = order.get(x).label
 
-                                if(type == "Pending") {
+                                if(type == "pending") {
                                     id_order = listPending
-                                } else if(type == "Ready") {
+                                } else if(type == "ready") {
                                     id_order = listReady
-                                } else if (type == "Finish") {
+                                } else if (type == "finish") {
                                     id_order = listFinish
-                                } else if (type == "Container") {
+                                } else if (type == "container") {
                                     id_order = listContainer
                                 }
 

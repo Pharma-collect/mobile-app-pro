@@ -81,11 +81,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
      */
     fun getOrderInfo(idUser: String, idPharma: String) {
         val requestQueue = Volley.newRequestQueue(context)
-        //val url = "$backUrl/order/getOrderByPharmacy"
-        val url = "$backUrl/order/getAllOrders" // For the moment while correct get order by pharmacy
+        val url = "$backUrl/order/getOrderByPharmacy"
         val stringRequest: StringRequest =
-            //object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> { // For the moment while correct get order by pharmacy
-            object : StringRequest(Request.Method.GET, url, object : Response.Listener<String?> {
+            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     var jsonResponse: JSONObject = JSONObject(response)
                     if (jsonResponse["success"] == true) {
