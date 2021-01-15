@@ -94,7 +94,24 @@
         tools:layout="@layout/fragment_stats" >
         <action
             android:id="@+id/action_navigation_shop_to_orderGraphFragment"
-            app:destination="@id/orderGraphFragment" />
+            app:destination="@id/orderGraphFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_navigation_shop_to_productGraphFragment"
+            app:destination="@id/productGraphFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_navigation_shop_to_lockerGraphFragment"
+            app:destination="@id/lockerGraphFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_navigation_shop_to_userProGraphFragment"
+            app:destination="@id/userProGraphFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right" />
     </fragment>
 
     <fragment
@@ -125,5 +142,20 @@
         android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.graphs.OrderGraphFragment"
         android:label="fragment_order_graph"
         tools:layout="@layout/fragment_order_graph" />
+    <fragment
+        android:id="@+id/lockerGraphFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.graphs.LockerGraphFragment"
+        android:label="fragment_locker_graph"
+        tools:layout="@layout/fragment_locker_graph" />
+    <fragment
+        android:id="@+id/productGraphFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.graphs.ProductGraphFragment"
+        android:label="fragment_product_graph"
+        tools:layout="@layout/fragment_product_graph" />
+    <fragment
+        android:id="@+id/userProGraphFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.stats.graphs.UserProGraphFragment"
+        android:label="fragment_user_pro_graph"
+        tools:layout="@layout/fragment_user_pro_graph" />
 
 </navigation>

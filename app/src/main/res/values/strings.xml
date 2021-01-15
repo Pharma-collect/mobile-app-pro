@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App / Navigation string -->
     <string name="app_name">Pharma-collect-pro</string>
@@ -63,17 +63,17 @@
     <string name="in_charge_order">No order in progress</string>
     <string name="menu">Menu</string>
     <string name="prescription">Prescription</string>
-    <string name="amount_waiting">To do : 10</string>
+    <string name="amount_waiting">To do : </string>
     <string name="shop">Shop</string>
     <string name="locker">Locker</string>
-    <string name="amount_available">Available : 4</string>
+    <string name="amount_available">Available : </string>
     <string name="client">Client</string>
     <string name="history">History</string>
     <string name="pharma">My Pharmacy</string>
     <string name="logout">Logout</string>
     <string name="current">Current order</string>
     <string name="pharma_info">Pharmacy profile</string>
-    <string name="id_user">ID : 5</string>
+    <string name="id_user">ID : </string>
     <!-- Home page description -->
     <string name="pharma_logo">Pharmacy logo</string>
     <string name="prescription_logo">Prescription logo</string>
@@ -86,12 +86,9 @@
 
     <!-- Profile page string -->
     <string name="pharma_name_profile">Pharmacy name</string>
-    <string name="id_pharma_profile">ID : 5</string>
-    <string name="number_user">6</string>
+    <string name="id_pharma_profile">ID : </string>
     <string name="number_user_label">Users</string>
-    <string name="number_admin">1</string>
     <string name="number_admin_label">Admin</string>
-    <string name="has_shop">Yes/No</string>
     <string name="has_shop_label">Shop ?</string>
     <string name="phone_profile">Phone :</string>
     <string name="address_profile">Address :</string>
@@ -104,10 +101,10 @@
 
     <!-- Prescription page string -->
     <string name="current_user_pres">Current user</string>
-    <string name="id_user_pres">ID : 5</string>
+    <string name="id_user_pres">ID : </string>
     <string name="in_charge_pres">No order in charge</string>
     <string name="to_do_pres">To do</string>
-    <string name="amount">Amount : 4</string>
+    <string name="amount">Amount : </string>
     <string name="in_progress_pres">In progress</string>
     <string name="done_pres">Done</string>
     <string name="order">Orders</string>
@@ -130,6 +127,13 @@
     <string name="locker_stat">Locker state</string>
     <string name="product_graph">All products</string>
     <string name="product_graph_amount">Amount of products</string>
+    <string name="des_order">Amout of order by state</string>
+    <string name="des_user_pro">Amout of professional user by state</string>
+    <string name="visualize">Visualize your data on a simple way</string>
+    <string name="select">Select a graph</string>
+    <string name="all_state">All orders state</string>
+    <string name="type">Type</string>
+    <string name="amount_locker">All locker by state</string>
 
     <!-- String button test back -->
     <string name="go_back_test_to_do">Go back test</string>

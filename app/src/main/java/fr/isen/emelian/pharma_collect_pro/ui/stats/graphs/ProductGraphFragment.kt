@@ -22,69 +22,52 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import fr.isen.emelian.pharma_collect_pro.R
-import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import org.json.JSONObject
-import java.io.File
 
-class UserProGraphFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var navController: NavController
-    private var myUser: User = User()
+class ProductGraphFragment : Fragment(), View.OnClickListener {
+
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
-    private lateinit var id_user: MutableList<String>
-    private lateinit var type_user: String
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_user_pro_graph, container, false)
+        val view = inflater.inflate(R.layout.fragment_product_graph, container, false)
 
-        val barChart: BarChart = view.findViewById(R.id.users_pro_barchart)
-        val users = ArrayList<BarEntry>()
-
-
-
-        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
-        if (datas.isNotEmpty()) {
-            val jsonObject = JSONObject(datas)
-            myUser.pharma_id = jsonObject.optInt("pharmaId")
-            myUser.token = jsonObject.optString("token")
-        }
+        val barChart: BarChart = view.findViewById(R.id.products_barchart)
+        val products = ArrayList<BarEntry>()
 
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/user_pro/getUserProByPharmacy"
+        val url = "$backUrl/product/getAllProducts"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
+            object : StringRequest(Request.Method.GET, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     val jsonResponse: JSONObject = JSONObject(response)
                     if (jsonResponse["success"] == true) {
-
-                        val list_admin: MutableList<String> = ArrayList()
-                        val list_user: MutableList<String> = ArrayList()
-
-                        var user = 0F
-                        var admin = 0F
+                        var title: String
+                        var capacity: String
+                        var row : Float
                         val jsonArray = jsonResponse.optJSONArray("result")
                         for (i in 0 until jsonArray.length()) {
                             val item = jsonArray.getJSONObject(i)
-                            if (item["is_admin"] == 1) {
-                                admin++
-                                list_admin.add(item["username"].toString())
-                            } else {
-                                user++
-                                list_user.add(item["username"].toString())
+
+                            row = i.toFloat()
+                            if(item["capacity"].toString() == "null") {
+                                capacity = "0"
                             }
+                            else {
+                                capacity = item["capacity"].toString()
+                            }
+                            title = item["title"].toString()
+
+                            products.add(BarEntry(row, capacity.toFloat(), title))
                         }
 
-                        val amount_admin = admin
-                        val amount_user = user
 
-                        users.add(BarEntry(1F, amount_user))
-                        users.add(BarEntry(2F, amount_admin))
-
-                        val barDataSet = BarDataSet(users, "Users")
+                        val barDataSet = BarDataSet(products, "Products")
                         barDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
                         barDataSet.setDrawIcons(false)
                         barDataSet.iconsOffset = MPPointF(0F, 40F)
@@ -108,30 +91,20 @@ class UserProGraphFragment : Fragment(), View.OnClickListener {
 
                             override fun onValueSelected(e: Entry, h: Highlight){
                                 val x = barChart.data.getDataSetForEntry(e).getEntryIndex(e as BarEntry?)
-                                val row: String = users.get(x).x.toString()
-                                val type: String = users.get(x).y.toString()
-
-                                if(row == 1F.toString()) {
-                                    id_user = list_user
-                                    type_user = "User"
-                                } else if(row == 2F.toString()) {
-                                    id_user = list_admin
-                                    type_user = "Admin"
-                                }
+                                val type: String? = products.get(x).y.toString()
+                                val capa: String? = products.get(x).data.toString()
 
                                 val builder: AlertDialog.Builder = AlertDialog.Builder(context)
                                 builder.setCancelable(true)
-                                val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_order, null)
-                                val textView_type: TextView = navView.findViewById(R.id.type_order)
+                                val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
+                                val textView_type: TextView = navView.findViewById(R.id.name_product)
+                                val textView_capacity: TextView = navView.findViewById(R.id.capacity_product)
 
-                                val adapter: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, id_user) }
-                                val list_id: ListView = navView.findViewById(R.id.list_view)
-                                list_id.adapter = adapter
-
-                                textView_type.setText(type_user)
+                                textView_type.setText(capa)
+                                textView_capacity.setText(type)
 
                                 builder.setView(navView)
-                                val alertDialog = builder.create()
+                                var alertDialog = builder.create()
                                 alertDialog.show()
                             }
                         })
@@ -148,18 +121,12 @@ class UserProGraphFragment : Fragment(), View.OnClickListener {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
                     params["Host"] = "node"
-                    params["Authorization"] = myUser.token.toString()
-                    return params
-                }
-
-                override fun getParams(): MutableMap<String, String>? {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["pharmacy_id"] = myUser.pharma_id.toString()
                     return params
                 }
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
+
 
         return view
     }
@@ -167,12 +134,13 @@ class UserProGraphFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.back_user_graph).setOnClickListener(this)
+        view.findViewById<Button>(R.id.back_product_graph).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when(view?.id){
-            R.id.back_user_graph -> activity?.onBackPressed()
+            R.id.back_product_graph -> activity?.onBackPressed()
         }
     }
+
 }

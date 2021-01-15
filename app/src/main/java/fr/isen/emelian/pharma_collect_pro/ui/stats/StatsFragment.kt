@@ -34,11 +34,17 @@ class StatsFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<Button>(R.id.button_pie_order).setOnClickListener(this)
+        view.findViewById<Button>(R.id.button_barchart_product).setOnClickListener(this)
+        view.findViewById<Button>(R.id.button_pie_locker).setOnClickListener(this)
+        view.findViewById<Button>(R.id.button_pie_user_pro).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.button_pie_order -> navController.navigate(R.id.action_navigation_shop_to_orderGraphFragment)
+            R.id.button_barchart_product -> navController.navigate(R.id.action_navigation_shop_to_productGraphFragment)
+            R.id.button_pie_locker -> navController.navigate(R.id.action_navigation_shop_to_lockerGraphFragment)
+            R.id.button_pie_user_pro -> navController.navigate(R.id.action_navigation_shop_to_userProGraphFragment)
         }
     }
 
