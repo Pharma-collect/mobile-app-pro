@@ -10,6 +10,7 @@ import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
 import fr.isen.emelian.pharma_collect_pro.services.FileService
+import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
 
 class PharmacyRepository {
@@ -17,13 +18,13 @@ class PharmacyRepository {
     var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val fileService: FileService =
             FileService()
-    var myPharma: Pharmacy = Pharmacy()
 
     /*
      * Get pharmacy information
      */
-    fun getPharmacyInfo(pharmaId: String, context: Context) {
+    fun getPharmacyInfo(pharmaId: String, context: Context) : Pharmacy{
         val requestQueue = Volley.newRequestQueue(context)
+        val myPharma: Pharmacy = Pharmacy()
         val url = "$backUrl/pharmacy/getPharmacyById"
         val stringRequest: StringRequest =
                 object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
@@ -41,9 +42,8 @@ class PharmacyRepository {
                                 myPharma.road_nb = data["road_nb"].toString()
                                 myPharma.city = data["city"].toString()
                                 myPharma.post_code = data["post_code"].toString()
-
+                                myPharma.success = jsonResponse["success"].toString()
                         }else{
-
                             Log.d("ResponseJSON", jsonResponse.toString())
 
                         }
@@ -66,6 +66,7 @@ class PharmacyRepository {
                     }
                 }
         requestQueue.add(stringRequest)
+        return myPharma
     }
 
     /*

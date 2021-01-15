@@ -2,27 +2,16 @@ package fr.isen.emelian.pharma_collect_pro.ui.pharmacy
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.error.VolleyError
-import com.android.volley.request.StringRequest
-import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.PharmacyRepository
 import fr.isen.emelian.pharma_collect_pro.services.FileService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class PharmacyViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
@@ -59,24 +48,18 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
     val user: LiveData<String> = _user
 
     init {
-        launch{
-            myUser = fileService.getData(context)
-            while(myUser.pharma_id == null){
-                delay(5)
-            }
-            val pharmaData: LiveData<Pharmacy> = liveData{
-                myRepo.getPharmacyInfo(myUser.pharma_id.toString(), context)
-                emit(myRepo.myPharma)
-            }
-        }
         launch {
-
+            myUser = fileService.getData(context)
+            getPharmaData(myUser.pharma_id.toString(), context)
         }
     }
 
-
-    fun getPharmaData(pharmaId: String, context: Context): Flow<Pharmacy> = flow{
-
+    suspend fun getPharmaData(id: String, context: Context) {
+        val response = myRepo.getPharmacyInfo(id, context)
+        while(response.success != "true"){
+            delay(5)
+        }
+        implInfo(response)
     }
 
     /*
@@ -116,19 +99,19 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
 //    }
 
 
-    fun implInfo(){
-        _name.value = myRepo.myPharma.name
-        _city.value = myRepo.myPharma.city
-        _postcode.value = myRepo.myPharma.post_code
-        if( myPharma.has_shop.toString() == "0"){
+    fun implInfo(pharmacy: Pharmacy){
+        _name.value = pharmacy.name
+        _city.value = pharmacy.city
+        _postcode.value = pharmacy.post_code
+        if( pharmacy.has_shop.toString() == "0"){
             _shop.value = "No"
         } else {
             _shop.value = "Yes"
         }
-        _road.value = myRepo.myPharma.road
-        _roadnb.value = myRepo.myPharma.road_nb
-        _phone.value = "0${myRepo.myPharma.phone}"
-        _id.value = "ID : ${myRepo.myPharma.id}"
+        _road.value = pharmacy.road
+        _roadnb.value = pharmacy.road_nb
+        _phone.value = "0${pharmacy.phone}"
+        _id.value = "ID : ${pharmacy.id}"
     }
 
     fun implBossAdminAmount(jsonResponse: JSONObject){

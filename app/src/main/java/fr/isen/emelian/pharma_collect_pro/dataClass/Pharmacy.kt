@@ -10,4 +10,5 @@ class Pharmacy {
     var post_code:String? = null
     var city:String? = null
     var boss:String? = null
+    var success: String? = null
 }
