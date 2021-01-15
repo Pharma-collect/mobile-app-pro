@@ -52,7 +52,9 @@
         tools:layout="@layout/fragment_prescription" >
         <action
             android:id="@+id/action_navigation_prescription_to_choiceTypeFragment"
-            app:destination="@id/choiceTypeFragment" />
+            app:destination="@id/choiceTypeFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
     </fragment>
 
     <fragment
@@ -64,9 +66,7 @@
             android:id="@+id/action_navigation_pharmacy_to_navigation_update"
             app:destination="@id/navigation_update"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            app:enterAnim="@anim/slide_in_right"/>
     </fragment>
 
     <fragment
@@ -130,16 +130,12 @@
             android:id="@+id/action_choiceTypeFragment_to_pendingOrderFragment"
             app:destination="@id/pendingOrderFragment"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            app:enterAnim="@anim/slide_in_right"/>
         <action
             android:id="@+id/action_choiceTypeFragment_to_pendingPresFragment"
             app:destination="@id/pendingPresFragment"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            app:enterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/pendingPresFragment"
