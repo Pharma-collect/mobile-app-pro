@@ -8,16 +8,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.error.VolleyError
+import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
+import fr.isen.emelian.pharma_collect_pro.dataClass.User
+import fr.isen.emelian.pharma_collect_pro.repository.PharmacyRepository
+import fr.isen.emelian.pharma_collect_pro.services.FileService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import fr.isen.emelian.pharma_collect_pro.repository.UserRepository
-import fr.isen.emelian.pharma_collect_pro.repository.PharmacyRepository
-import fr.isen.emelian.pharma_collect_pro.services.FileService
 import org.json.JSONArray
 import org.json.JSONObject
 

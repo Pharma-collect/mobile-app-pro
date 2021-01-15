@@ -1,22 +1,14 @@
 package fr.isen.emelian.pharma_collect_pro
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import fr.isen.emelian.pharma_collect_pro.services.EnableHttps.handleSSLHandshake
 import fr.isen.emelian.pharma_collect_pro.repository.UserRepository
+import fr.isen.emelian.pharma_collect_pro.services.EnableHttps.handleSSLHandshake
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 

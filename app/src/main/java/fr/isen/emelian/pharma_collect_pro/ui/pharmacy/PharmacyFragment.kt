@@ -8,22 +8,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import fr.isen.emelian.pharma_collect_pro.R
+import fr.isen.emelian.pharma_collect_pro.databinding.FragmentPharmacyBinding
 
 class PharmacyFragment : Fragment(), View.OnClickListener {
 
     private lateinit var pharmaViewModel: PharmacyViewModel
+    private lateinit var binding: FragmentPharmacyBinding
     private lateinit var navController: NavController
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_pharmacy,
+            container,
+            false
+        )
+
         pharmaViewModel =
             ViewModelProvider(this).get(PharmacyViewModel::class.java)
+
+        binding.pharmaviewmodel = pharmaViewModel
+
         val root = inflater.inflate(R.layout.fragment_pharmacy, container, false)
 
         val textView_name: TextView = root.findViewById(R.id.pharma_name)

@@ -1,31 +1,33 @@
 package fr.isen.emelian.pharma_collect_pro
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import fr.isen.emelian.pharma_collect_pro.databinding.ActivityMainBinding
+import fr.isen.emelian.pharma_collect_pro.services.FileService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-import fr.isen.emelian.pharma_collect_pro.services.FileService
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
+    private lateinit var binding: ActivityMainBinding
     lateinit var id: String
     private val fileService: FileService = FileService()
     var prefs: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab : View = findViewById(R.id.fab)

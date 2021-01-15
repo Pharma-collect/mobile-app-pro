@@ -3,15 +3,15 @@ package fr.isen.emelian.pharma_collect_pro.ui.stats.graphs
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.error.VolleyError
+import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -21,8 +21,8 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.services.FileService
-import org.json.JSONArray
 import org.json.JSONObject
+
 
 class OrderGraphFragment : Fragment() {
 

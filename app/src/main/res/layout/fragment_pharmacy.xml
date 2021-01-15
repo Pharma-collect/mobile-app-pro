@@ -210,7 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@string/phone_profile"
+                        android:text="@{pharmaviewmodel.phone}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 
@@ -236,7 +236,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@string/road_nb_profile"
+                        android:text="@{pharmaviewmodel.road_nb}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 
@@ -245,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@string/road_profile"
+                        android:text="@{pharmaviewmodel.road_name}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 
@@ -254,7 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@string/postcode_profile"
+                        android:text="@{pharmaviewmodel.postcode}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 
@@ -263,7 +263,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@string/city_profile"
+                        android:text="@{pharmaviewmodel.city}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 

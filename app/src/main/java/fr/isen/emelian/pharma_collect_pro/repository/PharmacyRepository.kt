@@ -5,8 +5,8 @@ import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.error.VolleyError
+import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
 import fr.isen.emelian.pharma_collect_pro.services.FileService
@@ -29,10 +29,10 @@ class PharmacyRepository {
                 object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                     override fun onResponse(response: String?) {
                         var jsonResponse: JSONObject = JSONObject(response)
+                        Log.d("PharmaInfo", response.toString())
                         if (jsonResponse["success"] == true) {
                             var jsonArray = jsonResponse.optJSONArray("result")
                             var data = JSONObject(jsonResponse.get("result").toString())
-
                                 myPharma.name = data["name"].toString()
                                 myPharma.has_shop = data["has_shop"].toString()
                                 myPharma.boss = data["boss"].toString()
@@ -108,4 +108,6 @@ class PharmacyRepository {
                 }
         requestQueue.add(stringRequest)
     }
+
+
 }
