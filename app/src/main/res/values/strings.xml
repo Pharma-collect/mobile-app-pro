@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- App / Navigation string -->
     <string name="app_name">Pharma-collect-pro</string>
@@ -138,6 +138,21 @@
     <!-- String Prescription pending -->
     <string name="list_pres">List of pending prescriptions</string>
     <string name="list_order">List of pending orders</string>
+    <string name="list_product">List of products :</string>
+    <string name="detail">Order detail :</string>
+    <string name="total_price">Total price :</string>
+    <string name="ras">RAS</string>
+    <string name="order_state">State :</string>
+    <string name="treat">Treat this one</string>
+    <string name="info">Client sheet</string>
+    <string name="firstname">Client firstname :</string>
+    <string name="lastname">Client lastname :</string>
+    <string name="dob">Date of birth :</string>
+    <string name="phone">Client phone :</string>
+    <string name="mail">Client mail :</string>
+    <string name="age">Client age :</string>
+    <string name="profile_picture">Profile picture of client</string>
+    <string name="picture_pres">Click on the picture to see the prescription</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
