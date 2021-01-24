@@ -74,4 +74,7 @@ dependencies {
     //Make graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    //Circular menu
+    implementation 'com.github.Hitomis:CircleMenu:v1.1.0'
+
 }

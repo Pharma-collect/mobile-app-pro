@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -13,19 +14,34 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="50dp"
-            android:text="@string/stats"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/stats_and"
+                android:textStyle="bold"
+                android:fontFamily="@font/baloo"
+                android:textSize="35sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/graphs"
+                android:fontFamily="@font/baloo"
+                android:textStyle="normal"
+                android:textSize="30sp"/>
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:padding="10dp"
             android:gravity="center"
             android:text="@string/visualize"
@@ -44,10 +60,10 @@
             android:id="@+id/button_pie_user_pro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/shape_four"
             android:text="@string/user_pro_stat"
-            android:textColor="@color/white" />
+            android:textColor="#fff"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_four"/>
 
         <Button
             android:id="@+id/button_pie_order"

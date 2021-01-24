@@ -22,13 +22,16 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import fr.isen.emelian.pharma_collect_pro.R
+import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import org.json.JSONObject
+import java.io.File
 
 
 class ProductGraphFragment : Fragment(), View.OnClickListener {
 
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private lateinit var navController: NavController
+    private var myUser: User = User()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +43,17 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
         val barChart: BarChart = view.findViewById(R.id.products_barchart)
         val products = ArrayList<BarEntry>()
 
+        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
+        if (datas.isNotEmpty()) {
+            val jsonObject = JSONObject(datas)
+            myUser.pharma_id = jsonObject.optInt("pharmaId")
+            myUser.token = jsonObject.optString("token")
+        }
+
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/product/getAllProducts"
+        val url = "$backUrl/product/getProductsByPharmacy"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.GET, url, object : Response.Listener<String?> {
+            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     val jsonResponse: JSONObject = JSONObject(response)
                     if (jsonResponse["success"] == true) {
@@ -121,6 +131,12 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
                     params["Host"] = "node"
+                    return params
+                }
+
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["pharmacy_id"] = myUser.pharma_id.toString()
                     return params
                 }
             }

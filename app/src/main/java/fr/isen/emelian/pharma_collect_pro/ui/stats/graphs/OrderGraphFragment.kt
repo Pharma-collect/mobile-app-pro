@@ -28,12 +28,16 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
+import fr.isen.emelian.pharma_collect_pro.dataClass.User
+import java.io.File
 
 class OrderGraphFragment : Fragment(), View.OnClickListener {
 
     private lateinit var navController: NavController
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     lateinit var id_order: MutableList<String>
+    private val myUser: User =
+        User()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +49,17 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
         val pieChart: PieChart = view.findViewById(R.id.order_pie_chart)
         val order = ArrayList<PieEntry>()
 
+        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
+        if (datas.isNotEmpty()) {
+            val jsonObject = JSONObject(datas)
+            myUser.pharma_id = jsonObject.optInt("pharmaId")
+            myUser.token = jsonObject.optString("token")
+        }
+
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/order/getAllOrders" // For the moment while correct get order by pharmacy
+        val url = "$backUrl/order/getOrderByPharmacy" // For the moment while correct get order by pharmacy
         val stringRequest: StringRequest =
-            //object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> { // For the moment while correct get order by pharmacy
-            object : StringRequest(Request.Method.GET, url, object : Response.Listener<String?> {
+            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     val jsonResponse: JSONObject = JSONObject(response)
                     if (jsonResponse["success"] == true) {
@@ -161,6 +171,12 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
                     params["Host"] = "node"
+                    return params
+                }
+
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["pharmacy_id"] = myUser.pharma_id.toString()
                     return params
                 }
             }

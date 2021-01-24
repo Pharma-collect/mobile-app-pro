@@ -1,22 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.locker.LockerFragment">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <data>
+        <variable
+            name="lockerviewmodel"
+            type="fr.isen.emelian.pharma_collect_pro.ui.locker.LockerViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:layout_marginBottom="65dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/locker"
+            android:textStyle="bold"
+            android:fontFamily="@font/baloo"
+            android:textSize="35sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/locker_mana"
+            android:fontFamily="@font/baloo"
+            android:textStyle="normal"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_container"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="15sp"/>
+
+        <com.hitomi.cmlibrary.CircleMenu
+            android:id="@+id/circle_menu"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/add_button"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/shape_four"
+                android:text="@string/add"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                app:icon="@drawable/ic_baseline_add_circle_24"
+                app:iconTint="#fff" />
+
+            <Button
+                android:id="@+id/clear_all_button"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/shape_four"
+                android:text="@string/clear_all"
+                android:textColor="#fff"
+                app:icon="@drawable/ic_baseline_clear_all_24"
+                android:textSize="15sp"
+                app:iconTint="#fff" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</layout>

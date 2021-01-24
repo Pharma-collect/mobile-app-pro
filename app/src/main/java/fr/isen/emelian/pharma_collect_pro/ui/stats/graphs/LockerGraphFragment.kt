@@ -60,7 +60,6 @@ class LockerGraphFragment : Fragment(), View.OnClickListener {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/container/getContainerByPharmacy" // For the moment while correct get order by pharmacy
         val stringRequest: StringRequest =
-            //object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> { // For the moment while correct get order by pharmacy
             object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     val jsonResponse: JSONObject = JSONObject(response)
@@ -92,7 +91,7 @@ class LockerGraphFragment : Fragment(), View.OnClickListener {
 
 
                         val pieDataSet = PieDataSet(locker, "locker")
-                        pieDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+                        pieDataSet.setColors(*ColorTemplate.PASTEL_COLORS)
                         pieDataSet.setDrawIcons(false)
                         pieDataSet.sliceSpace = 3f
                         pieDataSet.iconsOffset = MPPointF(0F, 40F)

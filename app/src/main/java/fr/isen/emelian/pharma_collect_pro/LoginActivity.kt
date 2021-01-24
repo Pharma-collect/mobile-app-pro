@@ -1,5 +1,6 @@
 package fr.isen.emelian.pharma_collect_pro
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -29,6 +30,10 @@ class LoginActivity : AppCompatActivity() {
 
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
-        repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
+        //repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
+        if(etUsername.text.toString() == "" && etPassword.text.toString() == ""){
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            this@LoginActivity.startActivity(intent)
+        }
     }
 }
