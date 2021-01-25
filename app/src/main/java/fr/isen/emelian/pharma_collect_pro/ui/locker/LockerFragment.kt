@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,11 +25,15 @@ import com.android.volley.toolbox.Volley
 import com.hitomi.cmlibrary.CircleMenu
 import com.hitomi.cmlibrary.OnMenuSelectedListener
 import fr.isen.emelian.pharma_collect_pro.R
+import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
+import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
 import fr.isen.emelian.pharma_collect_pro.services.FileService
+import kotlinx.coroutines.delay
 import org.json.JSONObject
 import java.io.File
+import java.math.BigDecimal
 
 class LockerFragment : Fragment(), View.OnClickListener {
 
@@ -37,6 +42,10 @@ class LockerFragment : Fragment(), View.OnClickListener {
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val myUser: User =
         User()
+    private val lockerRepository: LockerRepository =
+            LockerRepository()
+
+    lateinit var id_container: String
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -68,10 +77,12 @@ class LockerFragment : Fragment(), View.OnClickListener {
                         var jsonArray = jsonResponse.optJSONArray("result")
                         val listNumber : MutableList<String> = ArrayList()
                         val listStatus : MutableList<String> = ArrayList()
-                        for (i in 0 until jsonArray.length()) {
-                            val item = jsonArray.getJSONObject(i)
-                            listNumber.add(item["container_number"].toString())
-                            listStatus.add(item["status"].toString())
+                        if(jsonArray != null) {
+                            for (i in 0 until jsonArray.length()) {
+                                val item = jsonArray.getJSONObject(i)
+                                listNumber.add(item["id"].toString())
+                                listStatus.add(item["status"].toString())
+                            }
                         }
 
                         circleMenu.setMainMenu(Color.parseColor("#6E6E6E"), R.drawable.locker_logo, R.drawable.ic_baseline_clear_all_24).openMenu()
@@ -85,13 +96,19 @@ class LockerFragment : Fragment(), View.OnClickListener {
 
                         circleMenu.setOnMenuSelectedListener(object: OnMenuSelectedListener {
                             override fun onMenuSelected(index: Int) {
-                                Toast.makeText(context, "You clicked " + listNumber[index] + "With status " + listStatus[index], Toast.LENGTH_SHORT).show()
+                                val amount = IDs(BigDecimal(listNumber[index]))
+                                val bundle = bundleOf("container_id" to amount)
+                                navController.navigate(R.id.action_navigation_locker_to_lockerDetailsFragment2, bundle)
                             }
                         })
 
-                    }else{
-                        Log.d("ResponseJSON", jsonResponse.toString())
+                    } else if (jsonResponse["success"] == false && jsonResponse["error"] == "Il n'existe pas de containers"){
+                        Toast.makeText(context, "No container registered", Toast.LENGTH_LONG).show()
+                    }
 
+                    else{
+                        Log.d("ResponseJSON", jsonResponse.toString())
+                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
                     }
                 }
             }, object : Response.ErrorListener {
@@ -120,11 +137,13 @@ class LockerFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<Button>(R.id.add_button).setOnClickListener(this)
+        view.findViewById<Button>(R.id.clear_all_button).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.add_button -> navController.navigate(R.id.action_navigation_locker_to_addLockerFragment)
+            R.id.clear_all_button -> context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
         }
     }
 }

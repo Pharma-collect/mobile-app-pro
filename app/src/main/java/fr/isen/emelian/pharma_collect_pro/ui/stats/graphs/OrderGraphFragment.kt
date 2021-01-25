@@ -106,7 +106,7 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
                         order.add(PieEntry(amount_finish, "Finish"))
 
                         val pieDataSet = PieDataSet(order, "Order")
-                        pieDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+                        pieDataSet.setColors(*ColorTemplate.PASTEL_COLORS)
                         pieDataSet.setDrawIcons(false)
                         pieDataSet.sliceSpace = 3f
                         pieDataSet.iconsOffset = MPPointF(0F, 40F)

@@ -45,7 +45,6 @@
         android:label="@string/title_locker"
         tools:layout="@layout/fragment_locker" >
 
-
         <action
             android:id="@+id/action_navigation_locker_to_addLockerFragment"
             app:destination="@id/addLockerFragment"
@@ -150,6 +149,8 @@
             app:destination="@id/pendingPresFragment"
             app:popEnterAnim="@anim/slide_in_left"
             app:enterAnim="@anim/slide_in_right"/>
+
+
     </fragment>
     <fragment
         android:id="@+id/pendingPresFragment"
@@ -164,7 +165,12 @@
         android:id="@+id/lockerDetailsFragment"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.locker.actions.LockerDetailsFragment"
         android:label="fragment_locker_details"
-        tools:layout="@layout/fragment_locker_details" />
+        tools:layout="@layout/fragment_locker_details">
+
+        <argument android:name="container_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+        
+    </fragment>
     <fragment
         android:id="@+id/addLockerFragment"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.locker.actions.AddLockerFragment"

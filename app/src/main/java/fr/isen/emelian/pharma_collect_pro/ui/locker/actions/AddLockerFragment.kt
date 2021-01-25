@@ -11,11 +11,15 @@ import android.widget.NumberPicker
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import fr.isen.emelian.pharma_collect_pro.R
+import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
 
 class AddLockerFragment : Fragment(), View.OnClickListener {
 
     private lateinit var amount: String
     private lateinit var navController: NavController
+
+    private val lockerRepository: LockerRepository =
+        LockerRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,6 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
         pickerAmount.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener {
             override fun onValueChange(p0: NumberPicker?, p1: Int, p2: Int) {
                 amount = p2.toString()
-                Log.d("aaaaaaaaa", amount)
             }
         })
 
@@ -43,11 +46,13 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<Button>(R.id.cancel_locker_btn).setOnClickListener(this)
+        view.findViewById<Button>(R.id.add_locker_btn).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.cancel_locker_btn -> activity?.onBackPressed()
+            R.id.add_locker_btn -> context?.let { lockerRepository.addContainer(amount, it) }
         }
     }
 

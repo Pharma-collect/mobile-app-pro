@@ -13,6 +13,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.isen.emelian.pharma_collect_pro.databinding.ActivityMainBinding
+import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
+import fr.isen.emelian.pharma_collect_pro.repository.UserRepository
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     lateinit var id: String
     private val fileService: FileService = FileService()
     var prefs: SharedPreferences? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,5 +75,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         val intent = Intent(this, SplashActivity::class.java)
         startActivity(intent)
     }
-
 }

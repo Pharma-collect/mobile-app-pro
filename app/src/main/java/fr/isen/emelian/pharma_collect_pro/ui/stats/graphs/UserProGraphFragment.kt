@@ -85,7 +85,7 @@ class UserProGraphFragment : Fragment(), View.OnClickListener {
                         users.add(BarEntry(2F, amount_admin))
 
                         val barDataSet = BarDataSet(users, "Users")
-                        barDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+                        barDataSet.setColors(*ColorTemplate.PASTEL_COLORS)
                         barDataSet.setDrawIcons(false)
                         barDataSet.iconsOffset = MPPointF(0F, 40F)
 
