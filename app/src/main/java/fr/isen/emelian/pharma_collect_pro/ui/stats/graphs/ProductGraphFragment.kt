@@ -78,7 +78,7 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
 
 
                         val barDataSet = BarDataSet(products, "Products")
-                        barDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+                        barDataSet.setColors(*ColorTemplate.PASTEL_COLORS)
                         barDataSet.setDrawIcons(false)
                         barDataSet.iconsOffset = MPPointF(0F, 40F)
 

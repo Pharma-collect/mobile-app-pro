@@ -20,9 +20,9 @@
             android:layout_gravity="bottom"
             app:fabCradleMargin="10dp"
             app:fabCradleRoundedCornerRadius="10dp"
-            android:backgroundTint="#fff"
-            app:titleTextColor="#6E6E6E"
-            app:subtitleTextColor="#6E6E6E"
+            android:backgroundTint="#0E3C99"
+            app:titleTextColor="#fff"
+            app:subtitleTextColor="#fff"
             app:fabCradleVerticalOffset="10dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,8 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                app:itemRippleColor="#0E3C72"
-                app:itemTextColor="#0E3C72"
+                app:itemRippleColor="#fff"
+                app:itemTextColor="#fff"
                 android:background="@android:color/transparent"
                 app:menu="@menu/bottom_nav_menu" />
 

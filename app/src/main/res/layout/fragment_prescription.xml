@@ -42,7 +42,7 @@
             android:id="@+id/header_home"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/shape_four">
 
             <ImageView
@@ -108,7 +108,7 @@
             android:id="@+id/layout_prescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="230dp"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -122,7 +122,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/to_do_layout_card_view"
                     android:layout_width="200dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -154,13 +154,6 @@
                             android:textColor="#6E6E6E"
                             android:textStyle="bold" />
 
-                        <View
-                            android:id="@+id/to_do_layout_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="#fff" />
-
                         <TextView
                             android:id="@+id/to_do_layout_tv_waiting"
                             android:layout_width="wrap_content"
@@ -177,7 +170,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/in_progress_layout_card_view"
                     android:layout_width="100dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -209,13 +202,6 @@
                             android:textStyle="bold"
                             android:textColor="#6E6E6E"/>
 
-                        <View
-                            android:id="@+id/in_progress_layout_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="#fff" />
-
                         <TextView
                             android:id="@+id/in_progress_layout_tv_waiting"
                             android:layout_width="wrap_content"
@@ -241,7 +227,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/all_layout_card_view"
                     android:layout_width="100dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -273,12 +259,6 @@
                             android:textColor="#6E6E6E"
                             android:textStyle="bold" />
 
-                        <View
-                            android:id="@+id/all_layout_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="#fff" />
 
                         <TextView
                             android:id="@+id/all_layout_tv_amount"
@@ -296,7 +276,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/done_layout_card_view"
                     android:layout_width="200dp"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -327,13 +307,6 @@
                             android:text="@string/finish"
                             android:textColor="#6E6E6E"
                             android:textStyle="bold" />
-
-                        <View
-                            android:id="@+id/done_layout_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="#fff" />
 
                         <TextView
                             android:id="@+id/done_layout_tv_amount"

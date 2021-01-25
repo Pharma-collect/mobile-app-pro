@@ -177,9 +177,11 @@
 
                 <Button
                     android:id="@+id/update_pharma_btn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/ic_baseline_edit_24"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_edit_24"
+                    android:backgroundTint="@color/white" />
+
 
             </LinearLayout>
 

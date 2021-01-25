@@ -21,7 +21,6 @@ class PharmacyFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentPharmacyBinding
     private lateinit var navController: NavController
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,5 +82,4 @@ class PharmacyFragment : Fragment(), View.OnClickListener {
             R.id.update_pharma_btn -> navController.navigate(R.id.action_navigation_pharmacy_to_navigation_update)
         }
     }
-
 }
