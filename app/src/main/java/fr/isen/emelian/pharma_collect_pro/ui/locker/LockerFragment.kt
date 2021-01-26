@@ -143,7 +143,12 @@ class LockerFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.add_button -> navController.navigate(R.id.action_navigation_locker_to_addLockerFragment)
-            R.id.clear_all_button -> context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
+            R.id.clear_all_button -> changeFragmentAfterAllDeletion()
         }
+    }
+
+    fun changeFragmentAfterAllDeletion(){
+        context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
+        navController.navigate(R.id.action_locker_nav_to_locker_nav)
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -179,8 +180,8 @@
                     android:id="@+id/update_pharma_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/ic_baseline_edit_24"
-                    android:backgroundTint="@color/white" />
+                    android:background="@android:color/transparent"
+                    app:icon="@drawable/ic_baseline_edit_24" />
 
 
             </LinearLayout>

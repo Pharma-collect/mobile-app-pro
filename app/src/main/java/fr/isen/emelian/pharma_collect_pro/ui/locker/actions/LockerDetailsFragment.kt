@@ -132,12 +132,20 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.cancel_btn -> activity?.onBackPressed()
-            R.id.update_btn -> context?.let { lockerRepository.updateContainer(selected, amount, it) }
-            R.id.delete_btn -> context?.let { lockerRepository.deleteContainer(amount, it) }
+            R.id.update_btn -> changeFragmentAfterUpdate()
+            R.id.delete_btn -> changeFragmentAfterDeletion()
         }
     }
 
+    fun changeFragmentAfterDeletion(){
+        context?.let { lockerRepository.deleteContainer(amount, it) }
+        activity?.onBackPressed()
+    }
 
+    fun changeFragmentAfterUpdate(){
+        context?.let { lockerRepository.updateContainer(selected, amount, it) }
+        activity?.onBackPressed()
+    }
 
 }
 

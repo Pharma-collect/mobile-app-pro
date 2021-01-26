@@ -1,18 +1,14 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="updateviewmodel"
-            type="fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update.UpdateViewModel" />
-    </data>
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="65dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="65dp"
         android:padding="30dp">
 
         <Button
@@ -101,4 +97,4 @@
     </LinearLayout>
 
 
-</layout>
+</FrameLayout>

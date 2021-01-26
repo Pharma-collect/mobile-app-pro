@@ -35,7 +35,6 @@ import java.io.File
 class LockerGraphFragment : Fragment(), View.OnClickListener {
 
     private lateinit var navController: NavController
-    private val fileService: FileService = FileService()
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private var myUser: User = User()
     lateinit var nb_container: MutableList<String>

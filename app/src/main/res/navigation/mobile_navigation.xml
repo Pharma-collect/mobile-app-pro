@@ -56,6 +56,14 @@
             app:destination="@id/lockerDetailsFragment"
             app:popEnterAnim="@anim/slide_in_left"
             app:enterAnim="@anim/slide_in_right"/>
+
+        <action
+            android:id="@+id/action_locker_nav_to_locker_nav"
+            app:destination="@id/navigation_locker"
+            app:popUpTo="@+id/navigation_locker"
+            app:popUpToInclusive="true"/>
+
+
     </fragment>
 
     <fragment

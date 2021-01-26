@@ -15,7 +15,7 @@ import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
 
 class AddLockerFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var amount: String
+    private var amount: String = "1"
     private lateinit var navController: NavController
 
     private val lockerRepository: LockerRepository =
@@ -52,8 +52,13 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.cancel_locker_btn -> activity?.onBackPressed()
-            R.id.add_locker_btn -> context?.let { lockerRepository.addContainer(amount, it) }
+            R.id.add_locker_btn -> changeFragmentAfterAddition()
         }
+    }
+
+    fun changeFragmentAfterAddition(){
+        context?.let { lockerRepository.addContainer(amount, it) }
+        activity?.onBackPressed()
     }
 
 }

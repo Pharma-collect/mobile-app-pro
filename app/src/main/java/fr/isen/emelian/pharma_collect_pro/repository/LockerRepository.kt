@@ -1,20 +1,21 @@
 package fr.isen.emelian.pharma_collect_pro.repository
 
 import android.content.Context
-import android.content.Intent
+import android.view.View
 import android.widget.Toast
+import androidx.navigation.NavController
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
-import fr.isen.emelian.pharma_collect_pro.MainActivity
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 import org.json.JSONObject
 
 class LockerRepository {
 
+    private lateinit var navController: NavController
     var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val fileService: FileService =
         FileService()
@@ -33,7 +34,7 @@ class LockerRepository {
                         Toast.makeText(context, amount + " container has been created", Toast.LENGTH_LONG).show()
 
                     }else{
-                        Toast.makeText(context, "Wrong username or password", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Failed to create containers", Toast.LENGTH_LONG).show()
                     }
                 }
             }, object : Response.ErrorListener {
@@ -60,7 +61,11 @@ class LockerRepository {
         requestQueue.add(stringRequest)
     }
 
-    fun updateContainer(status: String, containerId: String, context: Context) {
+    fun updateContainer(
+        status: String,
+        containerId: String,
+        context: Context
+    ) {
         myUser = fileService.getData(context)
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/container/updateContainer"
@@ -71,9 +76,10 @@ class LockerRepository {
                     if (jsonResponse["success"] == true) {
 
                         Toast.makeText(context, "Container successfully updated", Toast.LENGTH_LONG).show()
+                        
 
                     }else{
-                        Toast.makeText(context, "Wrong username or password", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Failed to udate container", Toast.LENGTH_LONG).show()
                     }
                 }
             }, object : Response.ErrorListener {
@@ -176,3 +182,4 @@ class LockerRepository {
         requestQueue.add(stringRequest)
     }
 }
+

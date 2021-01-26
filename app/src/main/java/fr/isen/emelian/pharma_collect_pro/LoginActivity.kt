@@ -30,10 +30,10 @@ class LoginActivity : AppCompatActivity() {
 
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
-        //repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
-        if(etUsername.text.toString() == "" && etPassword.text.toString() == ""){
+        repository.logRequest(etUsername.text.toString(), etPassword.text.toString(), this@LoginActivity)
+        /*if(etUsername.text.toString() == "" && etPassword.text.toString() == ""){
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             this@LoginActivity.startActivity(intent)
-        }
+        }*/
     }
 }
