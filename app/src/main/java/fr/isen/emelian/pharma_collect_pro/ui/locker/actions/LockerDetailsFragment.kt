@@ -51,7 +51,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         val root = inflater.inflate(R.layout.fragment_locker_details, container, false)
 
         var pickerState: NumberPicker = root.findViewById(R.id.picker)
-        amount = id_container!!.id.toString()
+        amount = id_container.id.toString()
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
@@ -106,6 +106,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
                         return params
                     }
                 }
+        requestQueue.cache.clear()
         requestQueue.add(stringRequest)
 
 

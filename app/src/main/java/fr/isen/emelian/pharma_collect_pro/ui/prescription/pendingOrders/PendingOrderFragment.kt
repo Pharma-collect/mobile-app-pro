@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Request
@@ -17,10 +15,13 @@ import com.android.volley.Response
 import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
+import com.hitomi.cmlibrary.OnMenuSelectedListener
 import fr.isen.emelian.pharma_collect_pro.R
+import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import org.json.JSONObject
 import java.io.File
+import java.math.BigDecimal
 
 
 class PendingOrderFragment : Fragment(), View.OnClickListener {
@@ -58,16 +59,29 @@ class PendingOrderFragment : Fragment(), View.OnClickListener {
                         for (i in 0 until jsonArray.length()) {
                             val item = jsonArray.getJSONObject(i)
                             if(item["id_prescription"].toString() == "null" && item["status"].toString() == "pending") {
-                                listPrescription.add("Order id : " + item["id"].toString())
+                                listPrescription.add(item["id"].toString())
                             }
                         }
 
                         val adapter: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescription) }
                         var list_id: ListView = view.findViewById(fr.isen.emelian.pharma_collect_pro.R.id.order_list)
                         list_id.adapter = adapter
+                        list_id.setOnItemClickListener(object: AdapterView.OnItemClickListener {
+                            override fun onItemClick(
+                                p0: AdapterView<*>?,
+                                p1: View?,
+                                p2: Int,
+                                p3: Long
+                            ) {
+                                val id = IDs(BigDecimal(listPrescription[p2]))
+                                val bundle = bundleOf("order_id" to id)
+                                navController.navigate(R.id.action_pendingOrderFragment_to_detailOrderFragment, bundle)
+                            }
+
+                        })
 
                     }else{
-                        Log.d("ResponseJSON", jsonResponse.toString())
+                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
                     }
                 }
             }, object : Response.ErrorListener {

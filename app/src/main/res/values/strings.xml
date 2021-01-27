@@ -140,7 +140,7 @@
 
     <!-- String Prescription pending -->
     <string name="list_pres">List of pending prescriptions</string>
-    <string name="list_order">List of pending orders</string>
+    <string name="list_order">List of pending orders IDs</string>
     <string name="list_product">List of products :</string>
     <string name="detail">Order detail :</string>
     <string name="total_price">Total price :</string>
