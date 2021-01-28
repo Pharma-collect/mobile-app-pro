@@ -53,7 +53,7 @@ class PendingPresFragment : Fragment(), View.OnClickListener {
 
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
-                        if(item["id_prescription"].toString() != "null" && item["status"].toString() == "pending") {
+                        if(item["id_prescription"].toString() != "null" && item["status"].toString() == "container") {
                             listPrescription.add(item["id"].toString())
                         }
                     }

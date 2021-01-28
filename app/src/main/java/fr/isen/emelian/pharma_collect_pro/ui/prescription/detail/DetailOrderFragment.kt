@@ -27,7 +27,6 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
     private val orderRepository: OrderRepository =
         OrderRepository()
-    //var client: String = ""
     private lateinit var order_id: String
 
     @SuppressLint("UseRequireInsteadOfGet")

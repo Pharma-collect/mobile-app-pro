@@ -144,7 +144,7 @@
         tools:layout="@layout/fragment_user_pro_graph" />
     <fragment
         android:id="@+id/choiceTypeFragment"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders.ChoiceTypeFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.ChoiceTypeFragment"
         android:label="fragment_choice_type"
         tools:layout="@layout/fragment_choice_type" >
         <action
@@ -220,6 +220,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:enterAnim="@anim/slide_in_right"/>
         <argument android:name="order_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+        <argument android:name="prescription_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
     </fragment>
     <fragment

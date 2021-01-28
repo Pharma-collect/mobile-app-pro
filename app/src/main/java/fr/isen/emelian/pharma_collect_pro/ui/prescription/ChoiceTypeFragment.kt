@@ -1,4 +1,4 @@
-package fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders
+package fr.isen.emelian.pharma_collect_pro.ui.prescription
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

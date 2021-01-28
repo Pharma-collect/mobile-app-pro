@@ -22,11 +22,8 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
     var myUser: User = User()
     var idOrder: String = ""
 
-    private val detailOrderFragment: DetailOrderFragment = DetailOrderFragment()
     private val context = getApplication<Application>().applicationContext
     private val fileService: FileService = FileService()
-
-    private lateinit var client: String
 
     private val _orderID = MutableLiveData<String>().apply { value = "Order ID : " }
     private val _clientID = MutableLiveData<String>().apply { value = "Client ID  : " }
@@ -67,7 +64,7 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
                         _clientID.value = data["id_client"].toString()
                         _statusOrder.value = "Current status : " + data["status"]
                         _detailText.value = data["detail"].toString()
-                        _totalPrice.value = "Total price : " + data["total_price"]
+                        _totalPrice.value = "Total price : " + data["total_price"] + "€"
 
                     }else{
 
