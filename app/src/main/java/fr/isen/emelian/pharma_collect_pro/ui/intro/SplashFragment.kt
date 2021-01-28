@@ -10,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
-import fr.isen.emelian.pharma_collect_pro.MainActivity
 import fr.isen.emelian.pharma_collect_pro.R
-
 
 class SplashFragment : Fragment() {
 
@@ -20,9 +18,7 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         Handler().postDelayed({
-
             if(onBoardingFinished()){
                 val intent = Intent(context, LoginActivity::class.java)
                 context?.startActivity(intent)

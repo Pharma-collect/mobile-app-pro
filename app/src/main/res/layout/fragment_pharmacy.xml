@@ -239,7 +239,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@{pharmaviewmodel.road_nb}"
+                        android:text="@{pharmaviewmodel.roadNb}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 
@@ -248,7 +248,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6E6E"
-                        android:text="@{pharmaviewmodel.road_name}"
+                        android:text="@{pharmaviewmodel.roadName}"
                         android:textSize="18sp"
                         android:textStyle="normal"/>
 

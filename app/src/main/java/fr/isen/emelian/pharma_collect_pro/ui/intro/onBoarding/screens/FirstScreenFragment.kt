@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
@@ -32,13 +31,16 @@ class FirstScreenFragment : Fragment() {
         view.skip.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             context?.startActivity(intent)
-            onBoradingFinished()
+            onBoardingFinished()
         }
 
         return view
     }
 
-    private fun onBoradingFinished(){
+    /**
+     * Function which change the share pref if the on boarding is finished or skip
+     */
+    private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("Finished", true)

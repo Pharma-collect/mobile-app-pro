@@ -2,7 +2,6 @@ package fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,24 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import fr.isen.emelian.pharma_collect_pro.MainActivity
 import fr.isen.emelian.pharma_collect_pro.R
-import fr.isen.emelian.pharma_collect_pro.dataClass.Pharmacy
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import fr.isen.emelian.pharma_collect_pro.services.FileService
-import fr.isen.emelian.pharma_collect_pro.ui.home.HomeViewModel
-import kotlinx.coroutines.delay
 import org.json.JSONObject
 import java.io.File
 
@@ -59,32 +49,32 @@ class UpdateFragment : Fragment(), View.OnClickListener {
             myUser.token = jsonObject.optString("token")
         }
 
+        /**
+         * Get current pharmacy information
+         */
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/pharmacy/getPharmacyById"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                @SuppressLint("SetTextI18n")
-                override fun onResponse(response: String?) {
-                    var jsonResponse: JSONObject = JSONObject(response)
-                    Log.d("PharmaInfo", response.toString())
-                    if (jsonResponse["success"] == true) {
-                        var data = JSONObject(jsonResponse.get("result").toString())
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
 
-                        pharmaName.setText(data["name"].toString())
-                        pharmaPhone.setText("0" + data["phone"].toString())
-                        pharmaRoadNb.setText(data["road_nb"].toString())
-                        pharmaRoad.setText(data["road"].toString())
-                        pharmaCity.setText(data["city"].toString())
-                        pharmaPostcode.setText(data["post_code"].toString())
+                    pharmaName.setText(data["name"].toString())
+                    pharmaPhone.setText("0" + data["phone"].toString())
+                    pharmaRoadNb.setText(data["road_nb"].toString())
+                    pharmaRoad.setText(data["road"].toString())
+                    pharmaCity.setText(data["city"].toString())
+                    pharmaPostcode.setText(data["post_code"].toString())
 
-                    }else{
-                        Log.d("ResponseJSON", jsonResponse.toString())
-                    }
+                }else{
+                    Log.d("ResponseJSON", jsonResponse.toString())
                 }
-            }, object : Response.ErrorListener {
-                override fun onErrorResponse(error: VolleyError) {
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                        .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -119,7 +109,11 @@ class UpdateFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun update() {
+    /**
+     * Function which update into the database the pharmacy information
+     * It will take the modified fields
+     */
+    private fun update() {
         val phone = view?.findViewById<EditText>(R.id.pharma_phone_update)?.text
         val name = view?.findViewById<EditText>(R.id.pharma_name_update)?.text
         val road = view?.findViewById<EditText>(R.id.pharma_road_update)?.text
@@ -137,21 +131,18 @@ class UpdateFragment : Fragment(), View.OnClickListener {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/pharmacy/updatePharmacy"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                override fun onResponse(response: String?) {
-                    var jsonResponse: JSONObject = JSONObject(response)
-                    if (jsonResponse["success"] == true) {
-                        Toast.makeText(context, "Pharmacy successfully updated", Toast.LENGTH_LONG).show()
-                        val intent = Intent(context, MainActivity::class.java)
-                        context?.startActivity(intent)
-                    }else{
-                        Toast.makeText(context, "Failed to update pharmacy", Toast.LENGTH_LONG).show()
-                    }
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                if (jsonResponse["success"] == true) {
+                    Toast.makeText(context, "Pharmacy successfully updated", Toast.LENGTH_LONG).show()
+                    val intent = Intent(context, MainActivity::class.java)
+                    context?.startActivity(intent)
+                }else{
+                    Toast.makeText(context, "Failed to update pharmacy", Toast.LENGTH_LONG).show()
                 }
-            }, object : Response.ErrorListener {
-                override fun onErrorResponse(error: VolleyError) {
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                        .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()

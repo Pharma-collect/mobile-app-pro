@@ -47,6 +47,4 @@ class StatsFragment : Fragment(), View.OnClickListener {
             R.id.button_pie_user_pro -> navController.navigate(R.id.action_navigation_shop_to_userProGraphFragment)
         }
     }
-
-
 }

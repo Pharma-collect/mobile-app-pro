@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="65dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <Button
             android:id="@+id/back_pres_button"

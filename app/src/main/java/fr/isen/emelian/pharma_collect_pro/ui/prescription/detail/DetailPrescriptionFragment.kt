@@ -13,9 +13,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.R
@@ -64,37 +62,34 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderById"
         val stringRequest: StringRequest =
-                object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                    @SuppressLint("SetTextI18n")
-                    override fun onResponse(response: String?) {
-                        var jsonResponse: JSONObject = JSONObject(response)
-                        Log.d("PharmaInfo", response.toString())
-                        if (jsonResponse["success"] == true) {
-                            var data = JSONObject(jsonResponse.get("result").toString())
-                            val orderID: TextView = root.findViewById(R.id.id_order)
-                            val clientID: TextView = root.findViewById(R.id.id_client)
-                            val statusOrder: TextView = root.findViewById(R.id.status_order)
-                            val detailText: TextView = root.findViewById(R.id.detail_text)
-                            val totalPrice: TextView = root.findViewById(R.id.total_price)
+                @SuppressLint("SetTextI18n")
+                object : StringRequest(Method.POST, url, Response.Listener<String> {
+                    val jsonResponse = JSONObject(it)
+                    Log.d("PharmaInfo", it.toString())
+                    if (jsonResponse["success"] == true) {
+                        val data = JSONObject(jsonResponse.get("result").toString())
+                        val orderID: TextView = root.findViewById(R.id.id_order)
+                        val clientID: TextView = root.findViewById(R.id.id_client)
+                        val statusOrder: TextView = root.findViewById(R.id.status_order)
+                        val detailText: TextView = root.findViewById(R.id.detail_text)
+                        val totalPrice: TextView = root.findViewById(R.id.total_price)
 
-                            orderID.text = "ID : " + data["id"]
-                            clientID.text = "Client id : " + data["id_client"]
-                            statusOrder.text = "Current status : " + data["status"]
-                            detailText.text = data["detail"].toString()
-                            totalPrice.text = "Total price : " + data["total_price"]
+                        orderID.text = "ID : " + data["id"]
+                        clientID.text = "Client id : " + data["id_client"]
+                        statusOrder.text = "Current status : " + data["status"]
+                        detailText.text = data["detail"].toString()
+                        totalPrice.text = "Total price : " + data["total_price"]
 
-                            client = data["id_client"].toString()
+                        client = data["id_client"].toString()
 
-                        }else{
+                    }else{
 
-                            Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
 
-                        }
                     }
-                }, object : Response.ErrorListener {
-                    override fun onErrorResponse(error: VolleyError) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                    }
+                }, Response.ErrorListener { error ->
+                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                            .show()
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()
@@ -128,7 +123,7 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun switchToClientInfo() {
+    private fun switchToClientInfo() {
         val id = IDs(BigDecimal(client))
         val bundle = bundleOf("client_id" to id)
         navController.navigate(R.id.action_detailPrescriptionFragment_to_detailClientFragment, bundle)

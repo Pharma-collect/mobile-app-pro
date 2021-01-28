@@ -12,7 +12,6 @@ import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
 import kotlinx.android.synthetic.main.fragment_third_screen.view.*
 
-
 class ThirdScreenFragment : Fragment() {
 
 
@@ -36,13 +35,16 @@ class ThirdScreenFragment : Fragment() {
         view.skip3.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             context?.startActivity(intent)
-            onBoradingFinished()
+            onBoardingFinished()
         }
 
         return view
     }
 
-    private fun onBoradingFinished(){
+    /**
+     * Function which change the share pref if the on boarding is finished or skip
+     */
+    private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("Finished", true)

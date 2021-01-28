@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="30dp"
-        android:layout_marginBottom="65dp">
+        android:layout_marginBottom="65dp"
+        tools:ignore="UselessParent">
 
         <Button
             android:id="@+id/cancel_locker_btn"
@@ -49,7 +50,7 @@
                 android:gravity="center"
                 android:layout_marginTop="30dp"
                 android:text="@string/amount_select"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <NumberPicker
                 android:id="@+id/picker_amount"

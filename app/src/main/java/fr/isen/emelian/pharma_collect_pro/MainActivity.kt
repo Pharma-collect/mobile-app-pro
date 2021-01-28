@@ -13,8 +13,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.isen.emelian.pharma_collect_pro.databinding.ActivityMainBinding
-import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
-import fr.isen.emelian.pharma_collect_pro.repository.UserRepository
 import fr.isen.emelian.pharma_collect_pro.services.FileService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -36,8 +34,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         val fab : View = findViewById(R.id.fab)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.navigation_home, R.id.navigation_locker, R.id.navigation_prescription, R.id.navigation_shop, R.id.navigation_pharmacy))
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -55,7 +52,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
     }
 
-
+    /**
+     * When logout is clicked, it will disconnect and delete cache files
+     */
     fun onButtonLogoutClicked(view: View) {
         val deleteResponse = fileService.deleteData(this)
         if(deleteResponse.equals(true)){
@@ -68,6 +67,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
     }
 
+    /**
+     * This function is actualy not used
+     * Maybe on a next version it will be implement
+     */
     fun onButtonHelpClicked(view: View) {
         val editor = prefs!!.edit()
         editor.putBoolean("Finished", false)

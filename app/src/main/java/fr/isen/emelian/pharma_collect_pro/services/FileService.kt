@@ -1,23 +1,21 @@
 package fr.isen.emelian.pharma_collect_pro.services
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import fr.isen.emelian.pharma_collect_pro.ui.home.HomeFragment
 import org.json.JSONObject
 import java.io.File
 
 class FileService {
 
-    /*
+    /**
      * INFORMATION : To find file : "Device File Explorer" --> data/data/fr.isen.emelian ../cacheData_user.json
      */
 
     var user: User = User()
 
-    /*
-     * Write a cache file with user informations.
+    /**
+     * Write a cache file with user informations
      */
     fun saveData(id: String, username: String, pharmaId: String, pharmaName: String, token: String, context: Context){
         if(id.isNotEmpty() && username.isNotEmpty() && pharmaId.isNotEmpty() && token.isNotEmpty()){
@@ -29,8 +27,8 @@ class FileService {
         }
     }
 
-    /*
-     * Read a cache file with user informations.
+    /**
+     * Read a cache file with user informations
      */
     fun getData(context: Context): User {
         val datas: String = File(context.cacheDir.absolutePath + "Data_user.json").readText()
@@ -45,12 +43,11 @@ class FileService {
         return user
     }
 
-    /*
-     * Delete a cache file when deconnection.
+    /**
+     * Delete a cache file when disconnect from the app
      */
     fun deleteData(context: Context): Boolean {
         val file = File(context.cacheDir.absolutePath + "Data_user.json")
-        val response = file.deleteRecursively()
-        return response
+        return file.deleteRecursively()
     }
 }

@@ -6,9 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
@@ -18,7 +16,6 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
-
 
 class PrescriptionViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
@@ -60,27 +57,24 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    /*
-     get All orders of a pharmacy
+    /**
+     * get all orders of a pharmacy
      */
-    fun getOrderInfo(idUser: String, idPharma: String) {
+    private fun getOrderInfo(idUser: String, idPharma: String) {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderByPharmacy"
         val stringRequest: StringRequest =
-                object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                    override fun onResponse(response: String?) {
-                        var jsonResponse: JSONObject = JSONObject(response)
-                        if (jsonResponse["success"] == true) {
-                            var jsonArray = jsonResponse.optJSONArray("result")
-                            getOrders(jsonArray, idUser)
-                        }else{
-                            Log.d("ResponseJSON", jsonResponse.toString())
-                        }
+                object : StringRequest(Method.POST, url, Response.Listener<String> {
+                    val jsonResponse = JSONObject(it)
+                    if (jsonResponse["success"] == true) {
+                        val jsonArray = jsonResponse.optJSONArray("result")
+                        getOrders(jsonArray, idUser)
+                    }else{
+                        Log.d("ResponseJSON", jsonResponse.toString())
                     }
-                }, object : Response.ErrorListener {
-                    override fun onErrorResponse(error: VolleyError) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                    }
+                }, Response.ErrorListener { error ->
+                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                            .show()
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()
@@ -88,16 +82,19 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
                         params["Authorization"] = fileService.getData(context).token.toString()
                         return params
                     }
-
                     override fun getParams(): MutableMap<String, String>? {
                         val params: MutableMap<String, String> = HashMap()
                         params["pharmacy_id"] = idPharma
                         return params
                     }
                 }
+        requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }
 
+    /**
+     * Get the amount of order for every state
+     */
     fun getOrders(jsonArray: JSONArray, id: String){
         var pending = 0
         var finish = 0

@@ -12,9 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.R
@@ -33,8 +31,7 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private lateinit var client_id: String
-    private val myUser: User =
-        User()
+    private val myUser: User = User()
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,44 +54,44 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
             myUser.token = jsonObject.optString("token")
         }
 
+        /**
+         * Get client information by id for the clien sheet
+         */
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/user_client/getUserClientById"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                @SuppressLint("SetTextI18n")
-                override fun onResponse(response: String?) {
-                    var jsonResponse: JSONObject = JSONObject(response)
-                    Log.d("PharmaInfo", response.toString())
-                    if (jsonResponse["success"] == true) {
-                        var data = JSONObject(jsonResponse.get("result").toString())
-                        val username: TextView = root.findViewById(R.id.client_username)
-                        val clientID: TextView = root.findViewById(R.id.client_id)
-                        val firstname: TextView = root.findViewById(R.id.client_firstname)
-                        val lastname: TextView = root.findViewById(R.id.client_lastname)
-                        val dob: TextView = root.findViewById(R.id.client_dob)
-                        val age: TextView = root.findViewById(R.id.client_age)
-                        val phone: TextView = root.findViewById(R.id.client_phone)
-                        val mail: TextView = root.findViewById(R.id.client_mail)
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> { response ->
+                val jsonResponse = JSONObject(response)
+                Log.d("PharmaInfo", response.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+                    val username: TextView = root.findViewById(R.id.client_username)
+                    val clientID: TextView = root.findViewById(R.id.client_id)
+                    val firstname: TextView = root.findViewById(R.id.client_firstname)
+                    val lastname: TextView = root.findViewById(R.id.client_lastname)
+                    val dob: TextView = root.findViewById(R.id.client_dob)
+                    val age: TextView = root.findViewById(R.id.client_age)
+                    val phone: TextView = root.findViewById(R.id.client_phone)
+                    val mail: TextView = root.findViewById(R.id.client_mail)
 
-                        username.text = data["username"].toString()
-                        clientID.text = "Client ID : " + data["id"].toString()
-                        firstname.text = "Firstname : " + data["name"].toString()
-                        lastname.text = "Lastname : " + data["lastname"].toString()
-                        dob.text = "Date of birth : " + data["birth"].toString()
-                        phone.text = "Phone : " + data["phone"].toString()
-                        mail.text = "E-mail : " + data["mail"].toString()
-                        age.text = "Age : " + calculAge(data["birth"].toString()).toString()
+                    username.text = data["username"].toString()
+                    clientID.text = "Client ID : " + data["id"].toString()
+                    firstname.text = "Firstname : " + data["name"].toString()
+                    lastname.text = "Lastname : " + data["lastname"].toString()
+                    dob.text = "Date of birth : " + data["birth"].toString()
+                    phone.text = "Phone : " + data["phone"].toString()
+                    mail.text = "E-mail : " + data["mail"].toString()
+                    age.text = "Age : " + calculAge(data["birth"].toString()).toString()
 
-                    }else{
+                }else{
 
-                        Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
 
-                    }
                 }
-            }, object : Response.ErrorListener {
-                override fun onErrorResponse(error: VolleyError) {
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                        .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -111,7 +108,6 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
 
-
         return root
     }
 
@@ -127,14 +123,17 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun calculAge(date: String): Int {
+    /**
+     * Calcul the age with the date of birth
+     */
+    private fun calculAge(date: String): Int {
 
         var age = 0
 
         try {
-            val dates = SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).parse(date)
-            val today = Calendar.getInstance();
-            val birth = Calendar.getInstance();
+            val dates = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).parse(date)
+            val today = Calendar.getInstance()
+            val birth = Calendar.getInstance()
 
             birth.time = dates
 
@@ -161,5 +160,4 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
         }
         return age
     }
-
 }

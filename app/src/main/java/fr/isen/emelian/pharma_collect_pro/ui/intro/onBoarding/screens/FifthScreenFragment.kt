@@ -11,8 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
 import kotlinx.android.synthetic.main.fragment_fifth_screen.view.*
-import kotlinx.android.synthetic.main.fragment_first_screen.view.*
-import kotlinx.android.synthetic.main.fragment_second_screen.view.*
 
 class FifthScreenFragment : Fragment() {
 
@@ -36,13 +34,16 @@ class FifthScreenFragment : Fragment() {
         view.skip5.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             context?.startActivity(intent)
-            onBoradingFinished()
+            onBoardingFinished()
         }
 
         return view
     }
 
-    private fun onBoradingFinished(){
+    /**
+     * Function which change the share pref if the on boarding is finished or skip
+     */
+    private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("Finished", true)

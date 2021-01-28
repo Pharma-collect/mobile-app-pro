@@ -1,7 +1,6 @@
 package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,7 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
 
     private var amount: String = "1"
     private lateinit var navController: NavController
-
-    private val lockerRepository: LockerRepository =
-        LockerRepository()
+    private val lockerRepository: LockerRepository = LockerRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,16 +25,12 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_add_locker, container, false)
 
-        var pickerAmount: NumberPicker = root.findViewById(R.id.picker_amount)
+        val pickerAmount: NumberPicker = root.findViewById(R.id.picker_amount)
 
         pickerAmount.maxValue = 5
         pickerAmount.minValue = 1
 
-        pickerAmount.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener {
-            override fun onValueChange(p0: NumberPicker?, p1: Int, p2: Int) {
-                amount = p2.toString()
-            }
-        })
+        pickerAmount.setOnValueChangedListener { _, _, p2 -> amount = p2.toString() }
 
         return root
     }
@@ -56,7 +49,10 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun changeFragmentAfterAddition(){
+    /**
+     * Fragment switch back after addition of a locker
+     */
+    private fun changeFragmentAfterAddition(){
         context?.let { lockerRepository.addContainer(amount, it) }
         activity?.onBackPressed()
     }

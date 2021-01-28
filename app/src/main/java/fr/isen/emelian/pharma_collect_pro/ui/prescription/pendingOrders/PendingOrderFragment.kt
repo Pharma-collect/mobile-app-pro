@@ -48,46 +48,34 @@ class PendingOrderFragment : Fragment(), View.OnClickListener {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderByPharmacy"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                override fun onResponse(response: String?) {
-                    var jsonResponse: JSONObject = JSONObject(response)
-                    if (jsonResponse["success"] == true) {
-                        var jsonArray = jsonResponse.optJSONArray("result")
+            object : StringRequest(Method.POST, url, Response.Listener<String> { response ->
+                val jsonResponse = JSONObject(response)
+                if (jsonResponse["success"] == true) {
+                    val jsonArray = jsonResponse.optJSONArray("result")
+                    val listPrescription: MutableList<String> = ArrayList()
 
-                        val listPrescription: MutableList<String> = ArrayList()
-
-                        for (i in 0 until jsonArray.length()) {
-                            val item = jsonArray.getJSONObject(i)
-                            if(item["id_prescription"].toString() == "null" && item["status"].toString() == "pending") {
-                                listPrescription.add(item["id"].toString())
-                            }
+                    for (i in 0 until jsonArray.length()) {
+                        val item = jsonArray.getJSONObject(i)
+                        if(item["id_prescription"].toString() == "null" && item["status"].toString() == "pending") {
+                            listPrescription.add(item["id"].toString())
                         }
-
-                        val adapter: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescription) }
-                        var list_id: ListView = view.findViewById(fr.isen.emelian.pharma_collect_pro.R.id.order_list)
-                        list_id.adapter = adapter
-                        list_id.setOnItemClickListener(object: AdapterView.OnItemClickListener {
-                            override fun onItemClick(
-                                p0: AdapterView<*>?,
-                                p1: View?,
-                                p2: Int,
-                                p3: Long
-                            ) {
-                                val id = IDs(BigDecimal(listPrescription[p2]))
-                                val bundle = bundleOf("order_id" to id)
-                                navController.navigate(R.id.action_pendingOrderFragment_to_detailOrderFragment, bundle)
-                            }
-
-                        })
-
-                    }else{
-                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
                     }
+
+                    val adapter: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescription) }
+                    val list_id: ListView = view.findViewById(R.id.order_list)
+                    list_id.adapter = adapter
+                    list_id.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
+                        val id = IDs(BigDecimal(listPrescription[p2]))
+                        val bundle = bundleOf("order_id" to id)
+                        navController.navigate(R.id.action_pendingOrderFragment_to_detailOrderFragment, bundle)
+                    }
+
+                }else{
+                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
                 }
-            }, object : Response.ErrorListener {
-                override fun onErrorResponse(error: VolleyError) {
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                        .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -102,10 +90,8 @@ class PendingOrderFragment : Fragment(), View.OnClickListener {
                     return params
                 }
             }
-
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-
         return view
     }
 

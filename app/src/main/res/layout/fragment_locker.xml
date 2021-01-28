@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -70,7 +71,8 @@
                 android:textSize="15sp"
                 android:textColor="#fff"
                 app:icon="@drawable/ic_baseline_add_circle_24"
-                app:iconTint="#fff" />
+                app:iconTint="#fff"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/clear_all_button"
@@ -82,7 +84,8 @@
                 android:textColor="#fff"
                 app:icon="@drawable/ic_baseline_clear_all_24"
                 android:textSize="15sp"
-                app:iconTint="#fff" />
+                app:iconTint="#fff"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 

@@ -10,10 +10,7 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
-import kotlinx.android.synthetic.main.fragment_first_screen.view.*
 import kotlinx.android.synthetic.main.fragment_fourth_screen.view.*
-import kotlinx.android.synthetic.main.fragment_second_screen.view.*
-
 
 class FourthScreenFragment : Fragment() {
 
@@ -37,13 +34,16 @@ class FourthScreenFragment : Fragment() {
         view.skip4.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             context?.startActivity(intent)
-            onBoradingFinished()
+            onBoardingFinished()
         }
 
         return view
     }
 
-    private fun onBoradingFinished(){
+    /**
+     * Function which change the share pref if the on boarding is finished or skip
+     */
+    private fun onBoardingFinished(){
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("Finished", true)

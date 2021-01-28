@@ -13,9 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.error.VolleyError
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.R
@@ -29,12 +27,10 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
 
     private var selected: String = "0"
     private lateinit var navController: NavController
-    lateinit var id_container: IDs
-    private val lockerRepository: LockerRepository =
-            LockerRepository()
+    private lateinit var id_container: IDs
+    private val lockerRepository: LockerRepository = LockerRepository()
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
-    private val myUser: User =
-            User()
+    private val myUser: User = User()
     private lateinit var amount: String
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -50,7 +46,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_locker_details, container, false)
 
-        var pickerState: NumberPicker = root.findViewById(R.id.picker)
+        val pickerState: NumberPicker = root.findViewById(R.id.picker)
         amount = id_container.id.toString()
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
@@ -60,39 +56,38 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
             myUser.token = jsonObject.optString("token")
         }
 
+        /**
+         * Get container info with its id
+         */
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/container/getContainerById"
         val stringRequest: StringRequest =
-                object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                    @SuppressLint("SetTextI18n")
-                    override fun onResponse(response: String?) {
-                        var jsonResponse: JSONObject = JSONObject(response)
-                        Log.d("PharmaInfo", response.toString())
-                        if (jsonResponse["success"] == true) {
-                            var data = JSONObject(jsonResponse.get("result").toString())
-                            val containerNumber: TextView = root.findViewById(R.id.locker_number)
-                            val containerId: TextView = root.findViewById(R.id.locker_id)
-                            val containerState: TextView = root.findViewById(R.id.locker_state)
+                @SuppressLint("SetTextI18n")
+                object : StringRequest(Method.POST, url, Response.Listener<String> {
+                    val jsonResponse = JSONObject(it)
+                    Log.d("PharmaInfo", it.toString())
+                    if (jsonResponse["success"] == true) {
+                        val data = JSONObject(jsonResponse.get("result").toString())
+                        val containerNumber: TextView = root.findViewById(R.id.locker_number)
+                        val containerId: TextView = root.findViewById(R.id.locker_id)
+                        val containerState: TextView = root.findViewById(R.id.locker_state)
 
-                            containerNumber.text = "Locker number : " + data["container_number"].toString()
-                            containerId.text = "ID : " + data["id"].toString()
+                        containerNumber.text = "Locker number : " + data["container_number"].toString()
+                        containerId.text = "ID : " + data["id"].toString()
 
-                            if(data["status"].toString() == "0") {
-                                containerState.text = "Current status : Empty"
-                            } else {
-                                containerState.text = "Current status : Fill"
-                            }
-
-
-                        }else{
-                            Log.d("ResponseJSON", jsonResponse.toString())
-
+                        if(data["status"].toString() == "0") {
+                            containerState.text = "Current status : Empty"
+                        } else {
+                            containerState.text = "Current status : Fill"
                         }
+
+                    }else{
+                        Log.d("ResponseJSON", jsonResponse.toString())
+
                     }
-                }, object : Response.ErrorListener {
-                    override fun onErrorResponse(error: VolleyError) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show()
-                    }
+                }, Response.ErrorListener { error ->
+                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                            .show()
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()
@@ -109,15 +104,10 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
 
-
         pickerState.maxValue = 1
         pickerState.minValue = 0
 
-        pickerState.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener {
-            override fun onValueChange(p0: NumberPicker?, p1: Int, p2: Int) {
-                selected = p2.toString()
-            }
-        })
+        pickerState.setOnValueChangedListener { _, _, p2 -> selected = p2.toString() }
         return root
     }
 
@@ -138,12 +128,18 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun changeFragmentAfterDeletion(){
+    /**
+     * Fragment switch back after the deletion of a locker
+     */
+    private fun changeFragmentAfterDeletion(){
         context?.let { lockerRepository.deleteContainer(amount, it) }
         activity?.onBackPressed()
     }
 
-    fun changeFragmentAfterUpdate(){
+    /**
+     * Fragment switch back after the update of a locker
+     */
+    private fun changeFragmentAfterUpdate(){
         context?.let { lockerRepository.updateContainer(selected, amount, it) }
         activity?.onBackPressed()
     }
