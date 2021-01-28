@@ -221,8 +221,6 @@
             app:enterAnim="@anim/slide_in_right"/>
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
-        <argument android:name="prescription_id"
-            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
     </fragment>
     <fragment
         android:id="@+id/detailClientFragment"

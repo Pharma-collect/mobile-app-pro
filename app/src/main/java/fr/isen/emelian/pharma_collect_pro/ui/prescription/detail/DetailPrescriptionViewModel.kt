@@ -30,9 +30,8 @@ class DetailPrescriptionViewModel(application: Application) : AndroidViewModel(a
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     var myUser: User = User()
     var idOrder: String = ""
-    var idPrescription: String = ""
+    //var idPrescription: String = ""
 
-    val imageurl: String = ""
     private val context = getApplication<Application>().applicationContext
     private val fileService: FileService = FileService()
 
@@ -48,8 +47,6 @@ class DetailPrescriptionViewModel(application: Application) : AndroidViewModel(a
     val detailText: LiveData<String> = _detailText
     val totalPrice: LiveData<String> = _totalPrice
 
-    val PrescriptionIV: LiveData<ImageView> = TODO()
-
     init {
         launch {
             myUser = fileService.getData(context)
@@ -57,7 +54,7 @@ class DetailPrescriptionViewModel(application: Application) : AndroidViewModel(a
         }
 
         launch {
-            getPrescriptionURL(idPrescription)
+            //getPrescriptionURL(idPrescription)
         }
     }
 

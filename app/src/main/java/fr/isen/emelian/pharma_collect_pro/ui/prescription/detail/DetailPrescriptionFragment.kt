@@ -24,18 +24,17 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
     private lateinit var detailPrescriptionViewModel: DetailPrescriptionViewModel
 
     private lateinit var id_order: IDs
-    private lateinit var id_prescription: IDs
+    //private lateinit var id_prescription: IDs
     private lateinit var navController: NavController
     private val orderRepository: OrderRepository =
         OrderRepository()
     private lateinit var order_id: String
-    private lateinit var prescription_id: String
+    //private lateinit var prescription_id: String
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id_order = arguments!!.getParcelable("order_id")!!
-        id_prescription = arguments!!.getParcelable("prescription_id")!!
     }
 
     override fun onCreateView(
@@ -48,7 +47,7 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         val root = inflater.inflate(R.layout.fragment_detail_prescription, container, false)
 
         order_id = id_order.id.toString()
-        prescription_id = id_prescription.toString()
+        //prescription_id = id_prescription.toString()
 
         val orderID: TextView = root.findViewById(R.id.id_order)
         val clientID: TextView = root.findViewById(R.id.id_client)
@@ -65,7 +64,7 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         //detailPrescriptionViewModel.pre
 
         detailPrescriptionViewModel.idOrder = order_id
-        detailPrescriptionViewModel.idPrescription = prescription_id
+        //detailPrescriptionViewModel.idPrescription = prescription_id
 
         return root
     }
