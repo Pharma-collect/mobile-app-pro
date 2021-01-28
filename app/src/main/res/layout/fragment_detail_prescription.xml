@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.prescription.detail.DetailPrescriptionFragment">
-
-    <data>
-        <variable
-            name="detailprescriptionviewmodel"
-            type="fr.isen.emelian.pharma_collect_pro.ui.prescription.detail.DetailPrescriptionViewModel" />
-    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,7 +127,7 @@
                 android:textSize="20sp"/>
 
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/prescription_image_view"
                 android:layout_width="100dp"
                 android:layout_height="180dp"
@@ -141,8 +135,7 @@
                 android:padding="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/prescription_logo"
-                android:contentDescription="@string/prescription_logo"
-                app:imageUrl="@{detailprescriptionviewmodel.imageurl}"/>
+                android:contentDescription="@string/prescription_logo"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -187,4 +180,4 @@
 
     </LinearLayout>
 
-</layout>
+</FrameLayout>
