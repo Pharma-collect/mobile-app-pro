@@ -207,71 +207,6 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/shop_layout_card_view"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        app:cardCornerRadius="30dp"
-                        card_view:cardElevation="30dp">
-
-                        <LinearLayout
-                            android:id="@+id/shop_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:background="#fcfcfc"
-                            android:gravity="center">
-
-                            <ImageView
-                                android:id="@+id/shop_layout_iv"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cercle_background_green"
-                                android:src="@drawable/ic_baseline_query_stats_24"
-                                android:padding="13dp"
-                                android:contentDescription="@string/shop_logo"/>
-
-                            <TextView
-                                android:id="@+id/shop_layout_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginTop="10dp"
-                                android:textColor="#6E6E6E"
-                                android:text="@string/title_shop"/>
-
-                            <View
-                                android:id="@+id/shop_layout_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/cardview_light_background"
-                                android:layout_margin="10dp"/>
-
-                            <TextView
-                                android:id="@+id/shop_layout_tv_waiting"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:gravity="center"
-                                android:text="@string/stats"
-                                android:textColor="#6E6E6E"/>
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_home_middle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
                         android:id="@+id/pharma_layout_card_view"
                         android:layout_width="160dp"
                         android:layout_height="190dp"
@@ -321,6 +256,71 @@
                                 android:padding="5dp"
                                 android:gravity="center"
                                 android:text="@string/pharma_info"
+                                android:textColor="#6E6E6E"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_home_middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/shop_layout_card_view"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:cardCornerRadius="30dp"
+                        card_view:cardElevation="30dp">
+
+                        <LinearLayout
+                            android:id="@+id/shop_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="#fcfcfc"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/shop_layout_iv"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/cercle_background_green"
+                                android:src="@drawable/ic_baseline_query_stats_24"
+                                android:padding="13dp"
+                                android:contentDescription="@string/shop_logo"/>
+
+                            <TextView
+                                android:id="@+id/shop_layout_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:textColor="#6E6E6E"
+                                android:text="@string/title_shop"/>
+
+                            <View
+                                android:id="@+id/shop_layout_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/cardview_light_background"
+                                android:layout_margin="10dp"/>
+
+                            <TextView
+                                android:id="@+id/shop_layout_tv_waiting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:text="@string/stats"
                                 android:textColor="#6E6E6E"/>
 
                         </LinearLayout>
