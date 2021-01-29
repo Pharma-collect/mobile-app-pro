@@ -1,4 +1,4 @@
-package fr.isen.emelian.pharma_collect_pro.ui.prescription.detail
+package fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders
 
 import android.app.Application
 import android.util.Log
@@ -24,6 +24,7 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
 
     private val context = getApplication<Application>().applicationContext
     private val fileService: FileService = FileService()
+    //private lateinit var detailOrderFragment: DetailOrderFragment
 
     private val _orderID = MutableLiveData<String>().apply { value = "Order ID : " }
     private val _clientID = MutableLiveData<String>().apply { value = "Client ID  : " }
@@ -62,7 +63,11 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
 
                         _orderID.value = "ID : " + data["id"]
                         _clientID.value = data["id_client"].toString()
+                        if(data["status"].toString() == "pending"){
+
+                        }
                         _statusOrder.value = "Current status : " + data["status"]
+                        _statusOrder.value
                         _detailText.value = data["detail"].toString()
                         _totalPrice.value = "Total price : " + data["total_price"] + "€"
 

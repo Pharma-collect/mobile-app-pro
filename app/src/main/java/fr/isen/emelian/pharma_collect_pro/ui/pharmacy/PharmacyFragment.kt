@@ -52,8 +52,8 @@ class PharmacyFragment : Fragment(), View.OnClickListener {
         val user: TextView = root.findViewById(R.id.pharma_number_user)
 
         pharmaViewModel.name.observe(viewLifecycleOwner, Observer { name.text = it })
-        pharmaViewModel.roadName.observe(viewLifecycleOwner, Observer { road.text = it })
-        pharmaViewModel.roadNb.observe(viewLifecycleOwner, Observer { roadnb.text = it })
+        pharmaViewModel.road_name.observe(viewLifecycleOwner, Observer { road.text = it })
+        pharmaViewModel.road_nb.observe(viewLifecycleOwner, Observer { roadnb.text = it })
         pharmaViewModel.postcode.observe(viewLifecycleOwner, Observer { postcode.text = it })
         pharmaViewModel.city.observe(viewLifecycleOwner, Observer { city.text = it })
         pharmaViewModel.phone.observe(viewLifecycleOwner, Observer { phone.text = it })

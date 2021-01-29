@@ -25,32 +25,18 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
     private val context = getApplication<Application>().applicationContext
     private val fileService: FileService = FileService()
 
-    private val _currentUser = MutableLiveData<String>().apply { value = "Current user : " }
-    private val _idUser = MutableLiveData<String>().apply { value = "ID  : " }
-    private val _orderCurrent = MutableLiveData<String>().apply { value = "Order in charge" }
     private val _pending = MutableLiveData<String>().apply { value = "Amount : " }
     private val _ready = MutableLiveData<String>().apply { value = "Amount : " }
     private val _finish = MutableLiveData<String>().apply { value = "Amount : " }
     private val _container = MutableLiveData<String>().apply { value = "Amount : " }
 
 
-    val currentUser: LiveData<String> = _currentUser
-    val idUser: LiveData<String> = _idUser
-    val orderCurrent: LiveData<String> = _orderCurrent
     val pending: LiveData<String> = _pending
     val ready: LiveData<String> = _ready
     val finish: LiveData<String> = _finish
     val container: LiveData<String> = _container
 
     init {
-        //User information
-        launch {
-            myUser = fileService.getData(context)
-            _currentUser.value = "User : ${myUser.username}"
-            _idUser.value = "ID : ${myUser.id}"
-        }
-
-        //Orders information
         launch {
             myUser = fileService.getData(context)
             getOrderInfo(myUser.id.toString(), myUser.pharma_id.toString())
@@ -100,28 +86,19 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
         var finish = 0
         var ready = 0
         var container = 0
-        var assignee = 0
-        var all = 0
         for (i in 0 until jsonArray.length()) {
             val item = jsonArray.getJSONObject(i)
             if(item.optString("status").toString() == "pending") {
                 pending++
-                all++
             }
             if(item.optString("status").toString() == "ready") {
                 ready++
-                all++
             }
             if(item.optString("status").toString() == "finish") {
                 finish++
-                all++
             }
             if(item.optString("status").toString() == "container") {
                 container++
-                all++
-            }
-            if(item.optString("status").toString() == id) {
-                assignee++
             }
         }
         _pending.value = "Amount : $pending"
@@ -129,11 +106,6 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
         _finish.value = "Amount : $finish"
         _container.value = "Amount : $container"
 
-        if(assignee > 0){
-            _orderCurrent.value = "You have took in charge $assignee order(s). Click to see"
-        } else {
-            _orderCurrent.value = "You do not have any order in progress"
-        }
     }
 
 }

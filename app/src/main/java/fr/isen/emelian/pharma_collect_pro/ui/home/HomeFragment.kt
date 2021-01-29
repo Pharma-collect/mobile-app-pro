@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -51,6 +52,7 @@ class HomeFragment : Fragment(), View.OnClickListener{
         view.findViewById<CardView>(R.id.shop_layout_card_view).setOnClickListener(this)
         view.findViewById<CardView>(R.id.locker_layout_card_view).setOnClickListener(this)
         view.findViewById<CardView>(R.id.pharma_layout_card_view).setOnClickListener(this)
+        view.findViewById<ImageView>(R.id.pharma_user_info).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -60,6 +62,7 @@ class HomeFragment : Fragment(), View.OnClickListener{
             R.id.shop_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_shop)
             R.id.locker_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_locker)
             R.id.pharma_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_pharmacy)
+            R.id.pharma_user_info -> navController.navigate(R.id.action_navigation_home_to_userProfileFragment)
         }
     }
 }

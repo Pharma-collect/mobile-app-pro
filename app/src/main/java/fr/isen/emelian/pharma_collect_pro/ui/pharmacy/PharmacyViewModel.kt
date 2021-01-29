@@ -34,8 +34,8 @@ class PharmacyViewModel(application: Application) : AndroidViewModel(application
     val name: LiveData<String> = _name
     val city: LiveData<String> = _city
     val postcode: LiveData<String> = _postcode
-    val roadName: LiveData<String> = _road
-    val roadNb: LiveData<String> = _roadnb
+    val road_name: LiveData<String> = _road
+    val road_nb: LiveData<String> = _roadnb
     val phone: LiveData<String> = _phone
     val id: LiveData<String> = _id
     val shop: LiveData<String> = _shop

@@ -1,4 +1,4 @@
-package fr.isen.emelian.pharma_collect_pro.ui.prescription.detail
+package fr.isen.emelian.pharma_collect_pro.ui.prescription.detailClient
 
 import android.annotation.SuppressLint
 import android.os.Bundle

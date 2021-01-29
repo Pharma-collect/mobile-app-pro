@@ -20,7 +20,7 @@ import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
 
-class PendingPresFragment : Fragment(), View.OnClickListener {
+class PendingFragment : Fragment(), View.OnClickListener {
 
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private lateinit var navController: NavController
@@ -31,7 +31,7 @@ class PendingPresFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_pending_pres, container, false)
+        val view = inflater.inflate(R.layout.fragment_pending, container, false)
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
@@ -50,21 +50,34 @@ class PendingPresFragment : Fragment(), View.OnClickListener {
                     val jsonArray = jsonResponse.optJSONArray("result")
 
                     val listPrescription: MutableList<String> = ArrayList()
+                    val listOrders: MutableList<String> = ArrayList()
 
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_prescription"].toString() != "null" && item["status"].toString() == "pending") {
                             listPrescription.add(item["id"].toString())
                         }
+                        if(item["id_prescription"].toString() == "null" && item["status"].toString() == "pending") {
+                            listOrders.add(item["id"].toString())
+                        }
                     }
 
-                    val adapter: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescription) }
-                    val list_id: ListView = view.findViewById(R.id.pres_list)
-                    list_id.adapter = adapter
-                    list_id.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
+                    val adapterPres: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescription) }
+                    val listPres: ListView = view.findViewById(R.id.prescription_list_view)
+                    listPres.adapter = adapterPres
+                    listPres.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
                         val id = IDs(BigDecimal(listPrescription[p2]))
                         val bundle = bundleOf("order_id" to id)
-                        navController.navigate(R.id.action_pendingPresFragment_to_detailPrescriptionFragment, bundle)
+                        navController.navigate(R.id.action_pendingFragment_to_detailPrescriptionFragment, bundle)
+                    }
+
+                    val adapterOrder: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listOrders) }
+                    val listOrder: ListView = view.findViewById(R.id.order_list_view)
+                    listOrder.adapter = adapterOrder
+                    listOrder.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
+                        val id = IDs(BigDecimal(listOrders[p2]))
+                        val bundle = bundleOf("order_id" to id)
+                        navController.navigate(R.id.action_pendingFragment_to_detailOrderFragment, bundle)
                     }
 
                 }else{
@@ -72,7 +85,7 @@ class PendingPresFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -97,13 +110,12 @@ class PendingPresFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.back_pres_button).setOnClickListener(this)
+        view.findViewById<Button>(R.id.back_button).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.back_pres_button -> activity?.onBackPressed()
+            R.id.back_button -> activity?.onBackPressed()
         }
     }
 }
-

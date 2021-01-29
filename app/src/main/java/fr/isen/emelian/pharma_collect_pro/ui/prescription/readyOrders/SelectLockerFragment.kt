@@ -1,16 +1,15 @@
-package fr.isen.emelian.pharma_collect_pro.ui.locker
+package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Response
@@ -21,28 +20,23 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
+import fr.isen.emelian.pharma_collect_pro.ui.locker.LockerViewModel
 import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
 
-class LockerFragment : Fragment(), View.OnClickListener {
+class SelectLockerFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var lockerViewModel: LockerViewModel
     private lateinit var navController: NavController
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val myUser: User = User()
     private val lockerRepository: LockerRepository =
-            LockerRepository()
+        LockerRepository()
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        lockerViewModel =
-                ViewModelProvider(this).get(LockerViewModel::class.java)
-
-        val root = inflater.inflate(R.layout.fragment_locker, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val root = inflater.inflate(R.layout.fragment_select_locker, container, false)
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
@@ -54,35 +48,30 @@ class LockerFragment : Fragment(), View.OnClickListener {
         val circleMenu: CircleMenu = root.findViewById(R.id.circle_menu)
 
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/container/getContainerByPharmacy"
+        val url = "$backUrl/container/getEmptyContainerByPharmacy"
         val stringRequest: StringRequest =
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == true) {
                     val jsonArray = jsonResponse.optJSONArray("result")
                     val listNumber : MutableList<String> = ArrayList()
-                    val listStatus : MutableList<String> = ArrayList()
                     if(jsonArray != null) {
                         for (i in 0 until jsonArray.length()) {
                             val item = jsonArray.getJSONObject(i)
                             listNumber.add(item["id"].toString())
-                            listStatus.add(item["status"].toString())
                         }
                     }
 
                     circleMenu.setMainMenu(Color.parseColor("#6E6E6E"), R.drawable.locker_logo, R.drawable.ic_baseline_clear_all_24).openMenu()
                     for (i in 0 until listNumber.size) {
-                        if(listStatus[i] == "0"){
                             circleMenu.addSubMenu(Color.parseColor("#00FF00"), R.drawable.locker_logo)
-                        }else{
-                            circleMenu.addSubMenu(Color.parseColor("#6E6E6E"), R.drawable.locker_logo)
-                        }
                     }
 
                     circleMenu.setOnMenuSelectedListener { index ->
-                        val amount = IDs(BigDecimal(listNumber[index]))
-                        val bundle = bundleOf("container_id" to amount)
-                        navController.navigate(R.id.action_navigation_locker_to_lockerDetailsFragment2, bundle)
+
+                        Toast.makeText(context, "You clicked " + listNumber[index], Toast.LENGTH_LONG).show()
+                        // Make dialog confirmation function
+
                     }
 
                 } else if (jsonResponse["success"] == false && jsonResponse["error"] == "Il n'existe pas de containers"){
@@ -93,7 +82,7 @@ class LockerFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -109,25 +98,20 @@ class LockerFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
+
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.add_button).setOnClickListener(this)
-        view.findViewById<Button>(R.id.clear_all_button).setOnClickListener(this)
+        view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.add_button -> navController.navigate(R.id.action_navigation_locker_to_addLockerFragment)
-            R.id.clear_all_button -> changeFragmentAfterAllDeletion()
+            R.id.button_back -> activity?.onBackPressed()
         }
     }
 
-    private fun changeFragmentAfterAllDeletion(){
-        context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
-        navController.navigate(R.id.action_locker_nav_to_locker_nav)
-    }
 }

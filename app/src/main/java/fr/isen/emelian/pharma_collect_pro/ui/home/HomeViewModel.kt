@@ -157,9 +157,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
         }
         _prescription.value = "To do : $waiting"
         if(assignee > 0){
-            _order.value = "You have took in charge $assignee order(s). Click to see"
+            _order.value = "$assignee order(s) in charge"
         } else {
-            _order.value = "You do not have any order in progress"
+            _order.value = "No order assigned"
         }
     }
 

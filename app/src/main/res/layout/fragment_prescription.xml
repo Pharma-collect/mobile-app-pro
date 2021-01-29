@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -36,79 +36,14 @@
                 android:fontFamily="@font/baloo"
                 android:textStyle="normal"
                 android:textSize="30sp"/>
-
-
-        <RelativeLayout
-            android:id="@+id/header_home"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_four">
-
-            <ImageView
-                android:id="@+id/user_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_person_24"
-                android:padding="15dp"
-                android:layout_alignParentTop="true"
-                android:contentDescription="@string/pharma_logo"/>
-
-            <ImageView
-                android:id="@+id/pres_logo_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/prescription_logo_grey"
-                android:padding="15dp"
-                android:layout_alignParentBottom="true"
-                android:contentDescription="@string/prescription_logo"/>
-
-            <LinearLayout
-                android:id="@+id/text_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/pharma_name_pres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#6E6E6E"
-                    android:text="@string/current_user"
-                    android:textSize="20sp"
-                    android:layout_marginStart="70dp"/>
-
-                <TextView
-                    android:id="@+id/user_id_pres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#6E6E6E"
-                    android:text="@string/id_user"
-                    android:textSize="15sp"
-                    android:layout_marginStart="70dp"/>
-
-                <TextView
-                    android:id="@+id/pharma_current_order_pres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/in_charge_order"
-                    android:textColor="#6E6E6E"
-                    android:textSize="15sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="70dp"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/layout_prescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="150dp"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -122,7 +57,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/to_do_layout_card_view"
                     android:layout_width="200dp"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -170,7 +105,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/in_progress_layout_card_view"
                     android:layout_width="100dp"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -227,7 +162,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/all_layout_card_view"
                     android:layout_width="100dp"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"
@@ -276,7 +211,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/done_layout_card_view"
                     android:layout_width="200dp"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     app:cardCornerRadius="30dp"

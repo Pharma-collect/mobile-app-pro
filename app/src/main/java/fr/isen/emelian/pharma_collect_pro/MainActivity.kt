@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var binding: ActivityMainBinding
     lateinit var id: String
     private val fileService: FileService = FileService()
-    var prefs: SharedPreferences? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,17 +64,5 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         } else {
             Toast.makeText(this, "Error, cannot disconnect for the moment", Toast.LENGTH_LONG).show()
         }
-    }
-
-    /**
-     * This function is actualy not used
-     * Maybe on a next version it will be implement
-     */
-    fun onButtonHelpClicked(view: View) {
-        val editor = prefs!!.edit()
-        editor.putBoolean("Finished", false)
-        editor.apply()
-        val intent = Intent(this, SplashActivity::class.java)
-        startActivity(intent)
     }
 }

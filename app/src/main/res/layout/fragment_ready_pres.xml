@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="detailprescriptionviewmodel"
-            type="fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders.DetailPrescriptionViewModel" />
-    </data>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.prescription.readyOrders.ReadyPresFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="65dp">
+        android:layout_marginBottom="65dp"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -34,11 +32,11 @@
                 android:layout_alignParentStart="true"/>
 
             <Button
-                android:id="@+id/button_treat"
+                android:id="@+id/button_locker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/treat"
+                android:text="@string/add_to_box"
                 android:textColor="#6E6E6E"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -73,6 +71,8 @@
                 android:gravity="center"/>
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,6 +118,14 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/id_preparator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/id_pharma_profile"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
 
             <ImageView
                 android:id="@+id/prescription_image_view"
@@ -132,13 +140,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp">
 
                 <TextView
                     android:id="@+id/detail_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:text="@string/detail"
                     android:textStyle="bold"
                     android:textSize="15sp"
@@ -157,6 +166,8 @@
 
             </RelativeLayout>
 
+
+
         </LinearLayout>
 
         <TextView
@@ -167,9 +178,9 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:textColor="#FF0000"/>
 
     </LinearLayout>
 
-</layout>
+</FrameLayout>

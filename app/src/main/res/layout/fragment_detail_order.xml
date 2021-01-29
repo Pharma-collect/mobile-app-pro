@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.prescription.detail.DetailOrderFragment">
+    tools:context=".ui.prescription.pendingOrders.DetailOrderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                     android:id="@+id/id_client_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/id_pharma_profile"
+                    android:text="@string/id_client"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_centerInParent="true"/>
@@ -101,7 +101,7 @@
                     android:text="@string/id_pharma_profile"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:layout_marginStart="35dp"
+                    android:layout_marginStart="100dp"
                     android:layout_centerVertical="true"/>
 
                 <Button
