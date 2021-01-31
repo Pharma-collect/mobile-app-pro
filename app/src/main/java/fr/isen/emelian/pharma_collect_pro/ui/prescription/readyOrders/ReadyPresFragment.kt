@@ -19,16 +19,16 @@ import java.math.BigDecimal
 
 class ReadyPresFragment : Fragment(), View.OnClickListener  {
 
-    private lateinit var id_order: IDs
+    private lateinit var idOrders: IDs
     private lateinit var navController: NavController
-    private lateinit var order_id: String
+    private lateinit var orderIds: String
 
     private lateinit var viewModel: ReadyPresViewModel
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id_order = arguments!!.getParcelable("order_id")!!
+        idOrders = arguments!!.getParcelable("order_id")!!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +52,8 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
         viewModel.totalPrice.observe(viewLifecycleOwner, Observer { totalPrice.text = it })
         viewModel.preparator.observe(viewLifecycleOwner, Observer { preparator.text = it })
 
-        order_id = id_order.id.toString()
-        viewModel.idOrder = order_id
+        orderIds = idOrders.id.toString()
+        viewModel.idOrder = orderIds
 
         return root
     }
@@ -71,7 +71,7 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
         when (view?.id) {
             R.id.button_client_info -> switchToClientInfo()
             R.id.button_back -> activity?.onBackPressed()
-            R.id.button_locker -> navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment)
+            R.id.button_locker -> switchToLockerSelection()
         }
     }
 
@@ -80,6 +80,12 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
         val id = IDs(BigDecimal(client))
         val bundle = bundleOf("client_id" to id)
         navController.navigate(R.id.action_readyPresFragment_to_detailClientFragment, bundle)
+    }
+
+    private fun switchToLockerSelection(){
+        val id = IDs(BigDecimal(orderIds))
+        val bundle = bundleOf("order_id" to id)
+        navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment, bundle)
     }
 
 }

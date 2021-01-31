@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/treat"
+                android:text="@string/update_ready"
                 android:textColor="#6E6E6E"
                 android:textSize="15sp"
                 android:textStyle="bold"

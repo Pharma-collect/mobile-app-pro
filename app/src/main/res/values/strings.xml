@@ -147,6 +147,7 @@
     <string name="ras">RAS</string>
     <string name="order_state">State :</string>
     <string name="treat">Treat this one</string>
+    <string name="update_ready">Set ready</string>
     <string name="info">Client sheet</string>
     <string name="firstname">Client firstname :</string>
     <string name="lastname">Client lastname :</string>
@@ -156,6 +157,12 @@
     <string name="age">Client age :</string>
     <string name="profile_picture">Profile picture of client</string>
     <string name="picture_pres">Click on the picture to see the prescription</string>
+    <string name="is_ready">Set this order to ready ?</string>
+    <string name="conditions">Conditions :</string>
+    <string name="condi_one">1) All products should be there</string>
+    <string name="cond_two">2) All products should be verified in function of the client and its client sheet</string>
+    <string name="cond_three">3) A note should be written if necessary</string>
+    <string name="note">Write note …</string>
 
     <!-- String locker management -->
     <string name="locker_mana">Management</string>
@@ -182,8 +189,13 @@
 
     <!-- Update pharmacy -->
     <string name="didac_update">Overwrite the things you want to update :</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Dialog locker confirm pharmacy -->
+    <string name="sure">Select this box ?</string>
+    <string name="id_container">Container ID : </string>
+    <string name="nb_container">Container number : </string>
+    <string name="confirm">Valid</string>
+    <string name="avoid">Avoid</string>
 
 
 </resources>

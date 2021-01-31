@@ -187,6 +187,11 @@
             app:destination="@id/detailClientFragment"
             app:popEnterAnim="@anim/slide_in_left"
             app:enterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_detailOrderFragment_to_navigation_prescription"
+            app:destination="@id/navigation_prescription"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
     </fragment>
@@ -202,6 +207,11 @@
             app:enterAnim="@anim/slide_in_right"/>
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+        <action
+            android:id="@+id/action_detailPrescriptionFragment_to_navigation_prescription"
+            app:destination="@id/navigation_prescription"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/detailClientFragment"
@@ -224,6 +234,9 @@
         <action
             android:id="@+id/action_pendingFragment_to_detailOrderFragment"
             app:destination="@id/detailOrderFragment" />
+        <action
+            android:id="@+id/action_pendingFragment_to_navigation_prescription"
+            app:destination="@id/navigation_prescription" />
     </fragment>
     <fragment
         android:id="@+id/containerFragment"
@@ -321,6 +334,13 @@
         <action
             android:id="@+id/action_selectLockerFragment_to_readyFragment"
             app:destination="@id/readyFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:enterAnim="@anim/slide_in_right"/>
+        <argument android:name="order_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+        <action
+            android:id="@+id/action_selectLockerFragment_to_navigation_prescription"
+            app:destination="@id/navigation_prescription"
             app:popEnterAnim="@anim/slide_in_left"
             app:enterAnim="@anim/slide_in_right"/>
     </fragment>

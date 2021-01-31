@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
@@ -31,7 +30,7 @@ class ReadyOrderViewModel(application: Application) : AndroidViewModel(applicati
     private val _statusOrder = MutableLiveData<String>().apply { value = "Current state : " }
     private val _detailText = MutableLiveData<String>().apply { value = "RAS" }
     private val _totalPrice = MutableLiveData<String>().apply { value = "Total price : " }
-    private val _preparator = MutableLiveData<String>().apply { value = "Total price : " }
+    private val _preparator = MutableLiveData<String>().apply { value = "Preparator id : " }
 
     val orderID: LiveData<String> = _orderID
     val clientID: LiveData<String> = _clientID

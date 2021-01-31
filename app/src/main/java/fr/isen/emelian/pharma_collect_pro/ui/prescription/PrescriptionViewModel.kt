@@ -39,14 +39,14 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
     init {
         launch {
             myUser = fileService.getData(context)
-            getOrderInfo(myUser.id.toString(), myUser.pharma_id.toString())
+            getOrderInfo(myUser.pharma_id.toString())
         }
     }
 
     /**
      * get all orders of a pharmacy
      */
-    private fun getOrderInfo(idUser: String, idPharma: String) {
+    private fun getOrderInfo(idPharma: String) {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderByPharmacy"
         val stringRequest: StringRequest =
@@ -54,7 +54,7 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
                     val jsonResponse = JSONObject(it)
                     if (jsonResponse["success"] == true) {
                         val jsonArray = jsonResponse.optJSONArray("result")
-                        getOrders(jsonArray, idUser)
+                        getOrders(jsonArray)
                     }else{
                         Log.d("ResponseJSON", jsonResponse.toString())
                     }
@@ -81,7 +81,7 @@ class PrescriptionViewModel(application: Application) : AndroidViewModel(applica
     /**
      * Get the amount of order for every state
      */
-    fun getOrders(jsonArray: JSONArray, id: String){
+    fun getOrders(jsonArray: JSONArray){
         var pending = 0
         var finish = 0
         var ready = 0
