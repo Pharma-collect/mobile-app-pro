@@ -1,5 +1,6 @@
 package fr.isen.emelian.pharma_collect_pro.ui.user
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,6 +28,7 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private var myUser: User = User()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +56,7 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
         username.text = myUser.username.toString()
         userId.text = "ID : " + myUser.id.toString()
         pharmaName.text = myUser.pharma_name.toString()
-        pharmaId.text = myUser.pharma_id.toString()
+        pharmaId.text = "ID : " + myUser.pharma_id.toString()
 
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderByPharmacy"

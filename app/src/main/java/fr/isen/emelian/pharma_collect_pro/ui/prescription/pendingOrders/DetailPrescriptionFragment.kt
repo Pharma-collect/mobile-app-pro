@@ -59,14 +59,14 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         val orderID: TextView = root.findViewById(R.id.id_order)
         val clientID: TextView = root.findViewById(R.id.id_client)
         val statusOrder: TextView = root.findViewById(R.id.status_order)
-        val detailText: TextView = root.findViewById(R.id.detail_text)
+        //val detailText: TextView = root.findViewById(R.id.detail_text)
         val totalPrice: TextView = root.findViewById(R.id.total_price)
         //val prescriptionImage: ImageView = root.findViewById(R.id.prescription_image_view)
 
         detailPrescriptionViewModel.orderID.observe(viewLifecycleOwner, Observer { orderID.text = it })
         detailPrescriptionViewModel.clientID.observe(viewLifecycleOwner, Observer { clientID.text = it })
         detailPrescriptionViewModel.statusOrder.observe(viewLifecycleOwner, Observer { statusOrder.text = it })
-        detailPrescriptionViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
+       // detailPrescriptionViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
         detailPrescriptionViewModel.totalPrice.observe(viewLifecycleOwner, Observer { totalPrice.text = it })
 
         detailPrescriptionViewModel.idOrder = order_id

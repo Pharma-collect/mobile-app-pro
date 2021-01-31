@@ -207,7 +207,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/pharma_layout_card_view"
+                        android:id="@+id/locker_layout_card_view"
                         android:layout_width="160dp"
                         android:layout_height="190dp"
                         android:layout_margin="10dp"
@@ -217,7 +217,7 @@
                         card_view:cardElevation="30dp">
 
                         <LinearLayout
-                            android:id="@+id/pharma_layout"
+                            android:id="@+id/locker_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -225,37 +225,37 @@
                             android:gravity="center">
 
                             <ImageView
-                                android:id="@+id/pharma_layout_iv"
+                                android:id="@+id/locker_layout_iv"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:background="@drawable/cercle_background_orange"
-                                android:src="@drawable/pharmacy_logo"
+                                android:background="@drawable/cercle_background_blue_clear"
+                                android:src="@drawable/locker_logo"
                                 android:padding="13dp"
                                 android:contentDescription="@string/locker_logo"/>
 
                             <TextView
-                                android:id="@+id/pharma_layout_tv"
+                                android:id="@+id/locker_layout_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:layout_marginTop="10dp"
                                 android:textColor="#6E6E6E"
-                                android:text="@string/pharma"/>
+                                android:text="@string/locker"/>
 
                             <View
-                                android:id="@+id/pharma_layout_view"
+                                android:id="@+id/locker_layout_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/cardview_light_background"
                                 android:layout_margin="10dp"/>
 
                             <TextView
-                                android:id="@+id/pharma_layout_tv_description"
+                                android:id="@+id/locker_layout_tv_waiting"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:gravity="center"
-                                android:text="@string/pharma_info"
+                                android:text="@string/amount_available"
                                 android:textColor="#6E6E6E"/>
 
                         </LinearLayout>
@@ -328,7 +328,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/locker_layout_card_view"
+                        android:id="@+id/pharma_layout_card_view"
                         android:layout_width="160dp"
                         android:layout_height="190dp"
                         android:layout_margin="10dp"
@@ -338,7 +338,7 @@
                         card_view:cardElevation="30dp">
 
                         <LinearLayout
-                            android:id="@+id/locker_layout"
+                            android:id="@+id/pharma_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -346,42 +346,43 @@
                             android:gravity="center">
 
                             <ImageView
-                                android:id="@+id/locker_layout_iv"
+                                android:id="@+id/pharma_layout_iv"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:background="@drawable/cercle_background_blue_clear"
-                                android:src="@drawable/locker_logo"
+                                android:background="@drawable/cercle_background_orange"
+                                android:src="@drawable/pharmacy_logo"
                                 android:padding="13dp"
                                 android:contentDescription="@string/locker_logo"/>
 
                             <TextView
-                                android:id="@+id/locker_layout_tv"
+                                android:id="@+id/pharma_layout_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:layout_marginTop="10dp"
                                 android:textColor="#6E6E6E"
-                                android:text="@string/locker"/>
+                                android:text="@string/pharma"/>
 
                             <View
-                                android:id="@+id/locker_layout_view"
+                                android:id="@+id/pharma_layout_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/cardview_light_background"
                                 android:layout_margin="10dp"/>
 
                             <TextView
-                                android:id="@+id/locker_layout_tv_waiting"
+                                android:id="@+id/pharma_layout_tv_description"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:gravity="center"
-                                android:text="@string/amount_available"
+                                android:text="@string/pharma_info"
                                 android:textColor="#6E6E6E"/>
 
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
+
 
                 </LinearLayout>
 

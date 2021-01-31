@@ -6,24 +6,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.user.UserProfileFragment">
 
-    <Button
-        android:id="@+id/back_user_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/transparent"
-        android:text="@string/back"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:icon="@drawable/ic_baseline_arrow_back_ios_24" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="65dp"
         android:orientation="vertical"
         android:padding="30dp">
+
+        <Button
+            android:id="@+id/back_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:icon="@drawable/ic_baseline_arrow_back_ios_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_pro"
+            android:textStyle="bold"
+            android:fontFamily="@font/baloo"
+            android:layout_marginTop="10dp"
+            android:textSize="35sp"/>
 
         <TextView
             android:id="@+id/info_username"
@@ -33,7 +40,7 @@
             android:text="@string/username"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="35dp"/>
 
         <TextView
             android:id="@+id/info_id"
@@ -47,7 +54,7 @@
             android:id="@+id/info_pharma"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:text="@string/pharma_name"
             android:textSize="20sp"/>
 
@@ -61,13 +68,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:text="@string/list_assignee"/>
 
         <ListView
             android:id="@+id/info_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:padding="30dp"/>
 
     </LinearLayout>

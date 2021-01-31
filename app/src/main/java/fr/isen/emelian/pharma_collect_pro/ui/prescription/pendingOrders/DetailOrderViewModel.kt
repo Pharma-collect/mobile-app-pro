@@ -35,7 +35,7 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
     val orderID: LiveData<String> = _orderID
     val clientID: LiveData<String> = _clientID
     val statusOrder: LiveData<String> = _statusOrder
-    val detailText: LiveData<String> = _detailText
+    //val detailText: LiveData<String> = _detailText
     val totalPrice: LiveData<String> = _totalPrice
 
 
@@ -68,7 +68,7 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
                         }
                         _statusOrder.value = "Current status : " + data["status"]
                         _statusOrder.value
-                        _detailText.value = data["detail"].toString()
+                        //_detailText.value = data["detail"].toString()
                         _totalPrice.value = "Total price : " + data["total_price"] + "€"
 
                     }else{

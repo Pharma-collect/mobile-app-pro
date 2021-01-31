@@ -32,13 +32,13 @@ class DetailPrescriptionViewModel(application: Application) : AndroidViewModel(a
     private val _orderID = MutableLiveData<String>().apply { value = "Order ID : " }
     private val _clientID = MutableLiveData<String>().apply { value = "Client ID  : " }
     private val _statusOrder = MutableLiveData<String>().apply { value = "Current state : " }
-    private val _detailText = MutableLiveData<String>().apply { value = "RAS" }
+    //private val _detailText = MutableLiveData<String>().apply { value = "RAS" }
     private val _totalPrice = MutableLiveData<String>().apply { value = "Total price : " }
 
     val orderID: LiveData<String> = _orderID
     val clientID: LiveData<String> = _clientID
     val statusOrder: LiveData<String> = _statusOrder
-    val detailText: LiveData<String> = _detailText
+    //val detailText: LiveData<String> = _detailText
     val totalPrice: LiveData<String> = _totalPrice
 
     init {
@@ -69,7 +69,7 @@ class DetailPrescriptionViewModel(application: Application) : AndroidViewModel(a
                     _orderID.value = "ID : " + data["id"]
                     _clientID.value = data["id_client"].toString()
                     _statusOrder.value = "Current status : " + data["status"]
-                    _detailText.value = data["detail"].toString()
+                    //_detailText.value = data["detail"].toString()
                     _totalPrice.value = "Total price : " + data["total_price"] + "€"
 
                 }else{

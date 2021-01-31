@@ -53,13 +53,13 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
         val orderID: TextView = root.findViewById(R.id.id_order)
         val clientID: TextView = root.findViewById(R.id.id_client)
         val statusOrder: TextView = root.findViewById(R.id.status_order)
-        val detailText: TextView = root.findViewById(R.id.detail_text)
+        //val detailText: TextView = root.findViewById(R.id.detail_text)
         val totalPrice: TextView = root.findViewById(R.id.total_price)
 
         detailOrderViewModel.orderID.observe(viewLifecycleOwner, Observer { orderID.text = it })
         detailOrderViewModel.clientID.observe(viewLifecycleOwner, Observer { clientID.text = it })
         detailOrderViewModel.statusOrder.observe(viewLifecycleOwner, Observer { statusOrder.text = it })
-        detailOrderViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
+        //detailOrderViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
         detailOrderViewModel.totalPrice.observe(viewLifecycleOwner, Observer { totalPrice.text = it })
 
         order_id = id_order.id.toString()
