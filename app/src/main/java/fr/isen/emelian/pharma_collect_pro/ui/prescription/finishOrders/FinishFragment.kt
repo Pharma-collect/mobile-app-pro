@@ -68,7 +68,7 @@ class FinishFragment : Fragment(), View.OnClickListener {
                     listPres.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
                         val id = IDs(BigDecimal(listPrescription[p2]))
                         val bundle = bundleOf("order_id" to id)
-                        //navController.navigate(R.id.action_pendingFragment_to_detailPrescriptionFragment, bundle)
+                        navController.navigate(R.id.action_finishFragment_to_finishPrescriptionFragment, bundle)
                     }
 
                     val adapterOrder: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listOrders) }
@@ -77,7 +77,7 @@ class FinishFragment : Fragment(), View.OnClickListener {
                     listOrder.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
                         val id = IDs(BigDecimal(listOrders[p2]))
                         val bundle = bundleOf("order_id" to id)
-                        //navController.navigate(R.id.action_pendingFragment_to_detailOrderFragment, bundle)
+                        navController.navigate(R.id.action_finishFragment_to_finishOrderFragment, bundle)
                     }
 
                 }else{

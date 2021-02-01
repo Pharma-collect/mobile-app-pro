@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.prescription.finishOrders.FinishPrescriptionFragment">
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/back"
+        android:textColor="#6E6E6E"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:layout_margin="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/id_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/id_pharma_profile"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"/>
+
+
+            <TextView
+                android:id="@+id/status_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/order_state"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/preparator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/preparator_id"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/locker_nb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/locker_nb"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="25dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/id_client_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/id_client"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/id_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/id_pharma_profile"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginStart="100dp"
+                    android:layout_centerVertical="true"/>
+
+                <Button
+                    android:id="@+id/button_client_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:background="@drawable/shape_four"
+                    android:text="@string/info"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RelativeOverlap"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/prescription_image_view"
+                android:layout_width="100dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="15dp"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/prescription_logo"
+                android:contentDescription="@string/prescription_logo"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/detail_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/detail"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/detail_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ras"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_marginStart="120dp"/>
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -347,7 +347,25 @@
         android:id="@+id/finishFragment"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.finishOrders.FinishFragment"
         android:label="fragment_finish"
-        tools:layout="@layout/fragment_finish" />
+        tools:layout="@layout/fragment_finish" >
+
+        <action
+            android:id="@+id/action_finishFragment_to_finishOrderFragment"
+            app:destination="@id/finishOrderFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+        <action
+            android:id="@+id/action_finishFragment_to_finishPrescriptionFragment"
+            app:destination="@id/finishPrescriptionFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/readyFragment"
@@ -519,6 +537,44 @@
 
         <action
             android:id="@+id/action_containerPrescriptionFragment_to_detailClientFragment"
+            app:destination="@id/detailClientFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+        <argument android:name="order_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/finishOrderFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.finishOrders.FinishOrderFragment"
+        android:label="fragment_finish_order"
+        tools:layout="@layout/fragment_finish_order" >
+
+        <action
+            android:id="@+id/action_finishOrderFragment_to_detailClientFragment"
+            app:destination="@id/detailClientFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+        <argument android:name="order_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/finishPrescriptionFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.finishOrders.FinishPrescriptionFragment"
+        android:label="fragment_finish_prescription"
+        tools:layout="@layout/fragment_finish_prescription" >
+
+        <action
+            android:id="@+id/action_finishPrescriptionFragment_to_detailClientFragment"
             app:destination="@id/detailClientFragment"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
