@@ -70,6 +70,15 @@
                 android:textSize="15sp"
                 android:gravity="center"/>
 
+            <TextView
+                android:id="@+id/id_preparator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/preparator_id"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="15sp"/>
+
         </LinearLayout>
 
 
@@ -117,14 +126,6 @@
 
 
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/id_preparator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/id_pharma_profile"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
 
 
             <TextView

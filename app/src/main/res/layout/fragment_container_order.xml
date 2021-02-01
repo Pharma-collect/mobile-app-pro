@@ -8,7 +8,7 @@
     tools:context=".ui.prescription.containerOrders.ContainerOrderFragment">
 
     <Button
-        android:id="@+id/button_back_client"
+        android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -28,7 +28,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -49,6 +48,26 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/preparator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/preparator_id"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/locker_nb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/locker_nb"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+
 
         </LinearLayout>
 

@@ -17,9 +17,9 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import java.math.BigDecimal
 
-class ContainerOrderFragment : Fragment(), View.OnClickListener {
+class ContainerPrescriptionFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var containerOrderViewModel: ContainerOrderViewModel
+    private lateinit var prescriptionViewModel: ContainerPrescriptionViewModel
 
     private lateinit var id_order: IDs
     private lateinit var navController: NavController
@@ -31,12 +31,14 @@ class ContainerOrderFragment : Fragment(), View.OnClickListener {
         id_order = arguments!!.getParcelable("order_id")!!
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        containerOrderViewModel = ViewModelProvider(this).get(ContainerOrderViewModel::class.java)
+        prescriptionViewModel = ViewModelProvider(this).get(ContainerPrescriptionViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_container_order, container, false)
+        val root = inflater.inflate(R.layout.fragment_container_prescription, container, false)
 
         val orderID: TextView = root.findViewById(R.id.id_order)
         val preparator : TextView = root.findViewById(R.id.preparator)
@@ -45,15 +47,15 @@ class ContainerOrderFragment : Fragment(), View.OnClickListener {
         val detailText: TextView = root.findViewById(R.id.detail_text)
         val locker: TextView = root.findViewById(R.id.locker_nb)
 
-        containerOrderViewModel.orderID.observe(viewLifecycleOwner, Observer { orderID.text = it })
-        containerOrderViewModel.clientID.observe(viewLifecycleOwner, Observer { clientID.text = it })
-        containerOrderViewModel.statusOrder.observe(viewLifecycleOwner, Observer { statusOrder.text = it })
-        containerOrderViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
-        containerOrderViewModel.preparator.observe(viewLifecycleOwner, Observer { preparator.text = it })
-        containerOrderViewModel.locker.observe(viewLifecycleOwner, Observer { locker.text = it })
+        prescriptionViewModel.orderID.observe(viewLifecycleOwner, Observer { orderID.text = it })
+        prescriptionViewModel.clientID.observe(viewLifecycleOwner, Observer { clientID.text = it })
+        prescriptionViewModel.statusOrder.observe(viewLifecycleOwner, Observer { statusOrder.text = it })
+        prescriptionViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
+        prescriptionViewModel.preparator.observe(viewLifecycleOwner, Observer { preparator.text = it })
+        prescriptionViewModel.locker.observe(viewLifecycleOwner, Observer { locker.text = it })
 
         order_id = id_order.id.toString()
-        containerOrderViewModel.idOrder = order_id
+        prescriptionViewModel.idOrder = order_id
 
         return root
     }
@@ -76,7 +78,6 @@ class ContainerOrderFragment : Fragment(), View.OnClickListener {
         val client = view?.findViewById<TextView>(R.id.id_client)?.text.toString()
         val id = IDs(BigDecimal(client))
         val bundle = bundleOf("client_id" to id)
-        navController.navigate(R.id.action_containerOrderFragment_to_detailClientFragment, bundle)
+        navController.navigate(R.id.action_containerPrescriptionFragment_to_detailClientFragment, bundle)
     }
-
 }

@@ -35,7 +35,7 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
     val orderID: LiveData<String> = _orderID
     val clientID: LiveData<String> = _clientID
     val statusOrder: LiveData<String> = _statusOrder
-    //val detailText: LiveData<String> = _detailText
+    val detailText: LiveData<String> = _detailText
     val totalPrice: LiveData<String> = _totalPrice
 
 

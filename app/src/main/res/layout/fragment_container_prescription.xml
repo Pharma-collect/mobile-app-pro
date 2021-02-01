@@ -1,54 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.prescription.readyOrders.ReadyPresFragment">
+    android:orientation="vertical"
+    tools:context=".ui.prescription.containerOrders.ContainerPrescriptionFragment">
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/back"
+        android:textColor="#6E6E6E"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:layout_margin="15dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="65dp"
-        tools:ignore="UselessParent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="15dp">
-
-            <Button
-                android:id="@+id/button_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/back"
-                android:textColor="#6E6E6E"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:icon="@drawable/ic_baseline_arrow_back_ios_24"
-                android:layout_alignParentStart="true"/>
-
-            <Button
-                android:id="@+id/button_locker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/add_to_box"
-                android:textColor="#6E6E6E"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                tools:ignore="RelativeOverlap" />
-
-        </RelativeLayout>
+        android:padding="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -71,18 +50,26 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/id_preparator"
+                android:id="@+id/preparator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/preparator_id"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/locker_nb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/locker_nb"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
 
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,8 +129,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="25dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/detail_field"
@@ -172,17 +158,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/total_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/total_price"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#FF0000"/>
-
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

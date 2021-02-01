@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
@@ -16,7 +17,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-class ContainerOrderViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
+class ContainerPrescriptionViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     var myUser: User = User()
