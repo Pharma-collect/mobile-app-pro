@@ -1,15 +1,15 @@
 package fr.isen.emelian.pharma_collect_pro
 
+import android.app.ActionBar
 import android.content.Intent
-import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.isen.emelian.pharma_collect_pro.databinding.ActivityMainBinding
@@ -17,6 +17,7 @@ import fr.isen.emelian.pharma_collect_pro.services.FileService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
@@ -33,11 +34,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         val fab : View = findViewById(R.id.fab)
 
         val navController = findNavController(R.id.nav_host_fragment)
-
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_locker, R.id.navigation_prescription, R.id.navigation_shop, R.id.navigation_pharmacy))
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val bar: ActionBar? = actionBar
+        bar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#0E3C72")))
 
         var intent = intent
         id = intent.getStringExtra("id").toString()

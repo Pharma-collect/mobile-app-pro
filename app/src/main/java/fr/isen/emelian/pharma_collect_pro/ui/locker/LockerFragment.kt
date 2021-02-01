@@ -1,5 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.locker
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -21,6 +24,7 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
+import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
@@ -126,8 +130,27 @@ class LockerFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun changeFragmentAfterAllDeletion(){
-        context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
-        navController.navigate(R.id.action_locker_nav_to_locker_nav)
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
+        val question: TextView = navView.findViewById(R.id.sure_label)
+        question.text = "Delete all containers of the pharmacy?"
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_confirm.setOnClickListener {
+            context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
+            alertDialog.dismiss()
+            navController.navigate(R.id.action_locker_nav_to_locker_nav)
+        }
+
+        navView.button_cancel.setOnClickListener {
+            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+            alertDialog.dismiss()
+        }
     }
 }

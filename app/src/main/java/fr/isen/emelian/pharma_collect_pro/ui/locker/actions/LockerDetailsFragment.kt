@@ -1,6 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
+import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 import org.json.JSONObject
 import java.io.File
 
@@ -131,17 +133,54 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
     /**
      * Fragment switch back after the deletion of a locker
      */
+    @SuppressLint("SetTextI18n")
     private fun changeFragmentAfterDeletion(){
-        context?.let { lockerRepository.deleteContainer(amount, it) }
-        activity?.onBackPressed()
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
+        val question: TextView = navView.findViewById(R.id.sure_label)
+        question.text = "Do you really want to delete this container ?"
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_confirm.setOnClickListener {
+            context?.let { lockerRepository.deleteContainer(amount, it) }
+            alertDialog.dismiss()
+            activity?.onBackPressed()
+        }
+        navView.button_cancel.setOnClickListener {
+            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+            alertDialog.dismiss()
+        }
     }
 
     /**
      * Fragment switch back after the update of a locker
      */
+    @SuppressLint("SetTextI18n")
     private fun changeFragmentAfterUpdate(){
-        context?.let { lockerRepository.updateContainer(selected, amount, it) }
-        activity?.onBackPressed()
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
+        val question: TextView = navView.findViewById(R.id.sure_label)
+        question.text = "Update this container ?"
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_confirm.setOnClickListener {
+            context?.let { lockerRepository.updateContainer(selected, amount, it) }
+            alertDialog.dismiss()
+            activity?.onBackPressed()
+        }
+
+        navView.button_cancel.setOnClickListener {
+            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+            alertDialog.dismiss()
+        }
     }
 
 }

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="65dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.prescription.containerOrders.ContainerFragment">
 
@@ -22,8 +21,9 @@
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:text="@string/back"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_baseline_arrow_back_ios_24" />
+            android:textColor="#6E6E6E"
+            android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
+            android:drawableTint="#6E6E6E" />
 
         <TextView
             android:layout_width="match_parent"
@@ -47,14 +47,16 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:fontFamily="@font/baloo"/>
+                android:fontFamily="@font/baloo"
+                android:textColor="#fff"/>
 
             <ListView
                 android:id="@+id/prescription_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="30dp"
-                android:padding="30dp"/>
+                android:padding="30dp"
+                android:textColor="#fff"/>
 
         </LinearLayout>
 
@@ -71,14 +73,16 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:fontFamily="@font/baloo"/>
+                android:fontFamily="@font/baloo"
+                android:textColor="#fff"/>
 
             <ListView
                 android:id="@+id/order_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="30dp"
-                android:padding="30dp"/>
+                android:padding="30dp"
+                android:textColor="#fff"/>
 
         </LinearLayout>
 

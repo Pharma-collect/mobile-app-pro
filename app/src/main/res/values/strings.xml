@@ -6,7 +6,7 @@
     <string name="title_prescription">Prescription</string>
     <string name="title_pharmacy">Pharmacy</string>
     <string name="title_history">Documents</string>
-    <string name="title_locker">Boxes</string>
+    <string name="title_locker">Lockers</string>
     <string name="title_shop">Stats</string>
     <string name="title_to_do">To Do</string>
     <string name="title_in_progress">In Progress</string>
@@ -199,6 +199,8 @@
     <string name="avoid">Avoid</string>
     <string name="preparator_id">Preparator id :</string>
     <string name="locker_nb">Locker number : </string>
+
+    <string name="delete_all">Delete ?</string>
 
 
 </resources>

@@ -1,16 +1,18 @@
 package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.NumberPicker
+import android.widget.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
+import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 
 class AddLockerFragment : Fragment(), View.OnClickListener {
 
@@ -52,9 +54,27 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
     /**
      * Fragment switch back after addition of a locker
      */
+    @SuppressLint("SetTextI18n")
     private fun changeFragmentAfterAddition(){
-        context?.let { lockerRepository.addContainer(amount, it) }
-        activity?.onBackPressed()
-    }
 
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
+        val question: TextView = navView.findViewById(R.id.sure_label)
+        question.text = "Add $amount container(s) to the pharmacy ?"
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_confirm.setOnClickListener {
+            context?.let { lockerRepository.addContainer(amount, it) }
+            alertDialog.dismiss()
+            activity?.onBackPressed()
+        }
+
+        navView.button_cancel.setOnClickListener {
+            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+            alertDialog.dismiss()
+        }
+    }
 }

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.prescription.detailClient.DetailClientFragment">
 
     <LinearLayout
@@ -21,7 +20,8 @@
         android:textColor="#6E6E6E"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
+        android:drawableTint="#6E6E6E"
         android:layout_margin="15dp"/>
 
     <RelativeLayout

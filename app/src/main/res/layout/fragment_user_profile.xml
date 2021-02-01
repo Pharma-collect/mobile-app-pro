@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.user.UserProfileFragment">
 
     <LinearLayout
@@ -11,7 +10,8 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="65dp"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:padding="30dp"
+        tools:ignore="UselessParent">
 
         <Button
             android:id="@+id/back_user_info"
@@ -21,7 +21,8 @@
             android:text="@string/back"
             android:textColor="@color/white"
             android:textSize="15sp"
-            app:icon="@drawable/ic_baseline_arrow_back_ios_24" />
+            android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
+            android:drawableTint="#6E6E6E" />
 
         <TextView
             android:layout_width="match_parent"

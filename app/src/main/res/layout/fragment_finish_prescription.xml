@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.prescription.finishOrders.FinishPrescriptionFragment">
 
     <Button
@@ -16,7 +15,8 @@
         android:textColor="#6E6E6E"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
+        android:drawableTint="#6E6E6E"
         android:layout_margin="15dp"/>
 
     <LinearLayout
@@ -37,7 +37,8 @@
                 android:text="@string/id_pharma_profile"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#fff"/>
 
 
             <TextView
@@ -47,7 +48,8 @@
                 android:text="@string/order_state"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#fff"/>
 
             <TextView
                 android:id="@+id/preparator"
@@ -56,7 +58,8 @@
                 android:text="@string/preparator_id"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#fff"/>
 
             <TextView
                 android:id="@+id/locker_nb"
@@ -65,9 +68,8 @@
                 android:text="@string/locker_nb"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:gravity="center"/>
-
-
+                android:gravity="center"
+                android:textColor="#fff"/>
 
         </LinearLayout>
 
@@ -89,7 +91,8 @@
                     android:text="@string/id_client"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:textColor="#fff"/>
 
                 <TextView
                     android:id="@+id/id_client"
@@ -99,7 +102,8 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_marginStart="100dp"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"/>
 
                 <Button
                     android:id="@+id/button_client_info"
@@ -110,7 +114,7 @@
                     android:text="@string/info"
                     android:layout_alignParentEnd="true"
                     tools:ignore="RelativeOverlap"
-                    android:textColor="@color/white"/>
+                    android:textColor="#6E6E6E"/>
 
 
             </RelativeLayout>
@@ -139,7 +143,8 @@
                     android:text="@string/detail"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"/>
 
                 <TextView
                     android:id="@+id/detail_text"
@@ -150,11 +155,10 @@
                     android:layout_centerVertical="true"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:layout_marginStart="120dp"/>
+                    android:layout_marginStart="120dp"
+                    android:textColor="#fff"/>
 
             </RelativeLayout>
-
-
 
         </LinearLayout>
 
