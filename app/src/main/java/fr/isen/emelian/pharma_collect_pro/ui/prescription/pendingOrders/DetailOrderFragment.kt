@@ -3,6 +3,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -110,16 +112,20 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
             val detail = editTextNote.text.toString()
             if(editTextNote.text.toString() != "") {
                 context?.let { it1 -> orderRepository.updateOrderToReady(order_id, "ready", myUser.id.toString(), detail, it1) }
+                Toast.makeText(context, "Order state successfully updated", LENGTH_LONG).show()
             } else {
                 context?.let { it1 -> orderRepository.updateOrderToReady(order_id, "ready", myUser.id.toString(), "RAS", it1) }
+                Toast.makeText(context, "Order state successfully updated", LENGTH_LONG).show()
             }
 
-            alertDialog.dismiss()
-            navController.navigate((R.id.action_detailOrderFragment_to_navigation_prescription))
+            Handler().postDelayed({
+                alertDialog.dismiss()
+                navController.navigate((R.id.action_detailOrderFragment_to_navigation_prescription))
+            }, 1000)
         }
 
         navView.button_cancel.setOnClickListener {
-            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Operation canceled", LENGTH_LONG).show()
             alertDialog.dismiss()
         }
     }

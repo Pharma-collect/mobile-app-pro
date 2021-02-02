@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="65dp"
     tools:context=".ui.prescription.containerOrders.ContainerPrescriptionFragment">
 
     <Button
@@ -117,14 +118,12 @@
                     tools:ignore="RelativeOverlap"
                     android:textColor="#6E6E6E"/>
 
-
             </RelativeLayout>
-
 
             <ImageView
                 android:id="@+id/prescription_image_view"
-                android:layout_width="100dp"
-                android:layout_height="180dp"
+                android:layout_width="150dp"
+                android:layout_height="230dp"
                 android:layout_marginTop="15dp"
                 android:padding="20dp"
                 android:layout_gravity="center"
@@ -134,7 +133,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/detail_field"

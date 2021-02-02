@@ -3,6 +3,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,8 +69,11 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.addContainer(amount, it) }
-            alertDialog.dismiss()
-            activity?.onBackPressed()
+            Handler().postDelayed({
+                alertDialog.dismiss()
+                activity?.onBackPressed()
+            }, 1000)
+
         }
 
         navView.button_cancel.setOnClickListener {

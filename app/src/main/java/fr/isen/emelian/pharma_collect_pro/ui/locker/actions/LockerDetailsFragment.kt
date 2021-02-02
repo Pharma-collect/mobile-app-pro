@@ -3,6 +3,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -147,8 +148,11 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.deleteContainer(amount, it) }
-            alertDialog.dismiss()
-            activity?.onBackPressed()
+            Handler().postDelayed({
+                alertDialog.dismiss()
+                activity?.onBackPressed()
+            }, 1000)
+
         }
         navView.button_cancel.setOnClickListener {
             Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
@@ -173,8 +177,10 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.updateContainer(selected, amount, it) }
-            alertDialog.dismiss()
-            activity?.onBackPressed()
+            Handler().postDelayed({
+                alertDialog.dismiss()
+                activity?.onBackPressed()
+            }, 1000)
         }
 
         navView.button_cancel.setOnClickListener {

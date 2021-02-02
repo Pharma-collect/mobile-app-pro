@@ -63,9 +63,6 @@ class DetailOrderViewModel(application: Application) : AndroidViewModel(applicat
 
                         _orderID.value = "ID : " + data["id"]
                         _clientID.value = data["id_client"].toString()
-                        if(data["status"].toString() == "pending"){
-
-                        }
                         _statusOrder.value = "Current status : " + data["status"]
                         _statusOrder.value
                         //_detailText.value = data["detail"].toString()

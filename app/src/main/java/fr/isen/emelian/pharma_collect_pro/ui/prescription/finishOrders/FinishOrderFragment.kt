@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
-import fr.isen.emelian.pharma_collect_pro.ui.prescription.containerOrders.ContainerOrderViewModel
 import java.math.BigDecimal
 
 class FinishOrderFragment : Fragment() , View.OnClickListener {

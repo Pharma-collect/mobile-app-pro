@@ -23,6 +23,7 @@
                         android:id="@+id/collapse_bar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         app:layout_scrollFlags="exitUntilCollapsed|scroll"
                         app:contentScrim="#0E3C72"
                         app:title="@string/pharma_name"

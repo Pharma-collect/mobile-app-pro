@@ -55,7 +55,7 @@ class ReadyFragment : Fragment(), View.OnClickListener {
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_prescription"].toString() != "null" && item["status"].toString() == "ready") {
-                            listPrescription.add(item["id"].toString())
+                            listPrescription.add(item["id_prescription"].toString())
                         }
                         if(item["id_prescription"].toString() == "null" && item["status"].toString() == "ready") {
                             listOrders.add(item["id"].toString())

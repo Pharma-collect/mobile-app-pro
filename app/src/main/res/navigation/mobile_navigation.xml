@@ -14,33 +14,25 @@
             android:id="@+id/action_navigation_home_to_navigation_prescription"
             app:destination="@id/navigation_prescription"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            app:enterAnim="@anim/fade_out"
-            app:exitAnim="@anim/fade_in"/>
+            app:enterAnim="@anim/fade_in"/>
 
         <action
             android:id="@+id/action_navigation_home_to_navigation_pharmacy"
             app:destination="@id/navigation_pharmacy"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            app:enterAnim="@anim/fade_out"
-            app:exitAnim="@anim/fade_in"/>
+            app:enterAnim="@anim/fade_in"/>
 
         <action
             android:id="@+id/action_navigation_home_to_navigation_locker"
             app:destination="@id/navigation_locker"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            app:enterAnim="@anim/fade_out"
-            app:exitAnim="@anim/fade_in"/>
+            app:enterAnim="@anim/fade_in"/>
 
         <action
             android:id="@+id/action_navigation_home_to_navigation_shop"
             app:destination="@id/navigation_shop"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            app:enterAnim="@anim/fade_out"
-            app:exitAnim="@anim/fade_in"/>
+            app:enterAnim="@anim/fade_in"/>
 
         <action
             android:id="@+id/action_navigation_home_to_userProfileFragment"
@@ -181,7 +173,15 @@
         android:id="@+id/navigation_update"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update.UpdateFragment"
         android:label="@string/title_update"
-        tools:layout="@layout/fragment_update_pharmacy" />
+        tools:layout="@layout/fragment_update_pharmacy" >
+        <action
+            android:id="@+id/action_navigation_update_to_navigation_pharmacy"
+            app:destination="@id/navigation_pharmacy"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/orderGraphFragment"
@@ -447,14 +447,14 @@
 
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
-
         <action
-            android:id="@+id/action_readyOrderFragment_to_selectLockerFragment"
-            app:destination="@id/selectLockerFragment"
+            android:id="@+id/action_readyOrderFragment_to_selectOrderLockerFragment"
+            app:destination="@id/selectOrderLockerFragment"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+
 
     </fragment>
 
@@ -584,6 +584,22 @@
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
+    </fragment>
+    <fragment
+        android:id="@+id/selectOrderLockerFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders.SelectOrderLockerFragment"
+        android:label="fragment_select_order_locker"
+        tools:layout="@layout/fragment_select_order_locker" >
+        <action
+            android:id="@+id/action_selectOrderLockerFragment_to_navigation_prescription"
+            app:destination="@id/navigation_prescription"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+        <argument android:name="order_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
     </fragment>
 
 </navigation>

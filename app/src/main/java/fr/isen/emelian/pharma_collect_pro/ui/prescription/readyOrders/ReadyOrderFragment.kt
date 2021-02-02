@@ -84,7 +84,7 @@ class ReadyOrderFragment : Fragment(), View.OnClickListener  {
     private fun switchToLockerSelection() {
         val id = IDs(BigDecimal(orderIds))
         val bundle = bundleOf("order_id" to id)
-        navController.navigate(R.id.action_readyOrderFragment_to_selectLockerFragment, bundle)
+        navController.navigate(R.id.action_readyOrderFragment_to_selectOrderLockerFragment, bundle)
     }
 
 }

@@ -1,4 +1,4 @@
-package fr.isen.emelian.pharma_collect_pro.ui.locker
+package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -6,15 +6,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Response
@@ -25,29 +23,38 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
+import fr.isen.emelian.pharma_collect_pro.repository.OrderRepository
+import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
 import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 import org.json.JSONObject
 import java.io.File
-import java.math.BigDecimal
 
-class LockerFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var lockerViewModel: LockerViewModel
+class SelectOrderLockerFragment : Fragment(), View.OnClickListener {
+
+    private lateinit var idOrders: IDs
     private lateinit var navController: NavController
+    private lateinit var orderIds: String
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val myUser: User = User()
-    private val lockerRepository: LockerRepository =
-            LockerRepository()
+    private val orderRepository: OrderRepository = OrderRepository()
+    private val lockerRepository: LockerRepository = LockerRepository()
+
+
+    @SuppressLint("UseRequireInsteadOfGet")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        idOrders = arguments!!.getParcelable("order_id")!!
+    }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        lockerViewModel =
-                ViewModelProvider(this).get(LockerViewModel::class.java)
+        // Inflate the layout for this fragment
+        val root = inflater.inflate(R.layout.fragment_select_order_locker, container, false)
 
-        val root = inflater.inflate(R.layout.fragment_locker, container, false)
+        orderIds = idOrders.id.toString()
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
@@ -59,35 +66,65 @@ class LockerFragment : Fragment(), View.OnClickListener {
         val circleMenu: CircleMenu = root.findViewById(R.id.circle_menu)
 
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/container/getContainerByPharmacy"
+        val url = "$backUrl/container/getEmptyContainerByPharmacy"
         val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == true) {
                     val jsonArray = jsonResponse.optJSONArray("result")
                     val listNumber : MutableList<String> = ArrayList()
-                    val listStatus : MutableList<String> = ArrayList()
+                    val listId:  MutableList<String> = ArrayList()
+                    val listState:  MutableList<String> = ArrayList()
                     if(jsonArray != null) {
                         for (i in 0 until jsonArray.length()) {
                             val item = jsonArray.getJSONObject(i)
-                            listNumber.add(item["id"].toString())
-                            listStatus.add(item["status"].toString())
+                            listNumber.add(item["container_number"].toString())
+                            listId.add(item["id"].toString())
+                            listState.add(item["status"].toString())
                         }
                     }
 
                     circleMenu.setMainMenu(Color.parseColor("#6E6E6E"), R.drawable.locker_logo, R.drawable.ic_baseline_clear_all_24).openMenu()
-                    for (i in 0 until listNumber.size) {
-                        if(listStatus[i] == "0"){
-                            circleMenu.addSubMenu(Color.parseColor("#00FF00"), R.drawable.locker_logo)
-                        }else{
-                            circleMenu.addSubMenu(Color.parseColor("#6E6E6E"), R.drawable.locker_logo)
-                        }
+                    for (i in 0 until listId.size) {
+                        circleMenu.addSubMenu(Color.parseColor("#00FF00"), R.drawable.locker_logo)
                     }
 
                     circleMenu.setOnMenuSelectedListener { index ->
-                        val amount = IDs(BigDecimal(listNumber[index]))
-                        val bundle = bundleOf("container_id" to amount)
-                        navController.navigate(R.id.action_navigation_locker_to_lockerDetailsFragment2, bundle)
+
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                        builder.setCancelable(true)
+                        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirmation_locker, null)
+                        val textViewId: TextView = navView.findViewById(R.id.container_selected_id)
+                        val textViewNumber: TextView = navView.findViewById(R.id.container_selected_nb)
+                        val textViewState: TextView = navView.findViewById(R.id.container_selected_state)
+
+                        textViewId.text = "Container ID : " + listId[index]
+                        textViewNumber.text = "Container number : " + listNumber[index]
+                        if(listState[index] == "0"){
+                            textViewState.text = "Container state : Available"
+                        } else {
+                            textViewState.text = "Container state : already used"
+                        }
+
+
+                        builder.setView(navView)
+                        val alertDialog = builder.create()
+                        alertDialog.show()
+
+                        navView.button_confirm.setOnClickListener {
+                            context?.let { it1 -> orderRepository.updateOrderToContainer(orderIds, listId[index], "container", it1) }
+                            context?.let { it1 -> lockerRepository.updateContainer("1", listId[index], it1) }
+                            Toast.makeText(context, "Order and container state successfully updated", Toast.LENGTH_LONG).show()
+                            Handler().postDelayed({
+                                alertDialog.dismiss()
+                                navController.navigate((R.id.action_selectOrderLockerFragment_to_navigation_prescription))
+                            }, 1000)
+                        }
+                        navView.button_cancel.setOnClickListener {
+                            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+                            alertDialog.dismiss()
+                        }
                     }
 
                 } else if (jsonResponse["success"] == false && jsonResponse["error"] == "Il n'existe pas de containers"){
@@ -98,7 +135,7 @@ class LockerFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -120,40 +157,12 @@ class LockerFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.add_button).setOnClickListener(this)
-        view.findViewById<Button>(R.id.clear_all_button).setOnClickListener(this)
+        view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.add_button -> navController.navigate(R.id.action_navigation_locker_to_addLockerFragment)
-            R.id.clear_all_button -> changeFragmentAfterAllDeletion()
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun changeFragmentAfterAllDeletion(){
-
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setCancelable(true)
-        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
-        val question: TextView = navView.findViewById(R.id.sure_label)
-        question.text = "Delete all containers of the pharmacy?"
-        builder.setView(navView)
-        val alertDialog = builder.create()
-        alertDialog.show()
-
-        navView.button_confirm.setOnClickListener {
-            context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
-            Handler().postDelayed({
-                alertDialog.dismiss()
-                navController.navigate(R.id.action_locker_nav_to_locker_nav)
-            }, 1000)
-        }
-
-        navView.button_cancel.setOnClickListener {
-            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
-            alertDialog.dismiss()
+            R.id.button_back -> activity?.onBackPressed()
         }
     }
 }

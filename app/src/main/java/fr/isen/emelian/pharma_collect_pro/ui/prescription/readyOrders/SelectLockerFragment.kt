@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
 import fr.isen.emelian.pharma_collect_pro.repository.OrderRepository
+import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
 import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 import org.json.JSONObject
 import java.io.File
@@ -34,6 +36,7 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
     private lateinit var orderIds: String
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val myUser: User = User()
+    private val presRepository: PrescriptionRepository = PrescriptionRepository()
     private val orderRepository: OrderRepository = OrderRepository()
     private val lockerRepository: LockerRepository = LockerRepository()
 
@@ -55,6 +58,7 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
             val jsonObject = JSONObject(datas)
             myUser.pharma_id = jsonObject.optInt("pharmaId")
             myUser.token = jsonObject.optString("token")
+            myUser.id = jsonObject.optInt("id")
         }
 
         val circleMenu: CircleMenu = root.findViewById(R.id.circle_menu)
@@ -101,17 +105,19 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
                             textViewState.text = "Container state : already used"
                         }
 
-
                         builder.setView(navView)
                         val alertDialog = builder.create()
                         alertDialog.show()
 
                         navView.button_confirm.setOnClickListener {
-                            Toast.makeText(context, "You clicked " + listId[index] + " confirm", Toast.LENGTH_LONG).show()
-                            context?.let { it1 -> orderRepository.updateOrderToContainer(orderIds, listId[index], "container", it1) }
+                            context?.let { it1 -> presRepository.updatePresToContainer(orderIds, listId[index], "container", it1) }
+                            context?.let { it1 -> orderRepository.findOrderToUpdateContainer(myUser.pharma_id.toString(), orderIds, "container", listId[index], it1) }
                             context?.let { it1 -> lockerRepository.updateContainer("1", listId[index], it1) }
-                            alertDialog.dismiss()
-                            navController.navigate((R.id.action_selectLockerFragment_to_navigation_prescription))
+                            Toast.makeText(context, "Order and container state successfully updated", Toast.LENGTH_LONG).show()
+                            Handler().postDelayed({
+                                alertDialog.dismiss()
+                                navController.navigate((R.id.action_selectLockerFragment_to_navigation_prescription))
+                            }, 1250)
                         }
                         navView.button_cancel.setOnClickListener {
                             Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
@@ -157,5 +163,4 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
             R.id.button_back -> activity?.onBackPressed()
         }
     }
-
 }

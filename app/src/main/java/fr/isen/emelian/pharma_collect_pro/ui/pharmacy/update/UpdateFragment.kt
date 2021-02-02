@@ -1,8 +1,8 @@
 package fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import androidx.navigation.Navigation
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
-import fr.isen.emelian.pharma_collect_pro.MainActivity
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import org.json.JSONObject
@@ -135,8 +134,9 @@ class UpdateFragment : Fragment(), View.OnClickListener {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == true) {
                     Toast.makeText(context, "Pharmacy successfully updated", Toast.LENGTH_LONG).show()
-                    val intent = Intent(context, MainActivity::class.java)
-                    context?.startActivity(intent)
+                    Handler().postDelayed({
+                        navController.navigate(R.id.action_navigation_update_to_navigation_pharmacy)
+                    }, 1500)
                 }else{
                     Toast.makeText(context, "Failed to update pharmacy", Toast.LENGTH_LONG).show()
                 }
