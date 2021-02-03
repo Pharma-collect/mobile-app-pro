@@ -1,6 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.prescription.containerOrders
 
 import android.annotation.SuppressLint
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -117,12 +118,14 @@ class ContainerPrescriptionFragment : Fragment(), View.OnClickListener {
         navController = Navigation.findNavController(view)
         view.findViewById<Button>(R.id.button_client_info).setOnClickListener(this)
         view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
+        view.findViewById<ImageView>(R.id.prescription_image_view).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.button_client_info -> switchToClientInfo()
             R.id.button_back -> activity?.onBackPressed()
+            R.id.prescription_image_view -> switchToPicture()
         }
     }
 
@@ -167,6 +170,42 @@ class ContainerPrescriptionFragment : Fragment(), View.OnClickListener {
                     return params
                 }
             }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    private fun switchToPicture(){
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/prescription/getPrescriptionById"
+        val stringRequest: StringRequest =
+                @SuppressLint("SetTextI18n")
+                object : StringRequest(Method.POST, url, Response.Listener<String> {
+                    val jsonResponse = JSONObject(it)
+                    Log.d("PharmaInfo", it.toString())
+                    if (jsonResponse["success"] == true) {
+                        val data = JSONObject(jsonResponse.get("result").toString())
+                        val id = IDs(BigDecimal(data["id"].toString()))
+                        val bundle = bundleOf("url" to id)
+                        navController.navigate(R.id.action_containerPrescriptionFragment_to_biggerPresFragment, bundle)
+                    }else{
+                        Log.d("error", "Error while getting infos")
+                    }
+                }, Response.ErrorListener { error ->
+                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                            .show()
+                }) {
+                    override fun getHeaders(): Map<String, String> {
+                        val params: MutableMap<String, String> = HashMap()
+                        params["Host"] = "node"
+                        params["Authorization"] = myUser.token.toString()
+                        return params
+                    }
+                    override fun getParams(): MutableMap<String, String>? {
+                        val params: MutableMap<String, String> = HashMap()
+                        params["prescription_id"] = order_id
+                        return params
+                    }
+                }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }

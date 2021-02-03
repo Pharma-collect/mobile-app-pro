@@ -36,7 +36,7 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id_client = arguments!!.getParcelable("client_id")!!
+        id_client = arguments!!.getParcelable("url")!!
     }
 
     override fun onCreateView(

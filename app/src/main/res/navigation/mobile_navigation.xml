@@ -275,6 +275,9 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_detailPrescriptionFragment_to_biggerPresFragment"
+            app:destination="@id/biggerPresFragment" />
 
     </fragment>
 
@@ -326,6 +329,7 @@
         android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.containerOrders.ContainerFragment"
         android:label="fragment_container"
         tools:layout="@layout/fragment_container" >
+
         <action
             android:id="@+id/action_containerFragment_to_containerPrescriptionFragment"
             app:destination="@id/containerPrescriptionFragment"
@@ -482,6 +486,12 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_readyPresFragment_to_biggerPresFragment"
+            app:destination="@id/biggerPresFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_in"/>
+
     </fragment>
 
     <fragment
@@ -529,6 +539,7 @@
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
     </fragment>
+
     <fragment
         android:id="@+id/containerPrescriptionFragment"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.containerOrders.ContainerPrescriptionFragment"
@@ -545,6 +556,12 @@
 
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+
+        <action
+            android:id="@+id/action_containerPrescriptionFragment_to_biggerPresFragment"
+            app:destination="@id/biggerPresFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_in"/>
 
     </fragment>
 
@@ -584,12 +601,20 @@
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
+        <action
+            android:id="@+id/action_finishPrescriptionFragment_to_biggerPresFragment"
+            app:destination="@id/biggerPresFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_in"/>
+
     </fragment>
+
     <fragment
         android:id="@+id/selectOrderLockerFragment"
         android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders.SelectOrderLockerFragment"
         android:label="fragment_select_order_locker"
         tools:layout="@layout/fragment_select_order_locker" >
+
         <action
             android:id="@+id/action_selectOrderLockerFragment_to_navigation_prescription"
             app:destination="@id/navigation_prescription"
@@ -600,6 +625,16 @@
 
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+
     </fragment>
+
+    <fragment
+        android:id="@+id/biggerPresFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.detailClient.BiggerPresFragment"
+        android:label="fragment_bigger_pres"
+        tools:layout="@layout/fragment_bigger_pres" />
+
+    <argument android:name="url"
+        app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
 </navigation>
