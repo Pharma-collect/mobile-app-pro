@@ -65,7 +65,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         when (view?.id) {
             R.id.cancel_btn -> activity?.onBackPressed()
             R.id.update_btn -> changeFragmentAfterUpdate()
-            R.id.delete_btn -> changeFragmentAfterDeletion()
+            R.id.delete_btn -> lockerVerifDeletion()
         }
     }
 
@@ -124,6 +124,25 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         navView.button_cancel.setOnClickListener {
             Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
             alertDialog.dismiss()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun lockerVerifDeletion() {
+        val containerState = view?.findViewById<TextView>(R.id.locker_state)?.text.toString()
+        if(containerState == "Current status : Fill"){
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setCancelable(true)
+            val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
+            val question: TextView = navView.findViewById(R.id.name_product)
+            val explanation: TextView = navView.findViewById(R.id.capacity_product)
+            question.text = "Error !"
+            explanation.text = "This container is not empty, you can't delete it"
+            builder.setView(navView)
+            val alertDialog = builder.create()
+            alertDialog.show()
+        } else {
+            changeFragmentAfterDeletion()
         }
     }
 
