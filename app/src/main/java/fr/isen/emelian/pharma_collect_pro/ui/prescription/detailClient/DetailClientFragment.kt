@@ -27,25 +27,41 @@ import kotlin.collections.HashMap
 
 class DetailClientFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var id_client: IDs
+    private lateinit var idClient: IDs
     private lateinit var navController: NavController
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
-    private lateinit var client_id: String
+    private lateinit var clientId: String
     private val myUser: User = User()
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id_client = arguments!!.getParcelable("url")!!
+        idClient = arguments!!.getParcelable("client_id")!!
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_detail_client, container, false)
-        client_id = id_client.id.toString()
+        setView(root)
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.button_back_client).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.button_back_client -> activity?.onBackPressed()
+        }
+    }
+
+    private fun setView(root: View) {
+        clientId = idClient.id.toString()
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
@@ -91,7 +107,7 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -101,26 +117,12 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
                 }
                 override fun getParams(): MutableMap<String, String>? {
                     val params: MutableMap<String, String> = HashMap()
-                    params["user_id"] = client_id
+                    params["user_id"] = clientId
                     return params
                 }
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.button_back_client).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.button_back_client -> activity?.onBackPressed()
-        }
     }
 
     /**

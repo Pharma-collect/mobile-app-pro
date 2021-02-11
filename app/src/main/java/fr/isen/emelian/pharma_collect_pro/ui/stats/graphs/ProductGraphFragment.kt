@@ -37,7 +37,23 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_graph, container, false)
+        setView(view)
+        return view
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.back_product_graph).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.back_product_graph -> activity?.onBackPressed()
+        }
+    }
+
+    private fun setView(view: View) {
         val barChart: BarChart = view.findViewById(R.id.products_barchart)
         val products = ArrayList<BarEntry>()
 
@@ -90,7 +106,7 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
                     barChart.animateXY(1000, 1000)
 
                     barChart.setOnChartValueSelectedListener(object:
-                            OnChartValueSelectedListener {
+                        OnChartValueSelectedListener {
                         override fun onNothingSelected() {
                             // Code
                         }
@@ -120,7 +136,7 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -136,18 +152,5 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.back_product_graph).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.back_product_graph -> activity?.onBackPressed()
-        }
     }
 }

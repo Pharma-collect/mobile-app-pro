@@ -196,7 +196,7 @@
     <string name="id_container">Container ID : </string>
     <string name="nb_container">Container number : </string>
     <string name="confirm">Valid</string>
-    <string name="avoid">Avoid</string>
+    <string name="avoid">Cancel</string>
     <string name="preparator_id">Preparator id :</string>
     <string name="locker_nb">Locker number : </string>
 

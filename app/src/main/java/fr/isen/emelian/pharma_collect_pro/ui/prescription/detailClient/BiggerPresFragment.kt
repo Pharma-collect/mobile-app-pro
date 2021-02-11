@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Response
@@ -20,9 +19,7 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
-import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import org.json.JSONObject
-import java.math.BigDecimal
 
 class BiggerPresFragment : Fragment(), View.OnClickListener {
 
@@ -43,44 +40,7 @@ class BiggerPresFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_bigger_pres, container, false)
-        id = myId.id.toString()
-
-
-        val urlImage: ImageView = root.findViewById(R.id.pres_big)
-
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/prescription/getPrescriptionById"
-        val stringRequest: StringRequest =
-                @SuppressLint("SetTextI18n")
-                object : StringRequest(Method.POST, url, Response.Listener<String> {
-                    val jsonResponse = JSONObject(it)
-                    Log.d("PharmaInfo", it.toString())
-                    if (jsonResponse["success"] == true) {
-                        val data = JSONObject(jsonResponse.get("result").toString())
-                        val myUri: Uri = Uri.parse(data["image_url"].toString())
-                        Glide.with(root.context).load(myUri).into(urlImage)
-
-                    }else{
-                        Log.d("error", "Error while getting infos")
-                    }
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
-                }) {
-                    override fun getHeaders(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["Host"] = "node"
-                        return params
-                    }
-                    override fun getParams(): MutableMap<String, String>? {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["prescription_id"] = id
-                        return params
-                    }
-                }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-
+        setView(root)
         return root
     }
 
@@ -96,4 +56,41 @@ class BiggerPresFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun setView(root: View) {
+        id = myId.id.toString()
+
+        val urlImage: ImageView = root.findViewById(R.id.pres_big)
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/prescription/getPrescriptionById"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+                    val myUri: Uri = Uri.parse(data["image_url"].toString())
+                    Glide.with(root.context).load(myUri).into(urlImage)
+
+                }else{
+                    Log.d("error", "Error while getting infos")
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["prescription_id"] = id
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
 }

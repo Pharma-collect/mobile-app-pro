@@ -33,66 +33,9 @@ class UpdateFragment : Fragment(), View.OnClickListener {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_update_pharmacy, container, false)
-
-        val pharmaName: EditText = root.findViewById(R.id.pharma_name_update)
-        val pharmaPhone: EditText = root.findViewById(R.id.pharma_phone_update)
-        val pharmaRoadNb: EditText = root.findViewById(R.id.pharma_road_nb_update)
-        val pharmaRoad: EditText = root.findViewById(R.id.pharma_road_update)
-        val pharmaCity: EditText = root.findViewById(R.id.pharma_city_update)
-        val pharmaPostcode: EditText = root.findViewById(R.id.pharma_postcode_update)
-
-        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
-        if (datas.isNotEmpty()) {
-            val jsonObject = JSONObject(datas)
-            myUser.pharma_id = jsonObject.optInt("pharmaId")
-            myUser.token = jsonObject.optString("token")
-        }
-
-        /**
-         * Get current pharmacy information
-         */
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/pharmacy/getPharmacyById"
-        val stringRequest: StringRequest =
-            @SuppressLint("SetTextI18n")
-            object : StringRequest(Method.POST, url, Response.Listener<String> {
-                val jsonResponse = JSONObject(it)
-                Log.d("PharmaInfo", it.toString())
-                if (jsonResponse["success"] == true) {
-                    val data = JSONObject(jsonResponse.get("result").toString())
-
-                    pharmaName.setText(data["name"].toString())
-                    pharmaPhone.setText("0" + data["phone"].toString())
-                    pharmaRoadNb.setText(data["road_nb"].toString())
-                    pharmaRoad.setText(data["road"].toString())
-                    pharmaCity.setText(data["city"].toString())
-                    pharmaPostcode.setText(data["post_code"].toString())
-
-                }else{
-                    Log.d("ResponseJSON", jsonResponse.toString())
-                }
-            }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
-            }) {
-                override fun getHeaders(): Map<String, String> {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["Host"] = "node"
-                    params["Authorization"] = myUser.token.toString()
-                    return params
-                }
-                override fun getParams(): MutableMap<String, String>? {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["pharmacy_id"] = myUser.pharma_id.toString()
-                    return params
-                }
-            }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-
+        setView(root)
         return root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -159,6 +102,64 @@ class UpdateFragment : Fragment(), View.OnClickListener {
                     params["phone"] = phone.toString()
                     params["post_code"] = postcode.toString()
                     params["city"] = city.toString()
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    private fun setView(root: View) {
+        val pharmaName: EditText = root.findViewById(R.id.pharma_name_update)
+        val pharmaPhone: EditText = root.findViewById(R.id.pharma_phone_update)
+        val pharmaRoadNb: EditText = root.findViewById(R.id.pharma_road_nb_update)
+        val pharmaRoad: EditText = root.findViewById(R.id.pharma_road_update)
+        val pharmaCity: EditText = root.findViewById(R.id.pharma_city_update)
+        val pharmaPostcode: EditText = root.findViewById(R.id.pharma_postcode_update)
+
+        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
+        if (datas.isNotEmpty()) {
+            val jsonObject = JSONObject(datas)
+            myUser.pharma_id = jsonObject.optInt("pharmaId")
+            myUser.token = jsonObject.optString("token")
+        }
+
+        /**
+         * Get current pharmacy information
+         */
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/pharmacy/getPharmacyById"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+
+                    pharmaName.setText(data["name"].toString())
+                    pharmaPhone.setText("0" + data["phone"].toString())
+                    pharmaRoadNb.setText(data["road_nb"].toString())
+                    pharmaRoad.setText(data["road"].toString())
+                    pharmaCity.setText(data["city"].toString())
+                    pharmaPostcode.setText(data["post_code"].toString())
+
+                }else{
+                    Log.d("ResponseJSON", jsonResponse.toString())
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["pharmacy_id"] = myUser.pharma_id.toString()
                     return params
                 }
             }

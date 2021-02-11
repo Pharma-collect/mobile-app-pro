@@ -22,7 +22,9 @@ import com.bumptech.glide.Glide
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
+import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
 import org.json.JSONObject
+import java.io.File
 import java.math.BigDecimal
 
 class ReadyPresFragment : Fragment(), View.OnClickListener  {
@@ -32,6 +34,7 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
     private lateinit var orderIds: String
     var myUser: User = User()
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
+    private var myRepo: PrescriptionRepository = PrescriptionRepository()
 
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -43,62 +46,8 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        orderIds = idOrders.id.toString()
-
         val root = inflater.inflate(R.layout.fragment_ready_pres, container, false)
-
-        val orderID: TextView = root.findViewById(R.id.id_order)
-        val clientID: TextView = root.findViewById(R.id.id_client)
-        val statusOrder: TextView = root.findViewById(R.id.status_order)
-        val detailText: TextView = root.findViewById(R.id.detail_text)
-        val preparator: TextView = root.findViewById(R.id.id_preparator)
-        val urlImage: ImageView = root.findViewById(R.id.prescription_image_view)
-
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/prescription/getPrescriptionById"
-        val stringRequest: StringRequest =
-            @SuppressLint("SetTextI18n")
-            object : StringRequest(Method.POST, url, Response.Listener<String> {
-                val jsonResponse = JSONObject(it)
-                Log.d("PharmaInfo", it.toString())
-                if (jsonResponse["success"] == true) {
-                    val data = JSONObject(jsonResponse.get("result").toString())
-                    val myUri: Uri = Uri.parse(data["image_url"].toString())
-
-                    orderID.text = "ID : " + data["id"]
-                    clientID.text = data["id_client"].toString()
-                    statusOrder.text = "Current status : " + data["status"]
-                    Glide.with(root.context).load(myUri).into(urlImage)
-                    preparator.text = "Preparator ID : " + data["id_preparator"]
-                    detailText.text = data["detail"].toString()
-
-                    //Function to get the locker number instead of id
-                    //getContainerNumber(data["id_container"].toString(), myUser.token.toString(), locker)
-
-                }else{
-
-                    Log.d("error", "Error while getting infos")
-
-                }
-            }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
-            }) {
-                override fun getHeaders(): Map<String, String> {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["Host"] = "node"
-                    params["Authorization"] = myUser.token.toString()
-                    return params
-                }
-                override fun getParams(): MutableMap<String, String>? {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["prescription_id"] = orderIds
-                    return params
-                }
-            }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-
+        setView(root)
         return root
     }
 
@@ -166,6 +115,70 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
                         return params
                     }
                 }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    private fun setView(root: View) {
+        orderIds = idOrders.id.toString()
+
+        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
+        if (datas.isNotEmpty()) {
+            val jsonObject = JSONObject(datas)
+            myUser.token = jsonObject.optString("token")
+            myUser.pharma_id = jsonObject.optInt("pharmaId")
+        }
+
+        val orderID: TextView = root.findViewById(R.id.id_order)
+        val clientID: TextView = root.findViewById(R.id.id_client)
+        val statusOrder: TextView = root.findViewById(R.id.status_order)
+        val detailText: TextView = root.findViewById(R.id.detail_text)
+        val preparator: TextView = root.findViewById(R.id.id_preparator)
+        val urlImage: ImageView = root.findViewById(R.id.prescription_image_view)
+
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/prescription/getPrescriptionById"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+                    val myUri: Uri = Uri.parse(data["image_url"].toString())
+
+                    clientID.text = data["id_client"].toString()
+                    statusOrder.text = "Current status : " + data["status"]
+                    Glide.with(root.context).load(myUri).into(urlImage)
+                    preparator.text = "Preparator ID : " + data["id_preparator"]
+                    detailText.text = data["detail"].toString()
+
+                    context?.let { it1 ->
+                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderIds, orderID,
+                            it1
+                        )
+                    }
+                }else{
+
+                    Log.d("error", "Error while getting infos")
+
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["prescription_id"] = orderIds
+                    return params
+                }
+            }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }

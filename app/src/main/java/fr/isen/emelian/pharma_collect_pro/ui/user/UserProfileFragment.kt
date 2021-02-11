@@ -33,11 +33,25 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        EnableHttps.handleSSLHandshake()
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_user_profile, container, false)
+        setView(root)
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.back_user_info).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.back_user_info -> activity?.onBackPressed()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setView(root: View) {
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
             val jsonObject = JSONObject(datas)
@@ -83,27 +97,24 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
                     val listPres: ListView = root.findViewById(R.id.info_list)
                     listPres.adapter = adapterPres
                     listPres.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
-                        val id = IDs(BigDecimal(listPrescription[p2]))
-                        val bundle = bundleOf("order_id" to id)
 
                         if(listType[p2] == "null" && listState[p2] == "pending"){
-                            navController.navigate(R.id.action_userProfileFragment_to_detailOrderFragment, bundle)
+                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_detailOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "pending"){
-                            navController.navigate(R.id.action_userProfileFragment_to_detailPrescriptionFragment, bundle)
+                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_detailPrescriptionFragment)
                         } else if(listType[p2] == "null" && listState[p2] == "container"){
-                            //order container
+                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_containerOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "container") {
-                            //prescription container
+                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_containerPresFragment)
                         } else if(listType[p2] == "null" && listState[p2] == "finish") {
-                            //order finish
+                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_finishOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "finish") {
-                            //prescription finish
+                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_finishPresFragment)
                         } else if(listType[p2] == "null" && listState[p2] == "ready") {
-                            navController.navigate(R.id.action_userProfileFragment_to_readyOrderFragment, bundle)
+                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_readyOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "ready") {
-                            navController.navigate(R.id.action_userProfileFragment_to_readyPresFragment, bundle)
+                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_readyPresFragment)
                         }
-
                     }
 
                 }else{
@@ -128,19 +139,48 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.back_user_info).setOnClickListener(this)
+    private fun bundleOrder(id_received: String, action: Int) {
+        val id = IDs(BigDecimal(id_received))
+        val bundle = bundleOf("order_id" to id)
+        navController.navigate(action, bundle)
     }
 
-    override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.back_user_info -> activity?.onBackPressed()
-        }
+    private fun bundlePrescription(id: String, action: Int) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/order/getOrderById"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+                    val id = IDs(BigDecimal(data["id_prescription"].toString()))
+                    val bundle = bundleOf("order_id" to id)
+                    navController.navigate(action, bundle)
+                }else{
+                    Log.d("error", "Error while getting infos")
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["order_id"] = id
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
     }
 
 }

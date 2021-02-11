@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/des_user_pro"
+            android:text="@string/product_graph_amount"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"/>

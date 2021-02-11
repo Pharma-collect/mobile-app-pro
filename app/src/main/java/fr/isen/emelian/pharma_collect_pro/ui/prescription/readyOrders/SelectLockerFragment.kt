@@ -48,9 +48,25 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val root = inflater.inflate(R.layout.fragment_select_locker, container, false)
 
+        val root = inflater.inflate(R.layout.fragment_select_locker, container, false)
+        setView(root)
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.button_back -> activity?.onBackPressed()
+        }
+    }
+
+    private fun setView(root: View) {
         orderIds = idOrders.id.toString()
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
@@ -85,7 +101,7 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
 
                     circleMenu.setMainMenu(Color.parseColor("#6E6E6E"), R.drawable.locker_logo, R.drawable.ic_baseline_clear_all_24).openMenu()
                     for (i in 0 until listId.size) {
-                            circleMenu.addSubMenu(Color.parseColor("#00FF00"), R.drawable.locker_logo)
+                        circleMenu.addSubMenu(Color.parseColor("#00FF00"), R.drawable.locker_logo)
                     }
 
                     circleMenu.setOnMenuSelectedListener { index ->
@@ -149,18 +165,5 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.button_back -> activity?.onBackPressed()
-        }
     }
 }
