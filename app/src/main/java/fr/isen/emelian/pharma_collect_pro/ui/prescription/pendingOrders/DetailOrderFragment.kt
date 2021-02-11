@@ -4,20 +4,19 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.android.volley.Response
+import com.android.volley.request.StringRequest
+import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
@@ -29,44 +28,26 @@ import java.math.BigDecimal
 
 class DetailOrderFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var detailOrderViewModel: DetailOrderViewModel
+    private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
 
-    private lateinit var id_order: IDs
+    private lateinit var idOrder: IDs
     private lateinit var navController: NavController
     private val orderRepository: OrderRepository = OrderRepository()
-    private lateinit var order_id: String
+    private lateinit var orderId: String
     private val myUser: User = User()
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id_order = arguments!!.getParcelable("order_id")!!
+        idOrder = arguments!!.getParcelable("order_id")!!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        detailOrderViewModel = ViewModelProvider(this).get(DetailOrderViewModel::class.java)
-
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_detail_order, container, false)
-
-
-        val orderID: TextView = root.findViewById(R.id.id_order)
-        val clientID: TextView = root.findViewById(R.id.id_client)
-        val statusOrder: TextView = root.findViewById(R.id.status_order)
-        //val detailText: TextView = root.findViewById(R.id.detail_text)
-        val totalPrice: TextView = root.findViewById(R.id.total_price)
-
-        detailOrderViewModel.orderID.observe(viewLifecycleOwner, Observer { orderID.text = it })
-        detailOrderViewModel.clientID.observe(viewLifecycleOwner, Observer { clientID.text = it })
-        detailOrderViewModel.statusOrder.observe(viewLifecycleOwner, Observer { statusOrder.text = it })
-        //detailOrderViewModel.detailText.observe(viewLifecycleOwner, Observer { detailText.text = it })
-        detailOrderViewModel.totalPrice.observe(viewLifecycleOwner, Observer { totalPrice.text = it })
-
-        order_id = id_order.id.toString()
-        detailOrderViewModel.idOrder = order_id
-
+        setView(root)
         return root
     }
 
@@ -111,10 +92,10 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
             }
             val detail = editTextNote.text.toString()
             if(editTextNote.text.toString() != "") {
-                context?.let { it1 -> orderRepository.updateOrderToReady(order_id, "ready", myUser.id.toString(), detail, it1) }
+                context?.let { it1 -> orderRepository.updateOrderToReady(orderId, "ready", myUser.id.toString(), detail, it1) }
                 Toast.makeText(context, "Order state successfully updated", LENGTH_LONG).show()
             } else {
-                context?.let { it1 -> orderRepository.updateOrderToReady(order_id, "ready", myUser.id.toString(), "RAS", it1) }
+                context?.let { it1 -> orderRepository.updateOrderToReady(orderId, "ready", myUser.id.toString(), "RAS", it1) }
                 Toast.makeText(context, "Order state successfully updated", LENGTH_LONG).show()
             }
 
@@ -128,6 +109,69 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
             Toast.makeText(context, "Operation canceled", LENGTH_LONG).show()
             alertDialog.dismiss()
         }
+    }
+
+    private fun setView(root: View){
+        orderId = idOrder.id.toString()
+
+        val orderID: TextView = root.findViewById(R.id.id_order)
+        val clientID: TextView = root.findViewById(R.id.id_client)
+        val statusOrder: TextView = root.findViewById(R.id.status_order)
+        val totalPrice: TextView = root.findViewById(R.id.total_price)
+
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/order_detail/getOrderDetailsByOrder"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+
+                    val jsonArray = jsonResponse.optJSONArray("result")
+                    //val jsonArrayProduct = JSONObject(jsonArray["product"].toString())
+                    val listProduct: MutableList<String> = ArrayList()
+
+                    for (i in 0 until jsonArray.length()) {
+                        val item = jsonArray.getJSONObject(i)
+                        val product = JSONObject(item.get("product").toString())
+                        val order = JSONObject(item.get("order").toString())
+
+                        listProduct.add(product["title"].toString())
+                        orderID.text = "ID : " + order["id"]
+                        clientID.text = order["id_client"].toString()
+                        totalPrice.text = "Total price : " + order["total_price"] + "€"
+                        statusOrder.text = "Order status : " + order["status"].toString()
+
+                    }
+
+                    val adapterPres: ArrayAdapter<String>? = context?.let { it1 -> ArrayAdapter(it1, android.R.layout.simple_list_item_1, listProduct) }
+                    val listPres: ListView = view!!.findViewById(R.id.product_list)
+                    listPres.adapter = adapterPres
+
+                }else{
+
+                    Toast.makeText(context, "Error while getting order info", LENGTH_LONG).show()
+
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["order_id"] = orderId
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
     }
 }
 

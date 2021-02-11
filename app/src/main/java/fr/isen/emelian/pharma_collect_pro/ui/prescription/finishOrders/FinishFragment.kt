@@ -1,5 +1,6 @@
 package fr.isen.emelian.pharma_collect_pro.ui.prescription.finishOrders
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,7 +21,6 @@ import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
 
-
 class FinishFragment : Fragment(), View.OnClickListener {
 
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
@@ -31,9 +31,60 @@ class FinishFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_finish, container, false)
+        setView(root)
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.back_button).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.back_button -> activity?.onBackPressed()
+        }
+    }
+
+    private fun bundlePrescription(id: String, action: Int) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/order/getOrderById"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+                    val id = IDs(BigDecimal(data["id_prescription"].toString()))
+                    val bundle = bundleOf("order_id" to id)
+                    navController.navigate(action, bundle)
+                }else{
+                    Log.d("error", "Error while getting infos")
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["order_id"] = id
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    private fun setView(root: View) {
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
             val jsonObject = JSONObject(datas)
@@ -55,7 +106,7 @@ class FinishFragment : Fragment(), View.OnClickListener {
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_prescription"].toString() != "null" && item["status"].toString() == "finish") {
-                            listPrescription.add(item["id_prescription"].toString())
+                            listPrescription.add(item["id"].toString())
                         }
                         if(item["id_prescription"].toString() == "null" && item["status"].toString() == "finish") {
                             listOrders.add(item["id"].toString())
@@ -66,9 +117,7 @@ class FinishFragment : Fragment(), View.OnClickListener {
                     val listPres: ListView = root.findViewById(R.id.prescription_list_view)
                     listPres.adapter = adapterPres
                     listPres.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
-                        val id = IDs(BigDecimal(listPrescription[p2]))
-                        val bundle = bundleOf("order_id" to id)
-                        navController.navigate(R.id.action_finishFragment_to_finishPrescriptionFragment, bundle)
+                        bundlePrescription(listPrescription[p2], R.id.action_finishFragment_to_finishPrescriptionFragment)
                     }
 
                     val adapterOrder: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listOrders) }
@@ -103,19 +152,5 @@ class FinishFragment : Fragment(), View.OnClickListener {
 
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.back_button).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.back_button -> activity?.onBackPressed()
-        }
     }
 }

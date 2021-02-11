@@ -42,7 +42,23 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_order_graph, container, false)
+        setView(view)
+        return view
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.back_order_graph).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.back_order_graph -> activity?.onBackPressed()
+        }
+    }
+
+    private fun setView(view: View) {
         val pieChart: PieChart = view.findViewById(R.id.order_pie_chart)
         val order = ArrayList<PieEntry>()
 
@@ -122,7 +138,7 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
                     pieChart.animateXY(1000, 1000)
 
                     pieChart.setOnChartValueSelectedListener(object:
-                            OnChartValueSelectedListener {
+                        OnChartValueSelectedListener {
                         override fun onNothingSelected() {
                             // Code
                         }
@@ -168,7 +184,7 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -184,18 +200,5 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.back_order_graph).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.back_order_graph -> activity?.onBackPressed()
-        }
     }
 }

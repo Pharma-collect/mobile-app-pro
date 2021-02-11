@@ -48,7 +48,51 @@ class LockerFragment : Fragment(), View.OnClickListener {
                 ViewModelProvider(this).get(LockerViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_locker, container, false)
+        setView(root)
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.add_button).setOnClickListener(this)
+        view.findViewById<Button>(R.id.clear_all_button).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.add_button -> navController.navigate(R.id.action_navigation_locker_to_addLockerFragment)
+            R.id.clear_all_button -> changeFragmentAfterAllDeletion()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun changeFragmentAfterAllDeletion(){
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
+        val question: TextView = navView.findViewById(R.id.sure_label)
+        question.text = "Delete all containers of the pharmacy?"
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_confirm.setOnClickListener {
+            context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
+            Handler().postDelayed({
+                alertDialog.dismiss()
+                navController.navigate(R.id.action_locker_nav_to_locker_nav)
+            }, 1000)
+        }
+
+        navView.button_cancel.setOnClickListener {
+            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
+            alertDialog.dismiss()
+        }
+    }
+
+    private fun setView(root: View) {
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
         if (datas.isNotEmpty()) {
             val jsonObject = JSONObject(datas)
@@ -98,7 +142,7 @@ class LockerFragment : Fragment(), View.OnClickListener {
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -114,46 +158,5 @@ class LockerFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.add_button).setOnClickListener(this)
-        view.findViewById<Button>(R.id.clear_all_button).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.add_button -> navController.navigate(R.id.action_navigation_locker_to_addLockerFragment)
-            R.id.clear_all_button -> changeFragmentAfterAllDeletion()
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun changeFragmentAfterAllDeletion(){
-
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setCancelable(true)
-        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_clear, null)
-        val question: TextView = navView.findViewById(R.id.sure_label)
-        question.text = "Delete all containers of the pharmacy?"
-        builder.setView(navView)
-        val alertDialog = builder.create()
-        alertDialog.show()
-
-        navView.button_confirm.setOnClickListener {
-            context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
-            Handler().postDelayed({
-                alertDialog.dismiss()
-                navController.navigate(R.id.action_locker_nav_to_locker_nav)
-            }, 1000)
-        }
-
-        navView.button_cancel.setOnClickListener {
-            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
-            alertDialog.dismiss()
-        }
     }
 }

@@ -24,11 +24,9 @@ import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.LockerRepository
 import fr.isen.emelian.pharma_collect_pro.repository.OrderRepository
-import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
 import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 import org.json.JSONObject
 import java.io.File
-
 
 class SelectOrderLockerFragment : Fragment(), View.OnClickListener {
 
@@ -51,9 +49,24 @@ class SelectOrderLockerFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_select_order_locker, container, false)
+        setView(root)
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.button_back -> activity?.onBackPressed()
+        }
+    }
+
+    private fun setView(root: View) {
         orderIds = idOrders.id.toString()
 
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
@@ -151,18 +164,5 @@ class SelectOrderLockerFragment : Fragment(), View.OnClickListener {
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.button_back).setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.button_back -> activity?.onBackPressed()
-        }
     }
 }

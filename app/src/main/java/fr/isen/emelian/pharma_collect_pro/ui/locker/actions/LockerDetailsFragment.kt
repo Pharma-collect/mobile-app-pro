@@ -30,7 +30,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
 
     private var selected: String = "0"
     private lateinit var navController: NavController
-    private lateinit var id_container: IDs
+    private lateinit var idContainer: IDs
     private val lockerRepository: LockerRepository = LockerRepository()
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private val myUser: User = User()
@@ -39,7 +39,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id_container = arguments!!.getParcelable("container_id")!!
+        idContainer = arguments!!.getParcelable("container_id")!!
     }
 
     override fun onCreateView(
@@ -48,69 +48,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_locker_details, container, false)
-
-        val pickerState: NumberPicker = root.findViewById(R.id.picker)
-        amount = id_container.id.toString()
-
-        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
-        if (datas.isNotEmpty()) {
-            val jsonObject = JSONObject(datas)
-            myUser.pharma_id = jsonObject.optInt("pharmaId")
-            myUser.token = jsonObject.optString("token")
-        }
-
-        /**
-         * Get container info with its id
-         */
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/container/getContainerById"
-        val stringRequest: StringRequest =
-                @SuppressLint("SetTextI18n")
-                object : StringRequest(Method.POST, url, Response.Listener<String> {
-                    val jsonResponse = JSONObject(it)
-                    Log.d("PharmaInfo", it.toString())
-                    if (jsonResponse["success"] == true) {
-                        val data = JSONObject(jsonResponse.get("result").toString())
-                        val containerNumber: TextView = root.findViewById(R.id.locker_number)
-                        val containerId: TextView = root.findViewById(R.id.locker_id)
-                        val containerState: TextView = root.findViewById(R.id.locker_state)
-
-                        containerNumber.text = "Locker number : " + data["container_number"].toString()
-                        containerId.text = "ID : " + data["id"].toString()
-
-                        if(data["status"].toString() == "0") {
-                            containerState.text = "Current status : Empty"
-                        } else {
-                            containerState.text = "Current status : Fill"
-                        }
-
-                    }else{
-                        Log.d("ResponseJSON", jsonResponse.toString())
-
-                    }
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
-                }) {
-                    override fun getHeaders(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["Host"] = "node"
-                        params["Authorization"] = myUser.token.toString()
-                        return params
-                    }
-                    override fun getParams(): MutableMap<String, String>? {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["container_id"] = amount
-                        return params
-                    }
-                }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-
-        pickerState.maxValue = 1
-        pickerState.minValue = 0
-
-        pickerState.setOnValueChangedListener { _, _, p2 -> selected = p2.toString() }
+        setView(root)
         return root
     }
 
@@ -189,5 +127,69 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun setView(root: View) {
+        val pickerState: NumberPicker = root.findViewById(R.id.picker)
+        amount = idContainer.id.toString()
+
+        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
+        if (datas.isNotEmpty()) {
+            val jsonObject = JSONObject(datas)
+            myUser.pharma_id = jsonObject.optInt("pharmaId")
+            myUser.token = jsonObject.optString("token")
+        }
+
+        /**
+         * Get container info with its id
+         */
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/container/getContainerById"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                Log.d("PharmaInfo", it.toString())
+                if (jsonResponse["success"] == true) {
+                    val data = JSONObject(jsonResponse.get("result").toString())
+                    val containerNumber: TextView = root.findViewById(R.id.locker_number)
+                    val containerId: TextView = root.findViewById(R.id.locker_id)
+                    val containerState: TextView = root.findViewById(R.id.locker_state)
+
+                    containerNumber.text = "Locker number : " + data["container_number"].toString()
+                    containerId.text = "ID : " + data["id"].toString()
+
+                    if(data["status"].toString() == "0") {
+                        containerState.text = "Current status : Empty"
+                    } else {
+                        containerState.text = "Current status : Fill"
+                    }
+
+                }else{
+                    Log.d("ResponseJSON", jsonResponse.toString())
+
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["container_id"] = amount
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+
+        pickerState.maxValue = 1
+        pickerState.minValue = 0
+
+        pickerState.setOnValueChangedListener { _, _, p2 -> selected = p2.toString() }
+    }
 }
 

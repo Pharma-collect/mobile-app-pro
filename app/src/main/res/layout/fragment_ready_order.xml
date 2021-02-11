@@ -87,7 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="25dp">
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -176,17 +179,6 @@
 
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/total_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/total_price"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#FF0000"/>
 
     </LinearLayout>
 
