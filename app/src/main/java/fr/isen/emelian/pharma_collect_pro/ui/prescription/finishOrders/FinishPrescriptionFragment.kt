@@ -1,6 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.prescription.finishOrders
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,7 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
+import kotlinx.android.synthetic.main.dialog_picture.view.*
 import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
@@ -35,6 +37,7 @@ class FinishPrescriptionFragment : Fragment(), View.OnClickListener {
     private lateinit var orderId: String
     private var myUser: User = User()
     private var myRepo: PrescriptionRepository = PrescriptionRepository()
+    private var myPictureUrl: String = ""
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,39 +80,19 @@ class FinishPrescriptionFragment : Fragment(), View.OnClickListener {
 
 
     private fun switchToPicture(){
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/prescription/getPrescriptionById"
-        val stringRequest: StringRequest =
-                @SuppressLint("SetTextI18n")
-                object : StringRequest(Method.POST, url, Response.Listener<String> {
-                    val jsonResponse = JSONObject(it)
-                    Log.d("PharmaInfo", it.toString())
-                    if (jsonResponse["success"] == true) {
-                        val data = JSONObject(jsonResponse.get("result").toString())
-                        val id = IDs(BigDecimal(data["id"].toString()))
-                        val bundle = bundleOf("url" to id)
-                        navController.navigate(R.id.action_finishPrescriptionFragment_to_biggerPresFragment, bundle)
-                    }else{
-                        Log.d("error", "Error while getting infos")
-                    }
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
-                }) {
-                    override fun getHeaders(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["Host"] = "node"
-                        params["Authorization"] = myUser.token.toString()
-                        return params
-                    }
-                    override fun getParams(): MutableMap<String, String>? {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["prescription_id"] = orderId
-                        return params
-                    }
-                }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_picture, null)
+        val picture = navView.findViewById<ImageView>(R.id.pres_big)
+        val myUri: Uri = Uri.parse(this.myPictureUrl)
+        context?.let { Glide.with(it).load(myUri).into(picture) }
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_back.setOnClickListener {
+            alertDialog.dismiss()
+        }
     }
 
     private fun setView(root: View) {

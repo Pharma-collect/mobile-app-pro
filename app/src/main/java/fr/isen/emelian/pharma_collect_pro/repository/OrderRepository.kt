@@ -79,37 +79,6 @@ class OrderRepository {
         requestQueue.add(stringRequest)
     }
 
-    /**
-     * Update container state orders to finish
-     */
-    fun updateOrderToFinish(orderId: String, status: String, context: Context) {
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/order/updateOrder"
-        val stringRequest: StringRequest =
-                object : StringRequest(Method.POST, url, Response.Listener<String> {
-                    val jsonResponse = JSONObject(it)
-                    if (jsonResponse["success"] == false) {
-                        Toast.makeText(context, "Failed to change order state", Toast.LENGTH_LONG).show()
-                    }
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
-                }) {
-                    override fun getHeaders(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["Host"] = "node"
-                        return params
-                    }
-                    override fun getParams(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["order_id"] = orderId
-                        params["status"] = status
-                        return params
-                    }
-                }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-    }
 
     /**
      * Find an order to update to ready with its prescription id
@@ -188,4 +157,6 @@ class OrderRepository {
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }
+
+    //Make function to create order
 }

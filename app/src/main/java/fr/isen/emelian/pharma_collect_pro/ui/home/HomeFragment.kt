@@ -53,6 +53,7 @@ class HomeFragment : Fragment(), View.OnClickListener{
         view.findViewById<CardView>(R.id.locker_layout_card_view).setOnClickListener(this)
         view.findViewById<CardView>(R.id.pharma_layout_card_view).setOnClickListener(this)
         view.findViewById<ImageView>(R.id.pharma_user_info).setOnClickListener(this)
+        view.findViewById<CardView>(R.id.product_layout_card_view).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -63,6 +64,7 @@ class HomeFragment : Fragment(), View.OnClickListener{
             R.id.locker_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_locker)
             R.id.pharma_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_pharmacy)
             R.id.pharma_user_info -> navController.navigate(R.id.action_navigation_home_to_userProfileFragment)
+            R.id.product_layout_card_view -> navController.navigate(R.id.action_navigation_home_to_navigation_product)
         }
     }
 }

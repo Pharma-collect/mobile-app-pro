@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="65dp"
-    tools:context=".ui.prescription.detailClient.BiggerPresFragment">
+    android:layout_marginBottom="65dp">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/pres_big"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"/>
 
     <Button
         android:id="@+id/button_back"
@@ -18,13 +23,5 @@
         android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
         android:drawableTint="#6E6E6E"
         android:layout_margin="15dp"/>
-
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/pres_big"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="fitXY"/>
-
 
 </RelativeLayout>

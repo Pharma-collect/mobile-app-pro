@@ -176,7 +176,33 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/price_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/total_price"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/price_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ras"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_marginStart="120dp"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
