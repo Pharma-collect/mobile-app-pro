@@ -178,14 +178,13 @@
 
         <TextView
             android:id="@+id/total_price"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/total_price"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/detail"
             android:textStyle="bold"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#FF0000"/>
+            android:textSize="15sp"/>
 
     </LinearLayout>
 

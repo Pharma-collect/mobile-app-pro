@@ -131,7 +131,10 @@ class LockerFragment : Fragment(), View.OnClickListener {
                     circleMenu.setOnMenuSelectedListener { index ->
                         val amount = IDs(BigDecimal(listNumber[index]))
                         val bundle = bundleOf("container_id" to amount)
-                        navController.navigate(R.id.action_navigation_locker_to_lockerDetailsFragment2, bundle)
+                        Handler().postDelayed({
+                            navController.navigate(R.id.action_navigation_locker_to_lockerDetailsFragment2, bundle)
+                        }, 1500)
+
                     }
 
                 } else if (jsonResponse["success"] == false && jsonResponse["error"] == "Il n'existe pas de containers"){

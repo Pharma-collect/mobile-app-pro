@@ -35,6 +35,12 @@
             app:enterAnim="@anim/fade_in"/>
 
         <action
+            android:id="@+id/action_navigation_home_to_navigation_product"
+            app:destination="@id/selectProductFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_in"/>
+
+        <action
             android:id="@+id/action_navigation_home_to_userProfileFragment"
             app:destination="@id/userProfileFragment"
             app:popEnterAnim="@anim/slide_in_left"
@@ -265,9 +271,6 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
 
-        <argument android:name="order_id"
-            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
-
         <action
             android:id="@+id/action_detailPrescriptionFragment_to_navigation_prescription"
             app:destination="@id/navigation_prescription"
@@ -275,9 +278,17 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+
         <action
-            android:id="@+id/action_detailPrescriptionFragment_to_biggerPresFragment"
-            app:destination="@id/biggerPresFragment" />
+            android:id="@+id/action_detailPrescriptionFragment_to_selectProductFragment"
+            app:destination="@id/selectProductFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+        <argument android:name="order_id"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
     </fragment>
 
@@ -518,11 +529,6 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
-        <action
-            android:id="@+id/action_readyPresFragment_to_biggerPresFragment"
-            app:destination="@id/biggerPresFragment"
-            app:popEnterAnim="@anim/fade_in"
-            app:enterAnim="@anim/fade_in"/>
 
     </fragment>
 
@@ -589,12 +595,6 @@
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
-        <action
-            android:id="@+id/action_containerPrescriptionFragment_to_biggerPresFragment"
-            app:destination="@id/biggerPresFragment"
-            app:popEnterAnim="@anim/fade_in"
-            app:enterAnim="@anim/fade_in"/>
-
     </fragment>
 
     <fragment
@@ -633,11 +633,6 @@
         <argument android:name="order_id"
             app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
 
-        <action
-            android:id="@+id/action_finishPrescriptionFragment_to_biggerPresFragment"
-            app:destination="@id/biggerPresFragment"
-            app:popEnterAnim="@anim/fade_in"
-            app:enterAnim="@anim/fade_in"/>
 
     </fragment>
 
@@ -661,12 +656,22 @@
     </fragment>
 
     <fragment
-        android:id="@+id/biggerPresFragment"
-        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.detailClient.BiggerPresFragment"
-        android:label="fragment_bigger_pres"
-        tools:layout="@layout/fragment_bigger_pres" />
+        android:id="@+id/selectProductFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.prescription.orderMaking.ProductSelectionFragment"
+        android:label="fragment_order_making"
+        tools:layout="@layout/fragment_product_selection">
 
-    <argument android:name="url"
-        app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+        <argument android:name="list_order"
+            app:argType="fr.isen.emelian.pharma_collect_pro.dataClass.IDs"/>
+
+    </fragment>
+
+    <action
+        android:id="@+id/action_selectProductFragment_to_navigation_prescription"
+        app:destination="@id/navigation_prescription"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"/>
 
 </navigation>

@@ -1,6 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,7 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
+import kotlinx.android.synthetic.main.dialog_picture.view.*
 import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
@@ -35,6 +37,7 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
     var myUser: User = User()
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private var myRepo: PrescriptionRepository = PrescriptionRepository()
+    private var myPictureUrl: String = ""
 
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -84,39 +87,19 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
     }
 
     private fun switchToPicture(){
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/prescription/getPrescriptionById"
-        val stringRequest: StringRequest =
-                @SuppressLint("SetTextI18n")
-                object : StringRequest(Method.POST, url, Response.Listener<String> {
-                    val jsonResponse = JSONObject(it)
-                    Log.d("PharmaInfo", it.toString())
-                    if (jsonResponse["success"] == true) {
-                        val data = JSONObject(jsonResponse.get("result").toString())
-                        val id = IDs(BigDecimal(data["id"].toString()))
-                        val bundle = bundleOf("url" to id)
-                        navController.navigate(R.id.action_readyPresFragment_to_biggerPresFragment, bundle)
-                    }else{
-                        Log.d("error", "Error while getting infos")
-                    }
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
-                }) {
-                    override fun getHeaders(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["Host"] = "node"
-                        params["Authorization"] = myUser.token.toString()
-                        return params
-                    }
-                    override fun getParams(): MutableMap<String, String>? {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["prescription_id"] = orderIds
-                        return params
-                    }
-                }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_picture, null)
+        val picture = navView.findViewById<ImageView>(R.id.pres_big)
+        val myUri: Uri = Uri.parse(this.myPictureUrl)
+        context?.let { Glide.with(it).load(myUri).into(picture) }
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.button_back.setOnClickListener {
+            alertDialog.dismiss()
+        }
     }
 
     private fun setView(root: View) {
@@ -135,6 +118,7 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
         val detailText: TextView = root.findViewById(R.id.detail_text)
         val preparator: TextView = root.findViewById(R.id.id_preparator)
         val urlImage: ImageView = root.findViewById(R.id.prescription_image_view)
+        val price: TextView = root.findViewById(R.id.price_text)
 
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/prescription/getPrescriptionById"
@@ -154,7 +138,7 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
                     detailText.text = data["detail"].toString()
 
                     context?.let { it1 ->
-                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderIds, orderID,
+                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderIds, orderID, price,
                             it1
                         )
                     }

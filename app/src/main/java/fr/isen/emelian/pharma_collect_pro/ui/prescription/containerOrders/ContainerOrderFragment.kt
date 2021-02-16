@@ -83,7 +83,6 @@ class ContainerOrderFragment : Fragment(), View.OnClickListener {
                 if (jsonResponse["success"] == true) {
 
                     val jsonArray = jsonResponse.optJSONArray("result")
-                    //val jsonArrayProduct = JSONObject(jsonArray["product"].toString())
                     val listProduct: MutableList<String> = ArrayList()
 
                     for (i in 0 until jsonArray.length()) {
