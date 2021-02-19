@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
@@ -151,7 +150,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
             if(item.optString("status").toString() == "pending") {
                 waiting++
             }
-            if(item.optString("id_preparator").toString() == id) {
+            if(item.optString("id_preparator").toString() == id
+                && (item.optString("status").toString() == "ready"
+                        || item.optString("status").toString() == "container")) {
                 assignee++
             }
         }

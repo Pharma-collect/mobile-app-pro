@@ -2,8 +2,10 @@ package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,6 +40,7 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private var myRepo: PrescriptionRepository = PrescriptionRepository()
     private var myPictureUrl: String = ""
+    private var available = 0
 
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -81,9 +84,57 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
     }
 
     private fun switchToLockerSelection(){
-        val id = IDs(BigDecimal(orderIds))
-        val bundle = bundleOf("order_id" to id)
-        navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment, bundle)
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/container/getContainerByPharmacy"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                if (jsonResponse["success"] == true) {
+                    val jsonArray = jsonResponse.optJSONArray("result")
+                    if(jsonArray != null) {
+                        for (i in 0 until jsonArray.length()) {
+                            val item = jsonArray.getJSONObject(i)
+                            if(item["status"].toString() == "0"){
+                                this.available += 1
+                            }
+                        }
+                    }
+                    if(this.available > 0) {
+                        val id = IDs(BigDecimal(orderIds))
+                        val bundle = bundleOf("order_id" to id)
+                        navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment, bundle)
+                    } else {
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                        builder.setCancelable(true)
+                        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
+                        val text = navView.findViewById<TextView>(R.id.name_product)
+                        val empty = navView.findViewById<TextView>(R.id.capacity_product)
+                        text.text = "No locker available"
+                        empty.text = ""
+                        builder.setView(navView)
+                        val alertDialog = builder.create()
+                        alertDialog.show()
+                    }
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["pharmacy_id"] = myUser.pharma_id.toString()
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
     }
 
     private fun switchToPicture(){
@@ -131,14 +182,16 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
                     val data = JSONObject(jsonResponse.get("result").toString())
                     val myUri: Uri = Uri.parse(data["image_url"].toString())
 
+                    orderID.text = "ID : " + data["id"].toString()
                     clientID.text = data["id_client"].toString()
                     statusOrder.text = "Current status : " + data["status"]
                     Glide.with(root.context).load(myUri).into(urlImage)
                     preparator.text = "Preparator ID : " + data["id_preparator"]
-                    detailText.text = data["detail"].toString()
+
+                    this.myPictureUrl = data["image_url"].toString()
 
                     context?.let { it1 ->
-                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderIds, orderID, price,
+                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderIds, price, detailText,
                             it1
                         )
                     }

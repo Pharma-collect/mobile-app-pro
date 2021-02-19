@@ -1,6 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.repository
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
@@ -30,11 +31,10 @@ class LockerRepository {
                 if (jsonResponse["success"] == true) {
                     Toast.makeText(context, "$amount container has been created", Toast.LENGTH_LONG).show()
                 }else{
-                    Toast.makeText(context, "Failed to create containers", Toast.LENGTH_LONG).show()
+                    Log.d("Error", "Error when adding containers, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -69,11 +69,10 @@ class LockerRepository {
                 if (jsonResponse["success"] == true) {
                     Toast.makeText(context, "Container successfully updated", Toast.LENGTH_LONG).show()
                 }else{
-                    Toast.makeText(context, "Failed to udate container", Toast.LENGTH_LONG).show()
+                    Log.d("Error", "Error when updating containers, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                        .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -106,11 +105,10 @@ class LockerRepository {
                     if (jsonResponse["success"] == true) {
                         Toast.makeText(context, "Container successfully deleted", Toast.LENGTH_LONG).show()
                     }else{
-                        Toast.makeText(context, "Error while deleting container", Toast.LENGTH_LONG).show()
+                        Log.d("Error", "Error when deleting containers, reason : $jsonResponse")
                     }
                 }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
+                    Log.d("Error", error.toString())
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()
@@ -141,11 +139,10 @@ class LockerRepository {
                     if (jsonResponse["success"] == true) {
                         Toast.makeText(context, "All container successfully deleted", Toast.LENGTH_LONG).show()
                     }else{
-                        Toast.makeText(context, "Error while deleting all containers", Toast.LENGTH_LONG).show()
+                        Log.d("Error", "Error when deleting all containers, reason : $jsonResponse")
                     }
                 }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
+                    Log.d("Error", error.toString())
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()

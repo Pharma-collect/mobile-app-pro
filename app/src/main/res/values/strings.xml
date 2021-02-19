@@ -201,6 +201,7 @@
     <string name="locker_nb">Locker number : </string>
     <string name="select_product">Select products</string>
     <string name="shop_product">Shop products</string>
+    <string name="search_name">Search by name</string>
 
     <string name="delete_all">Delete ?</string>
     <!-- TODO: Remove or change this placeholder text -->

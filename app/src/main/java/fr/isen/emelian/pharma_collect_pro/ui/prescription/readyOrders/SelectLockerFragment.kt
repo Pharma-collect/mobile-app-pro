@@ -90,7 +90,7 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
                     val listNumber : MutableList<String> = ArrayList()
                     val listId:  MutableList<String> = ArrayList()
                     val listState:  MutableList<String> = ArrayList()
-                    if(jsonArray != null) {
+                    if(jsonArray.length() > 0) {
                         for (i in 0 until jsonArray.length()) {
                             val item = jsonArray.getJSONObject(i)
                             listNumber.add(item["container_number"].toString())
@@ -123,10 +123,12 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
 
                         builder.setView(navView)
                         val alertDialog = builder.create()
-                        alertDialog.show()
+                        Handler().postDelayed({
+                            alertDialog.show()
+                        }, 1250)
 
                         navView.button_confirm.setOnClickListener {
-                            context?.let { it1 -> presRepository.updatePresToContainer(orderIds, listId[index], "container", it1) }
+                            context?.let { it1 -> presRepository.updatePresToContainer(orderIds, "container", it1) }
                             context?.let { it1 -> orderRepository.findOrderToUpdateContainer(myUser.pharma_id.toString(), orderIds, "container", listId[index], it1) }
                             context?.let { it1 -> lockerRepository.updateContainer("1", listId[index], it1) }
                             Toast.makeText(context, "Order and container state successfully updated", Toast.LENGTH_LONG).show()

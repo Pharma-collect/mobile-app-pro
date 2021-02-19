@@ -118,6 +118,7 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
         val clientID: TextView = root.findViewById(R.id.id_client)
         val statusOrder: TextView = root.findViewById(R.id.status_order)
         val totalPrice: TextView = root.findViewById(R.id.total_price)
+        val detailText: TextView = root.findViewById(R.id.detail_text)
 
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order_detail/getOrderDetailsByOrder"
@@ -129,7 +130,6 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
                 if (jsonResponse["success"] == true) {
 
                     val jsonArray = jsonResponse.optJSONArray("result")
-                    //val jsonArrayProduct = JSONObject(jsonArray["product"].toString())
                     val listProduct: MutableList<String> = ArrayList()
 
                     for (i in 0 until jsonArray.length()) {
@@ -142,6 +142,7 @@ class DetailOrderFragment : Fragment(), View.OnClickListener {
                         clientID.text = order["id_client"].toString()
                         totalPrice.text = "Total price : " + order["total_price"] + "€"
                         statusOrder.text = "Order status : " + order["status"].toString()
+                        detailText.text = "Order detail : " + order["detail"].toString()
 
                     }
 

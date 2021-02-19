@@ -58,8 +58,8 @@ class PendingFragment : Fragment(), View.OnClickListener {
                 Log.d("PharmaInfo", it.toString())
                 if (jsonResponse["success"] == true) {
                     val data = JSONObject(jsonResponse.get("result").toString())
-                    val id = IDs(BigDecimal(data["id_prescription"].toString()))
-                    val bundle = bundleOf("order_id" to id)
+                    val ids = IDs(BigDecimal(data["id_prescription"].toString()))
+                    val bundle = bundleOf("order_id" to ids)
                     navController.navigate(action, bundle)
                 }else{
                     Log.d("error", "Error while getting infos")
@@ -101,19 +101,21 @@ class PendingFragment : Fragment(), View.OnClickListener {
                     val jsonArray = jsonResponse.optJSONArray("result")
 
                     val listPrescription: MutableList<String> = ArrayList()
+                    val listPrescriptionId: MutableList<String> = ArrayList()
                     val listOrders: MutableList<String> = ArrayList()
 
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_prescription"].toString() != "null" && item["status"].toString() == "pending") {
                             listPrescription.add(item["id"].toString())
+                            listPrescriptionId.add(item["id_prescription"].toString())
                         }
                         if(item["id_prescription"].toString() == "null" && item["status"].toString() == "pending") {
                             listOrders.add(item["id"].toString())
                         }
                     }
 
-                    val adapterPres: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescription) }
+                    val adapterPres: ArrayAdapter<String>? = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, listPrescriptionId) }
                     val listPres: ListView = view.findViewById(R.id.prescription_list_view)
                     listPres.adapter = adapterPres
                     listPres.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->

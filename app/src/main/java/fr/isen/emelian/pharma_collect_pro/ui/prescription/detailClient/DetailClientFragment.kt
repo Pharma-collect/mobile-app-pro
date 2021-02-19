@@ -96,7 +96,7 @@ class DetailClientFragment : Fragment(), View.OnClickListener {
                     firstname.text = "Firstname : " + data["name"].toString()
                     lastname.text = "Lastname : " + data["lastname"].toString()
                     dob.text = "Date of birth : " + data["birth"].toString()
-                    phone.text = "Phone : " + data["phone"].toString()
+                    phone.text = "Phone : 0" + data["phone"].toString()
                     mail.text = "E-mail : " + data["mail"].toString()
                     age.text = "Age : " + calculAge(data["birth"].toString()).toString()
 

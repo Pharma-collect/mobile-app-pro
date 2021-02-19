@@ -60,8 +60,8 @@ class ContainerFragment : Fragment(), View.OnClickListener {
                 Log.d("PharmaInfo", it.toString())
                 if (jsonResponse["success"] == true) {
                     val data = JSONObject(jsonResponse.get("result").toString())
-                    val id = IDs(BigDecimal(data["id_prescription"].toString()))
-                    val bundle = bundleOf("order_id" to id)
+                    val idPres = IDs(BigDecimal(data["id_prescription"].toString()))
+                    val bundle = bundleOf("order_id" to idPres)
                     navController.navigate(action, bundle)
                 }else{
                     Log.d("error", "Error while getting infos")
@@ -102,12 +102,14 @@ class ContainerFragment : Fragment(), View.OnClickListener {
                     val jsonArray = jsonResponse.optJSONArray("result")
 
                     val listPrescription: MutableList<String> = ArrayList()
+                    val listPrescriptionId: MutableList<String> = ArrayList()
                     val listOrders: MutableList<String> = ArrayList()
 
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if (item["id_prescription"].toString() != "null" && item["status"].toString() == "container") {
                             listPrescription.add(item["id"].toString())
+                            listPrescriptionId.add(item["id_prescription"].toString())
                         }
                         if (item["id_prescription"].toString() == "null" && item["status"].toString() == "container") {
                             listOrders.add(item["id"].toString())
@@ -118,7 +120,7 @@ class ContainerFragment : Fragment(), View.OnClickListener {
                         ArrayAdapter(
                             it,
                             android.R.layout.simple_list_item_1,
-                            listPrescription
+                            listPrescriptionId
                         )
                     }
                     val listPres: ListView = root.findViewById(R.id.prescription_list_view)

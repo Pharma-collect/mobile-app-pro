@@ -36,7 +36,7 @@
 
         <action
             android:id="@+id/action_navigation_home_to_navigation_product"
-            app:destination="@id/selectProductFragment"
+            app:destination="@id/productListFragment"
             app:popEnterAnim="@anim/fade_in"
             app:enterAnim="@anim/fade_in"/>
 
@@ -673,5 +673,11 @@
         app:popExitAnim="@anim/slide_out_right"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"/>
+
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="fr.isen.emelian.pharma_collect_pro.ui.products.ProductListFragment"
+        android:label="fragment_product_list"
+        tools:layout="@layout/fragment_product_list"/>
 
 </navigation>
