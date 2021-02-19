@@ -52,8 +52,7 @@
             <ListView
                 android:id="@+id/prescription_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="220dp"
                 android:padding="30dp"
                 android:textColor="#fff"/>
 
@@ -78,8 +77,7 @@
             <ListView
                 android:id="@+id/order_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="220dp"
                 android:padding="30dp"
                 android:textColor="#fff"/>
 

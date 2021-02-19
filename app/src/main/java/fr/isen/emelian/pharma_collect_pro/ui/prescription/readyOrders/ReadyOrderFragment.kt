@@ -1,6 +1,7 @@
 package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ class ReadyOrderFragment : Fragment(), View.OnClickListener  {
     private lateinit var navController: NavController
     private lateinit var orderIds: String
     private var myUser: User = User()
+    private var available = 0
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,9 +69,57 @@ class ReadyOrderFragment : Fragment(), View.OnClickListener  {
     }
 
     private fun switchToLockerSelection() {
-        val id = IDs(BigDecimal(orderIds))
-        val bundle = bundleOf("order_id" to id)
-        navController.navigate(R.id.action_readyOrderFragment_to_selectOrderLockerFragment, bundle)
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/container/getContainerByPharmacy"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                if (jsonResponse["success"] == true) {
+                    val jsonArray = jsonResponse.optJSONArray("result")
+                    if(jsonArray != null) {
+                        for (i in 0 until jsonArray.length()) {
+                            val item = jsonArray.getJSONObject(i)
+                            if(item["status"].toString() == "0"){
+                                this.available += 1
+                            }
+                        }
+                    }
+                    if(this.available > 0) {
+                        val id = IDs(BigDecimal(orderIds))
+                        val bundle = bundleOf("order_id" to id)
+                        navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment, bundle)
+                    } else {
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                        builder.setCancelable(true)
+                        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
+                        val text = navView.findViewById<TextView>(R.id.name_product)
+                        val empty = navView.findViewById<TextView>(R.id.capacity_product)
+                        text.text = "No locker available"
+                        empty.text = ""
+                        builder.setView(navView)
+                        val alertDialog = builder.create()
+                        alertDialog.show()
+                    }
+                }
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["pharmacy_id"] = myUser.pharma_id.toString()
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
     }
 
     private fun setView(root: View) {
@@ -102,7 +152,7 @@ class ReadyOrderFragment : Fragment(), View.OnClickListener  {
                         listProduct.add(product["title"].toString())
                         orderID.text = "ID : " + order["id"]
                         clientID.text = order["id_client"].toString()
-                        detailText.text = order["detail"].toString()
+                        detailText.text = "Order detail : " + order["detail"]
                         statusOrder.text = "Order status : " + order["status"].toString()
                         preparator.text = "Preparator : " + order["id_preparator"].toString()
 

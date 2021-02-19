@@ -61,15 +61,6 @@
                 android:gravity="center"
                 android:textColor="#fff"/>
 
-            <TextView
-                android:id="@+id/locker_nb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/locker_nb"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:textColor="#fff"/>
 
         </LinearLayout>
 
@@ -116,7 +107,6 @@
                     tools:ignore="RelativeOverlap"
                     android:textColor="#6E6E6E"/>
 
-
             </RelativeLayout>
 
 
@@ -127,38 +117,8 @@
                 android:layout_marginTop="15dp"
                 android:padding="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/prescription_logo"
                 android:contentDescription="@string/prescription_logo"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/detail_field"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/detail"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="#fff"/>
-
-                <TextView
-                    android:id="@+id/detail_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/ras"
-                    android:layout_centerVertical="true"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:layout_marginStart="120dp"
-                    android:textColor="#fff"/>
-
-            </RelativeLayout>
 
         </LinearLayout>
 

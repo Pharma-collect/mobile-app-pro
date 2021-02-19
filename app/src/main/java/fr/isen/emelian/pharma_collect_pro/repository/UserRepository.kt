@@ -35,8 +35,8 @@ class UserRepository {
                     }else{
                         Toast.makeText(context, "Wrong username or password", Toast.LENGTH_LONG).show()
                     }
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
+                }, Response.ErrorListener { _ ->
+                    Toast.makeText(context, "Wrong email or password or internal error", Toast.LENGTH_LONG)
                             .show()
                 }) {
                     override fun getHeaders(): Map<String, String> {
@@ -49,7 +49,6 @@ class UserRepository {
                         val params: MutableMap<String, String> = HashMap()
                         params["username"] = username
                         params["password"] = password
-
                         return params
                     }
                 }

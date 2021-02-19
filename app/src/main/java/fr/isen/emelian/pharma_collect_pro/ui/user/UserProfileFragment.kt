@@ -17,7 +17,6 @@ import com.android.volley.toolbox.Volley
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import fr.isen.emelian.pharma_collect_pro.services.EnableHttps
 import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
@@ -157,11 +156,11 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
                 Log.d("PharmaInfo", it.toString())
                 if (jsonResponse["success"] == true) {
                     val data = JSONObject(jsonResponse.get("result").toString())
-                    val id = IDs(BigDecimal(data["id_prescription"].toString()))
-                    val bundle = bundleOf("order_id" to id)
+                    val idPres = IDs(BigDecimal(data["id_prescription"].toString()))
+                    val bundle = bundleOf("order_id" to idPres)
                     navController.navigate(action, bundle)
                 }else{
-                    Log.d("error", "Error while getting infos")
+                    Log.d("error", "Error while getting info")
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)

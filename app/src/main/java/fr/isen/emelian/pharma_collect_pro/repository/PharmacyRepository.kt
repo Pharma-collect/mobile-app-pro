@@ -2,7 +2,6 @@ package fr.isen.emelian.pharma_collect_pro.repository
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
@@ -40,11 +39,10 @@ class PharmacyRepository {
                         myPharma.post_code = data["post_code"].toString()
                         myPharma.success = jsonResponse["success"].toString()
                     }else{
-                        Log.d("ResponseJSON", jsonResponse.toString())
+                        Log.d("Error", "Error when getting pharma info, reason : $jsonResponse")
                     }
                 }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
+                    Log.d("Error", error.toString())
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()
@@ -76,11 +74,10 @@ class PharmacyRepository {
                         numUsersAdmins = implBossAdminAmount(jsonResponse)
                         Log.d("PharmaInfo", numUsersAdmins.toString())
                     }else{
-                        Toast.makeText(context, jsonResponse.toString(), Toast.LENGTH_LONG).show()
+                        Log.d("Error", "Error when counting users, reason : $jsonResponse")
                     }
                 }, Response.ErrorListener { error ->
-                    Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                            .show()
+                    Log.d("Error", error.toString())
                 }) {
                     override fun getHeaders(): Map<String, String> {
                         val params: MutableMap<String, String> = HashMap()

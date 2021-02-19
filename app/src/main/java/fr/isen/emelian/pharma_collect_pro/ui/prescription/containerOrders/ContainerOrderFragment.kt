@@ -93,7 +93,7 @@ class ContainerOrderFragment : Fragment(), View.OnClickListener {
                         listProduct.add(product["title"].toString())
                         orderID.text = "ID : " + order["id"]
                         clientID.text = order["id_client"].toString()
-                        detailText.text = order["detail"].toString()
+                        detailText.text = "Order detail : " + order["detail"].toString()
                         statusOrder.text = "Order status : " + order["status"].toString()
                         preparator.text = "Preparator : " + order["id_preparator"].toString()
                         locker.text = "Locker ID : " + order["id_container"].toString()

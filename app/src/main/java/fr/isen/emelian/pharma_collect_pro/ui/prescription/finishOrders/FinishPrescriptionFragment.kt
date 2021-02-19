@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide
 import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
-import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
 import kotlinx.android.synthetic.main.dialog_picture.view.*
 import org.json.JSONObject
 import java.io.File
@@ -36,7 +35,6 @@ class FinishPrescriptionFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
     private lateinit var orderId: String
     private var myUser: User = User()
-    private var myRepo: PrescriptionRepository = PrescriptionRepository()
     private var myPictureUrl: String = ""
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -50,7 +48,7 @@ class FinishPrescriptionFragment : Fragment(), View.OnClickListener {
             savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_container_prescription, container, false)
+        val root = inflater.inflate(R.layout.fragment_finish_prescription, container, false)
         setView(root)
         return root
     }
@@ -100,8 +98,6 @@ class FinishPrescriptionFragment : Fragment(), View.OnClickListener {
         val preparator : TextView = root.findViewById(R.id.preparator)
         val clientID: TextView = root.findViewById(R.id.id_client)
         val statusOrder: TextView = root.findViewById(R.id.status_order)
-        val detailText: TextView = root.findViewById(R.id.detail_text)
-        val locker: TextView = root.findViewById(R.id.locker_nb)
         val urlImage: ImageView = root.findViewById(R.id.prescription_image_view)
 
         orderId = idOrder.id.toString()
@@ -129,13 +125,9 @@ class FinishPrescriptionFragment : Fragment(), View.OnClickListener {
                     statusOrder.text = "Current status : " + data["status"]
                     Glide.with(root.context).load(myUri).into(urlImage)
                     preparator.text = "Preparator ID : " + data["id_preparator"]
-                    detailText.text = data["detail"].toString()
 
-                    context?.let { it1 ->
-                        myRepo.getOrderInfos(myUser.pharma_id.toString(), myUser.token.toString(), locker, orderId, orderID,
-                            it1
-                        )
-                    }
+                    this.myPictureUrl = data["image_url"].toString()
+
                 }else{
                     Log.d("error", "Error while getting infos")
                 }

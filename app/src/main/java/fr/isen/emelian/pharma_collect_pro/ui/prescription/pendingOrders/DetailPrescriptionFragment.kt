@@ -65,7 +65,7 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         when (view?.id) {
             R.id.button_client_info -> switchToClientInfo()
             R.id.button_back -> activity?.onBackPressed()
-            R.id.button_treat -> switchToSelectionInfo()
+            R.id.button_treat -> switchToProductSelection()
             R.id.prescription_image_view -> switchToPicture()
         }
     }
@@ -77,11 +77,44 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         navController.navigate(R.id.action_detailPrescriptionFragment_to_detailClientFragment, bundle)
     }
 
-    private fun switchToSelectionInfo() {
-        val myId = view?.findViewById<TextView>(R.id.id_order)?.text.toString().substring(5,8)
-        val id = IDs(BigDecimal(myId))
-        val bundle = bundleOf("order_id" to id)
-        navController.navigate(R.id.action_detailPrescriptionFragment_to_selectProductFragment, bundle)
+    private fun switchToProductSelection() {
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "$backUrl/order/getOrderByPharmacy"
+        val stringRequest: StringRequest =
+            @SuppressLint("SetTextI18n")
+            object : StringRequest(Method.POST, url, Response.Listener<String> {
+                val jsonResponse = JSONObject(it)
+                if (jsonResponse["success"] == true) {
+                    val jsonArray = jsonResponse.optJSONArray("result")
+                    for (i in 0 until jsonArray.length()) {
+                        val item = jsonArray.getJSONObject(i)
+                        if(item["id_prescription"].toString() == orderId) {
+                            val myId = item["id"].toString()
+                            val id = IDs(BigDecimal(myId))
+                            val bundle = bundleOf("order_id" to id)
+                            this.navController.navigate(R.id.action_detailPrescriptionFragment_to_selectProductFragment, bundle)
+                        }
+                    }
+                }else{
+                    Log.d("Error", "Error when getting order id with prescription id, reason : $jsonResponse")
+                }
+            }, Response.ErrorListener { error ->
+                Log.d("Error", error.toString())
+            }) {
+                override fun getHeaders(): Map<String, String> {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["Host"] = "node"
+                    params["Authorization"] = myUser.token.toString()
+                    return params
+                }
+                override fun getParams(): MutableMap<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["pharmacy_id"] = myUser.pharma_id.toString()
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
     }
 
     private fun switchToPicture(){
@@ -115,6 +148,7 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         val statusOrder: TextView = root.findViewById(R.id.status_order)
         val urlImage: ImageView = root.findViewById(R.id.prescription_image_view)
         val price: TextView = root.findViewById(R.id.price_text)
+        val detail: TextView = root.findViewById(R.id.detail_text)
         val button: Button = root.findViewById(R.id.button_treat)
 
         val requestQueue = Volley.newRequestQueue(context)
@@ -127,16 +161,19 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
                 if (jsonResponse["success"] == true) {
                     val data = JSONObject(jsonResponse.get("result").toString())
                     val myUri: Uri = Uri.parse(data["image_url"].toString())
+                    orderID.text = "ID : " + data["id"].toString()
                     clientID.text = data["id_client"].toString()
                     statusOrder.text = "Current status : " + data["status"]
                     Glide.with(root.context).load(myUri).into(urlImage)
                     this.myPictureUrl = data["image_url"].toString()
 
                     context?.let { it1 ->
-                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderId, orderID, price,
+                        myRepo.getOrderInfo(myUser.pharma_id.toString(), myUser.token.toString(), orderId, price, detail,
                             it1
                         )
                     }
+
+                    this.myPictureUrl = data["image_url"].toString()
 
                     button.visibility = View.VISIBLE
 

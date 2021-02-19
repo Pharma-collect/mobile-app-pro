@@ -38,7 +38,7 @@ class FinishOrderFragment : Fragment() , View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val root = inflater.inflate(R.layout.fragment_container_order, container, false)
+        val root = inflater.inflate(R.layout.fragment_finish_order, container, false)
         setView(root)
         return root
     }
@@ -69,8 +69,6 @@ class FinishOrderFragment : Fragment() , View.OnClickListener {
         val preparator : TextView = root.findViewById(R.id.preparator)
         val clientID: TextView = root.findViewById(R.id.id_client)
         val statusOrder: TextView = root.findViewById(R.id.status_order)
-        val detailText: TextView = root.findViewById(R.id.detail_text)
-        val locker: TextView = root.findViewById(R.id.locker_nb)
 
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order_detail/getOrderDetailsByOrder"
@@ -92,10 +90,8 @@ class FinishOrderFragment : Fragment() , View.OnClickListener {
                         listProduct.add(product["title"].toString())
                         orderID.text = "ID : " + order["id"]
                         clientID.text = order["id_client"].toString()
-                        detailText.text = order["detail"].toString()
                         statusOrder.text = "Order status : " + order["status"].toString()
                         preparator.text = "Preparator : " + order["id_preparator"].toString()
-                        locker.text = "Locker ID : " + order["id_container"].toString()
 
                     }
 

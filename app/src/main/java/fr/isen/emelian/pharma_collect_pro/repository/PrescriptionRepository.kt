@@ -6,7 +6,6 @@ import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
@@ -18,55 +17,19 @@ class PrescriptionRepository {
     var backUrl = "https://88-122-235-110.traefik.me:61001/api"
 
     /**
-     * Update a prescription to ready state
-     */
-    fun updatePresToReady(orderId: String, status: String, preparatorId: String, detail: String, context: Context) {
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/prescription/updatePrescription"
-        val stringRequest: StringRequest =
-            object : StringRequest(Method.POST, url, Response.Listener<String> {
-                val jsonResponse = JSONObject(it)
-                if (jsonResponse["success"] == false) {
-                    Toast.makeText(context, "Failed to change order state", Toast.LENGTH_LONG).show()
-                }
-            }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
-            }) {
-                override fun getHeaders(): Map<String, String> {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["Host"] = "node"
-                    return params
-                }
-                override fun getParams(): Map<String, String> {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["id_prescription"] = orderId
-                    params["status"] = status
-                    params["id_preparator"] = preparatorId
-                    params["detail"] = detail
-                    return params
-                }
-            }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-    }
-
-
-    /**
      * Update a prescription to container state
      */
-    fun updatePresToContainer(orderId: String, idContainer: String, status: String, context: Context) {
+    fun updatePresToContainer(orderId: String, status: String, context: Context) {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/prescription/updatePrescription"
         val stringRequest: StringRequest =
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == false) {
-                    Toast.makeText(context, "Failed to change order state", Toast.LENGTH_LONG).show()
+                    Log.d("Error", "Error when updating prescription to container, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -77,7 +40,6 @@ class PrescriptionRepository {
                     val params: MutableMap<String, String> = HashMap()
                     params["id_prescription"] = orderId
                     params["status"] = status
-                    //params["container_id"] = idContainer
                     return params
                 }
             }
@@ -89,7 +51,7 @@ class PrescriptionRepository {
     /**
      * Get informations about the order when passing from order id
      */
-    fun getOrderInfo(idPharma: String, token: String, idPrescription: String, orderID: TextView, price: TextView ,context: Context) {
+    fun getOrderInfo(idPharma: String, token: String, idPrescription: String, price: TextView , detail: TextView, context: Context) {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderByPharmacy"
         val stringRequest: StringRequest =
@@ -102,18 +64,15 @@ class PrescriptionRepository {
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_prescription"].toString() == idPrescription) {
-                            orderID.text = "ID : " + item["id"]
-                            price.text = item["total_price"].toString()
+                            price.text = "Total price : " + item["total_price"] + "€"
+                            detail.text = "Order detail : " + item["detail"]
                         }
                     }
                 }else{
-
-                    Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
-
+                    Log.d("Error", "Error when getting order infos, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -134,7 +93,7 @@ class PrescriptionRepository {
     /**
      * Get order informations
      */
-    fun getOrderInfos(idPharma: String, token: String, locker: TextView, idPrescription: String, orderID: TextView, context: Context) {
+    fun getOrderInfos(idPharma: String, token: String, locker: TextView, detail: TextView, idPrescription: String, context: Context) {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order/getOrderByPharmacy"
         val stringRequest: StringRequest =
@@ -147,18 +106,15 @@ class PrescriptionRepository {
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_prescription"].toString() == idPrescription) {
+                            detail.text = "Order detail : " + item["detail"]
                             locker.text = "Locker id : " + item["id_container"]
-                            orderID.text = "ID : " + item["id"]
                         }
                     }
                 }else{
-
-                    Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
-
+                    Log.d("Error", "Error when getting order infos, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -189,17 +145,12 @@ class PrescriptionRepository {
                 Log.d("PharmaInfo", it.toString())
                 if (jsonResponse["success"] == true) {
                     val data = JSONObject(jsonResponse.get("result").toString())
-
                     getPictureUrl(myImage, token, data["id_prescription"].toString(), context)
-
                 }else{
-
-                    Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
-
+                    Log.d("Error", "Error when getting order id of prescription, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -217,6 +168,9 @@ class PrescriptionRepository {
         requestQueue.add(stringRequest)
     }
 
+    /**
+     * Get the picture url
+     */
     private fun getPictureUrl(myImage: ImageView, token: String, prescriptionId: String, context: Context) {
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/prescription/getPrescriptionById"
@@ -229,15 +183,11 @@ class PrescriptionRepository {
                     val data = JSONObject(jsonResponse.get("result").toString())
                     val myUri: Uri = Uri.parse(data["image_url"].toString())
                     Glide.with(context).load(myUri).into(myImage)
-
                 }else{
-
-                    Toast.makeText(context, "Error while getting order info", Toast.LENGTH_LONG).show()
-
+                    Log.d("Error", "Error when getting picture url, reason : $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
+                Log.d("Error", error.toString())
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()

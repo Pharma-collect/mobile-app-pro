@@ -123,7 +123,10 @@ class SelectOrderLockerFragment : Fragment(), View.OnClickListener {
 
                         builder.setView(navView)
                         val alertDialog = builder.create()
-                        alertDialog.show()
+                        Handler().postDelayed({
+                            alertDialog.show()
+                        }, 1000)
+
 
                         navView.button_confirm.setOnClickListener {
                             context?.let { it1 -> orderRepository.updateOrderToContainer(orderIds, listId[index], "container", it1) }

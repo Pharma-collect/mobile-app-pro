@@ -118,19 +118,20 @@ class ContainerPrescriptionFragment : Fragment(), View.OnClickListener {
             @SuppressLint("SetTextI18n")
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
-                Log.d("PharmaInfo", it.toString())
                 if (jsonResponse["success"] == true) {
                     val data = JSONObject(jsonResponse.get("result").toString())
                     val myUri: Uri = Uri.parse(data["image_url"].toString())
 
+                    orderID.text = "ID : " + data["id"].toString()
                     clientID.text = data["id_client"].toString()
                     statusOrder.text = "Current status : " + data["status"]
                     Glide.with(root.context).load(myUri).into(urlImage)
                     preparator.text = "Preparator ID : " + data["id_preparator"]
-                    detailText.text = data["detail"].toString()
+
+                    this.myPictureUrl = data["image_url"].toString()
 
                     context?.let { it1 ->
-                        myRepo.getOrderInfos(myUser.pharma_id.toString(), myUser.token.toString(), locker, orderId, orderID,
+                        myRepo.getOrderInfos(myUser.pharma_id.toString(), myUser.token.toString(), locker, detailText, orderId,
                             it1
                         )
                     }

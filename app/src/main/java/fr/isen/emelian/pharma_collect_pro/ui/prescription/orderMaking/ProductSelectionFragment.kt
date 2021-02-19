@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +24,10 @@ import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import fr.isen.emelian.pharma_collect_pro.repository.OrderRepository
 import fr.isen.emelian.pharma_collect_pro.repository.PrescriptionRepository
+import fr.isen.emelian.pharma_collect_pro.repository.ProductRepository
 import kotlinx.android.synthetic.main.dialog_confirmation_locker.view.*
 import kotlinx.android.synthetic.main.dialog_picture.view.*
+import kotlinx.android.synthetic.main.dialog_product_amount.view.*
 import kotlinx.android.synthetic.main.fragment_product_selection.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -38,15 +39,18 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
     private var mExpandingList: ExpandingList? = null
     private var amount = 0
     private var myProductsOrder: JSONArray = JSONArray()
+    private var myFinalArray: JSONArray = JSONArray()
 
     private var backUrl = "https://88-122-235-110.traefik.me:61001/api"
     private lateinit var idOrder: IDs
     private lateinit var orderId: String
     private lateinit var navController: NavController
     private var myUser: User = User()
+    private var selected: Int = 0
 
     private val prescriptionRepository: PrescriptionRepository = PrescriptionRepository()
     private val orderRepository: OrderRepository = OrderRepository()
+    private val productRepository: ProductRepository = ProductRepository()
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +78,19 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    private fun createItems(title: String, url: String, id: String, description: String, price: String, quantity: String, current: String) {
+    private fun createItems(title: String, url: String, id: String, description: String, price: String, quantity: String, current: String, presNeeded: String) {
+
+        val capacity: String =
+            if(quantity == "null"){
+            "0"
+        } else {
+            quantity
+        }
+        val prescriptionNeeded: String = if(presNeeded == "0"){
+            "No"
+        } else {
+            "Yes"
+        }
 
         addItem(
             title,
@@ -82,17 +98,20 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
                     "Id : $id",
                     "Description : $description",
                     "Price : $price €",
-                    "Quantity : $quantity"
+                    "Quantity : $capacity",
+                    "Only with prescription : $prescriptionNeeded"
             ),
             R.color.design_default_color_background,
             url,
             id,
             price,
-            current
+            current,
+            capacity
         )
     }
 
-    private fun addItem(title: String, subItems: Array<String>, colorRes: Int, url: String, ids: String, price: String, current: String) {
+    @SuppressLint("SetTextI18n")
+    private fun addItem(title: String, subItems: Array<String>, colorRes: Int, url: String, ids: String, price: String, current: String, quantity: String) {
         val item = mExpandingList!!.createNewItem(R.layout.expanding_layout)
         val myUri: Uri = Uri.parse(url)
 
@@ -102,20 +121,18 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
             if(current != "0") {
                 (item.findViewById(R.id.add_more_sub_items) as Button).setBackgroundResource(R.drawable.ic_baseline_check_circle_24_green)
             }
-            (item.findViewById(R.id.et_amount) as EditText).text = Editable.Factory.getInstance().newEditable(current)
+            (item.findViewById(R.id.et_amount) as TextView).text = "Selected : $current"
             context?.let { Glide.with(it).load(myUri).into((item.findViewById(R.id.image) as ImageView)) }
 
             item.createSubItems(subItems.size)
             for (i in 0 until item.subItemsCount) {
-                //Let's get the created sub item by its index
                 val view = item.getSubItemView(i)
 
-                //Let's set some values in
                 configureSubItem(view, subItems[i])
 
                 item.findViewById<Button>(R.id.add_more_sub_items)
                     .setOnClickListener {
-                        addProduct(item, ids, title, price)
+                        addProduct(item, ids, title, price, quantity)
                     }
             }
         }
@@ -126,47 +143,77 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
     }
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
-    private fun addProduct(item: ExpandingItem?, id: String, title: String, price: String) {
+    private fun addProduct(item: ExpandingItem?, id: String, title: String, price: String, quantity: String) {
 
-        val number: String = item?.findViewById<EditText>(R.id.et_amount)?.text.toString()
-        val product = JSONObject()
-        var amount = 0
-        var occurence = 0
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product_amount, null)
+        val pickerState: NumberPicker = navView.findViewById(R.id.picker)
 
-        product.put("id_product", id.toInt())
-        product.put("quantity", number.toInt())
-        product.put("title", title)
-        product.put("price", price.toFloat())
-
-        if(this.myProductsOrder.length() == 0) {
-            this.myProductsOrder.put(product)
+        if(quantity == "null"){
+            pickerState.maxValue = 0
         } else {
-            for (i in 0 until this.myProductsOrder.length()) {
-                val item = this.myProductsOrder.getJSONObject(i)
-                if (item["id_product"].toString() == id) {
-                    occurence++
-                    item.put("quantity", number)
+            pickerState.maxValue = quantity.toInt()
+        }
+        pickerState.minValue = 0
+
+        pickerState.setOnValueChangedListener { _, _, p2 -> selected = p2 }
+
+        builder.setView(navView)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        navView.confirm.setOnClickListener {
+
+            val number = selected
+            val product = JSONObject()
+            var amount = 0
+            var occurence = 0
+
+            product.put("id_product", id.toInt())
+            product.put("quantity", number)
+            product.put("title", title)
+            product.put("price", price.toFloat())
+
+            if(this.myProductsOrder.length() == 0) {
+                this.myProductsOrder.put(product)
+            } else {
+                for (i in 0 until this.myProductsOrder.length()) {
+                    val items = this.myProductsOrder.getJSONObject(i)
+                    if (items["id_product"].toString() == id) {
+                        occurence++
+                        items.put("quantity", number)
+                    }
+                }
+                if(occurence == 0) {
+                    this.myProductsOrder.put(product)
                 }
             }
-            if(occurence == 0) {
-                this.myProductsOrder.put(product)
+
+            item?.findViewById<TextView>(R.id.et_amount)?.text = "Selected : $number"
+            for (i in 0 until this.myProductsOrder.length()) {
+                val items = this.myProductsOrder.getJSONObject(i)
+                val nb = items["quantity"].toString()
+                if(nb == "0"){
+                    amount += nb.toInt()
+                    (item?.findViewById(R.id.add_more_sub_items) as Button).setBackgroundResource(R.drawable.ic_baseline_add_circle_24)
+                } else {
+                    amount += nb.toInt()
+                    (item?.findViewById(R.id.add_more_sub_items) as Button).setBackgroundResource(R.drawable.ic_baseline_check_circle_24_green)
+                }
             }
+            this.amount = amount
+            view?.findViewById<TextView>(R.id.amount_product)?.text = "Amount of products :  " + this.amount
+            alertDialog.dismiss()
+            selected = 0
+
         }
 
-        for (i in 0 until this.myProductsOrder.length()) {
-            val items = this.myProductsOrder.getJSONObject(i)
-            val nb = items["quantity"].toString()
-            if(nb == "0"){
-                amount += nb.toInt()
-                (item?.findViewById(R.id.add_more_sub_items) as Button).setBackgroundResource(R.drawable.ic_baseline_check_circle_24)
-            } else {
-                amount += nb.toInt()
-                (item?.findViewById(R.id.add_more_sub_items) as Button).setBackgroundResource(R.drawable.ic_baseline_check_circle_24_green)
-            }
+        navView.cancel.setOnClickListener {
+            alertDialog.dismiss()
         }
-        this.amount = amount
-        view?.findViewById<TextView>(R.id.amount_product)?.text = "Amount of products :  " + this.amount
     }
+
 
     private fun setView(view: View, text: String) {
         val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
@@ -189,17 +236,18 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
                         for (i in 0 until jsonArray.length()) {
                             var current = "0"
                             val item = jsonArray.getJSONObject(i)
-                            if(item["title"].toString().contains(text)){
+                            if(item["title"].toString().contains(text, ignoreCase = true)){
                                 if(this.myProductsOrder.length() != 0) {
-                                    for (i in 0 until this.myProductsOrder.length()) {
-                                        val itemProduct = this.myProductsOrder.getJSONObject(i)
+                                    for (iteration in 0 until this.myProductsOrder.length()) {
+                                        val itemProduct = this.myProductsOrder.getJSONObject(iteration)
                                         if (itemProduct["id_product"].toString() == item["id"].toString()) {
                                             current = itemProduct["quantity"].toString()
                                         }
                                     }
                                 }
                                 createItems(item["title"].toString(), item["image_url"].toString(), item["id"].toString(),
-                                    item["description"].toString(), item["price"].toString(), item["capacity"].toString(), current)
+                                    item["description"].toString(), item["price"].toString(), item["capacity"].toString(),
+                                    current, item["prescription_only"].toString())
                             }
                         }
 
@@ -260,6 +308,15 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
 
         navView.button_confirm.setOnClickListener {
 
+            for (i in 0 until this.myProductsOrder.length()) {
+                val itemProduct = this.myProductsOrder.getJSONObject(i)
+                if(itemProduct["quantity"].toString() != "0"){
+                    itemProduct.remove("title")
+                    itemProduct.remove("price")
+                    this.myFinalArray.put(itemProduct)
+                }
+            }
+
             val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
             if (datas.isNotEmpty()) {
                 val jsonObject = JSONObject(datas)
@@ -269,20 +326,34 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
 
             val detail = editTextNote.text.toString()
             if(editTextNote.text.toString() != "") {
-                context?.let { it1 -> prescriptionRepository.updatePresToReady(orderId, "ready", myUser.id.toString(), detail, it1) }
-                context?.let { it1 -> orderRepository.findOrderToUpdate(myUser.pharma_id.toString(), orderId, "ready", myUser.id.toString(), detail, it1) }
-
+                context?.let { it1 -> orderRepository.getClientId(orderId,
+                    myUser.pharma_id.toString(),
+                    myUser.pharma_id.toString(),
+                    myTotalPrice.toString(),
+                    this.myFinalArray,
+                    myUser.id.toString(),
+                    detail,
+                    it1)
+                }
+                context?.let { it1 -> productRepository.updateProductsofArray(this.myFinalArray, it1) }
                 Toast.makeText(context, "Order successfully updated", Toast.LENGTH_LONG).show()
             } else {
-                context?.let { it1 -> prescriptionRepository.updatePresToReady(orderId, "ready", myUser.id.toString(), "RAS", it1) }
-                context?.let { it1 -> orderRepository.findOrderToUpdate(myUser.pharma_id.toString(), orderId, "ready", myUser.id.toString(), "RAS", it1) }
+                context?.let { it1 -> orderRepository.getClientId(orderId,
+                    myUser.pharma_id.toString(),
+                    myUser.pharma_id.toString(),
+                    myTotalPrice.toString(),
+                    this.myFinalArray,
+                    myUser.id.toString(),
+                    "ras",
+                    it1)
+                }
+                context?.let { it1 -> productRepository.updateProductsofArray(this.myFinalArray, it1) }
                 Toast.makeText(context, "Order successfully updated", Toast.LENGTH_LONG).show()
             }
             Handler().postDelayed({
                 alertDialog.dismiss()
-                navController.navigate((R.id.action_selectProductFragment_to_navigation_prescription))
+                navController.navigate(R.id.action_selectProductFragment_to_navigation_prescription)
             }, 1000)
-
         }
 
         navView.button_cancel.setOnClickListener {
