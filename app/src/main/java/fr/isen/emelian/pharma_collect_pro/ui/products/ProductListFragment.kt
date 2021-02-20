@@ -111,13 +111,13 @@ class ProductListFragment : Fragment(), AdapterView.OnItemSelectedListener {
                                         item["description"].toString(), item["price"].toString(), item["capacity"].toString(),
                                         item["prescription_only"].toString())
                                 }
-                            } else if (selectedCapacity == ">=0" && selectedPrice != 0 && minOrMax == "min" && presNeeded == "both") {
+                            } else if (selectedCapacity == ">=0" && selectedPrice != 0 && minOrMax == "max" && presNeeded == "both") {
                                 if(item["price"].toString().toFloat() <= selectedPrice.toFloat()) {
                                     createItems(item["title"].toString(), item["image_url"].toString(), item["id"].toString(),
                                         item["description"].toString(), item["price"].toString(), item["capacity"].toString(),
                                         item["prescription_only"].toString())
                                 }
-                            } else if (selectedCapacity == ">=0" && selectedPrice != 0 && minOrMax == "max" && presNeeded == "both") {
+                            } else if (selectedCapacity == ">=0" && selectedPrice != 0 && minOrMax == "min" && presNeeded == "both") {
                                 if(item["price"].toString().toFloat() >= selectedPrice.toFloat()) {
                                     createItems(item["title"].toString(), item["image_url"].toString(), item["id"].toString(),
                                         item["description"].toString(), item["price"].toString(), item["capacity"].toString(),
