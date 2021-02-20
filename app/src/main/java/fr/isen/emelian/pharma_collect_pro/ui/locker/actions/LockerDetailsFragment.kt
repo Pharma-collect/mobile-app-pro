@@ -2,6 +2,8 @@ package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -82,14 +84,25 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         question.text = "Do you really want to delete this container ?"
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.deleteContainer(amount, it) }
+            alertDialog.dismiss()
+
+            val builderTwo: AlertDialog.Builder = AlertDialog.Builder(context)
+            builderTwo.setCancelable(true)
+            val navViewTwo: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+            builderTwo.setView(navViewTwo)
+            val alertDialogTwo = builderTwo.create()
+            alertDialogTwo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialogTwo.show()
+
             Handler().postDelayed({
-                alertDialog.dismiss()
+                alertDialogTwo.dismiss()
                 activity?.onBackPressed()
-            }, 1000)
+            }, 5000)
 
         }
         navView.button_cancel.setOnClickListener {
@@ -111,14 +124,25 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
         question.text = "Update this container ?"
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.updateContainer(selected, amount, it) }
+            alertDialog.dismiss()
+
+            val builderTwo: AlertDialog.Builder = AlertDialog.Builder(context)
+            builderTwo.setCancelable(true)
+            val navViewTwo: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+            builderTwo.setView(navViewTwo)
+            val alertDialogTwo = builderTwo.create()
+            alertDialogTwo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialogTwo.show()
+
             Handler().postDelayed({
-                alertDialog.dismiss()
+                alertDialogTwo.dismiss()
                 activity?.onBackPressed()
-            }, 1000)
+            }, 5000)
         }
 
         navView.button_cancel.setOnClickListener {
@@ -131,16 +155,7 @@ class LockerDetailsFragment : Fragment(), View.OnClickListener {
     private fun lockerVerifDeletion() {
         val containerState = view?.findViewById<TextView>(R.id.locker_state)?.text.toString()
         if(containerState == "Current status : Fill"){
-            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-            builder.setCancelable(true)
-            val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
-            val question: TextView = navView.findViewById(R.id.name_product)
-            val explanation: TextView = navView.findViewById(R.id.capacity_product)
-            question.text = "Error !"
-            explanation.text = "This container is not empty, you can't delete it"
-            builder.setView(navView)
-            val alertDialog = builder.create()
-            alertDialog.show()
+            Toast.makeText(context, "You can't delete a non available container", Toast.LENGTH_LONG).show()
         } else {
             changeFragmentAfterDeletion()
         }

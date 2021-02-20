@@ -86,7 +86,11 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
                     for (i in 0 until jsonArray.length()) {
                         val item = jsonArray.getJSONObject(i)
                         if(item["id_preparator"].toString() == myUser.id.toString()){
-                            listPrescription.add(item["id"].toString())
+                            if(item["id_prescription"].toString() == "null") {
+                                listPrescription.add(item["id"].toString())
+                            } else {
+                                listPrescription.add(item["id_prescription"].toString())
+                            }
                             listType.add(item["id_prescription"].toString())
                             listState.add(item["status"].toString())
                         }
@@ -98,21 +102,21 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
                     listPres.onItemClickListener = AdapterView.OnItemClickListener { _, _, p2, _ ->
 
                         if(listType[p2] == "null" && listState[p2] == "pending"){
-                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_detailOrderFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_detailOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "pending"){
-                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_detailPrescriptionFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_detailPrescriptionFragment)
                         } else if(listType[p2] == "null" && listState[p2] == "container"){
-                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_containerOrderFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_containerOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "container") {
-                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_containerPresFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_containerPresFragment)
                         } else if(listType[p2] == "null" && listState[p2] == "finish") {
-                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_finishOrderFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_finishOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "finish") {
-                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_finishPresFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_finishPresFragment)
                         } else if(listType[p2] == "null" && listState[p2] == "ready") {
-                            bundleOrder(listPrescription[p2], R.id.action_userProfileFragment_to_readyOrderFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_readyOrderFragment)
                         } else if(listType[p2] != "null" && listState[p2] == "ready") {
-                            bundlePrescription(listPrescription[p2], R.id.action_userProfileFragment_to_readyPresFragment)
+                            bundle(listPrescription[p2], R.id.action_userProfileFragment_to_readyPresFragment)
                         }
                     }
 
@@ -140,46 +144,9 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
         requestQueue.add(stringRequest)
     }
 
-    private fun bundleOrder(id_received: String, action: Int) {
+    private fun bundle(id_received: String, action: Int) {
         val id = IDs(BigDecimal(id_received))
         val bundle = bundleOf("order_id" to id)
         navController.navigate(action, bundle)
     }
-
-    private fun bundlePrescription(id: String, action: Int) {
-        val requestQueue = Volley.newRequestQueue(context)
-        val url = "$backUrl/order/getOrderById"
-        val stringRequest: StringRequest =
-            @SuppressLint("SetTextI18n")
-            object : StringRequest(Method.POST, url, Response.Listener<String> {
-                val jsonResponse = JSONObject(it)
-                Log.d("PharmaInfo", it.toString())
-                if (jsonResponse["success"] == true) {
-                    val data = JSONObject(jsonResponse.get("result").toString())
-                    val idPres = IDs(BigDecimal(data["id_prescription"].toString()))
-                    val bundle = bundleOf("order_id" to idPres)
-                    navController.navigate(action, bundle)
-                }else{
-                    Log.d("error", "Error while getting info")
-                }
-            }, Response.ErrorListener { error ->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
-                    .show()
-            }) {
-                override fun getHeaders(): Map<String, String> {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["Host"] = "node"
-                    params["Authorization"] = myUser.token.toString()
-                    return params
-                }
-                override fun getParams(): MutableMap<String, String>? {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["order_id"] = id
-                    return params
-                }
-            }
-        requestQueue.cache.clear()
-        requestQueue.add(stringRequest)
-    }
-
 }

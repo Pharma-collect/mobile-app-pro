@@ -29,7 +29,7 @@ class LockerRepository {
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == true) {
-                    Toast.makeText(context, "$amount container has been created", Toast.LENGTH_LONG).show()
+                    Log.d("Success", "Container has correctly been created")
                 }else{
                     Log.d("Error", "Error when adding containers, reason : $jsonResponse")
                 }
@@ -67,7 +67,7 @@ class LockerRepository {
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == true) {
-                    Toast.makeText(context, "Container successfully updated", Toast.LENGTH_LONG).show()
+                    Log.d("Success", "Container $containerId successfully updated")
                 }else{
                     Log.d("Error", "Error when updating containers, reason : $jsonResponse")
                 }
@@ -103,7 +103,7 @@ class LockerRepository {
                 object : StringRequest(Method.POST, url, Response.Listener<String> {
                     val jsonResponse = JSONObject(it)
                     if (jsonResponse["success"] == true) {
-                        Toast.makeText(context, "Container successfully deleted", Toast.LENGTH_LONG).show()
+                        Log.d("Success", "Container $containerId successfully deleted")
                     }else{
                         Log.d("Error", "Error when deleting containers, reason : $jsonResponse")
                     }
@@ -137,7 +137,7 @@ class LockerRepository {
                 object : StringRequest(Method.POST, url, Response.Listener<String> {
                     val jsonResponse = JSONObject(it)
                     if (jsonResponse["success"] == true) {
-                        Toast.makeText(context, "All container successfully deleted", Toast.LENGTH_LONG).show()
+                        Log.d("Success", "All containers successfully deleted")
                     }else{
                         Log.d("Error", "Error when deleting all containers, reason : $jsonResponse")
                     }

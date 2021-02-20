@@ -3,6 +3,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.locker
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -76,14 +77,25 @@ class LockerFragment : Fragment(), View.OnClickListener {
         question.text = "Delete all containers of the pharmacy?"
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.deleteAllContainer(myUser.pharma_id.toString(), it) }
+            alertDialog.dismiss()
+
+            val builderTwo: AlertDialog.Builder = AlertDialog.Builder(context)
+            builderTwo.setCancelable(true)
+            val navViewTwo: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+            builderTwo.setView(navViewTwo)
+            val alertDialogTwo = builderTwo.create()
+            alertDialogTwo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialogTwo.show()
+
             Handler().postDelayed({
                 alertDialog.dismiss()
                 navController.navigate(R.id.action_locker_nav_to_locker_nav)
-            }, 1000)
+            }, 6000)
         }
 
         navView.button_cancel.setOnClickListener {

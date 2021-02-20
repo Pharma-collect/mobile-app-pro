@@ -122,7 +122,6 @@
 
             </RelativeLayout>
 
-
             <TextView
                 android:id="@+id/list_tv"
                 android:layout_width="match_parent"

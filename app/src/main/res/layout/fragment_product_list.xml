@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:padding="30dp"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My shop"
+                android:text="@string/my_shop"
                 android:textStyle="bold"
                 android:fontFamily="@font/baloo"
                 android:textSize="35sp"/>
@@ -28,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="products"
+                android:text="@string/products"
                 android:fontFamily="@font/baloo"
                 android:textStyle="normal"
                 android:textSize="30sp"/>
@@ -54,12 +55,14 @@
                 android:id="@+id/et_search"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:hint="Search by name"
+                android:hint="@string/search_name"
                 android:textSize="15sp"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <Button
                 android:id="@+id/button_search"

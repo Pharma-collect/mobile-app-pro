@@ -188,10 +188,22 @@
     <string name="selection">Selection</string>
     <string name="select_txt">Select the locker where you want to put the order</string>
 
+    <!-- Pharmacy products -->
+    <string name="my_shop">My shop</string>
+    <string name="products">Products</string>
+    <string name="search_name">Search by name</string>
+    <string name="amount_of_products">Amount of products</string>
+
     <!-- Update pharmacy -->
     <string name="didac_update">Overwrite the things you want to update :</string>
+    <string name="pharmacy_name">Pharmacy name :</string>
+    <string name="pharmacy_road_nb">Road number :</string>
+    <string name="pharmacy_road_name">Road name :</string>
+    <string name="pharmacy_phone">Phone number :</string>
+    <string name="pharmacy_postcode">Postcode :</string>
+    <string name="pharmacy_city">City :</string>
 
-    <!-- Dialog locker confirm pharmacy -->
+    <!-- All Dialog -->
     <string name="sure">Select this box ?</string>
     <string name="id_container">Container ID : </string>
     <string name="nb_container">Container number : </string>
@@ -201,7 +213,12 @@
     <string name="locker_nb">Locker number : </string>
     <string name="select_product">Select products</string>
     <string name="shop_product">Shop products</string>
-    <string name="search_name">Search by name</string>
+    <string name="confirm_set_ready">Confirm and set ready ?</string>
+    <string name="select_amount">Select the amount of products</string>
+    <string name="product_name">Product name</string>
+    <string name="amount_selected">Selected : 0</string>
+    <string name="product_attribute">Attribute</string>
+    <string name="processing">Processing…</string>
 
     <string name="delete_all">Delete ?</string>
     <!-- TODO: Remove or change this placeholder text -->

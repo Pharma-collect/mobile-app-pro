@@ -105,16 +105,8 @@ class ReadyPresFragment : Fragment(), View.OnClickListener  {
                         val bundle = bundleOf("order_id" to id)
                         navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment, bundle)
                     } else {
-                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                        builder.setCancelable(true)
-                        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
-                        val text = navView.findViewById<TextView>(R.id.name_product)
-                        val empty = navView.findViewById<TextView>(R.id.capacity_product)
-                        text.text = "No locker available"
-                        empty.text = ""
-                        builder.setView(navView)
-                        val alertDialog = builder.create()
-                        alertDialog.show()
+                        Toast.makeText(context, "No locker available for the moment", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
             }, Response.ErrorListener { error ->

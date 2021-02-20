@@ -1,6 +1,9 @@
 package fr.isen.emelian.pharma_collect_pro.ui.pharmacy.update
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -76,12 +79,32 @@ class UpdateFragment : Fragment(), View.OnClickListener {
             object : StringRequest(Method.POST, url, Response.Listener<String> {
                 val jsonResponse = JSONObject(it)
                 if (jsonResponse["success"] == true) {
-                    Toast.makeText(context, "Pharmacy successfully updated", Toast.LENGTH_LONG).show()
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                    builder.setCancelable(true)
+                    val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+                    builder.setView(navView)
+                    val alertDialog = builder.create()
+                    alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    alertDialog.show()
+
                     Handler().postDelayed({
+                        alertDialog.dismiss()
                         navController.navigate(R.id.action_navigation_update_to_navigation_pharmacy)
-                    }, 1500)
+                    }, 6000)
+
                 }else{
-                    Toast.makeText(context, "Failed to update pharmacy", Toast.LENGTH_LONG).show()
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                    builder.setCancelable(true)
+                    val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_error, null)
+                    builder.setView(navView)
+                    val alertDialog = builder.create()
+                    alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    alertDialog.show()
+
+                    Handler().postDelayed({
+                        alertDialog.dismiss()
+                    }, 5000)
+                    Log.d("Error", "Error when updating pharmacy, reason $jsonResponse")
                 }
             }, Response.ErrorListener { error ->
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)

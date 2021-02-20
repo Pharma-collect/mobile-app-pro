@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,7 +43,8 @@
                 android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true"
                 android:textColor="#6E6E6E"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                tools:ignore="RelativeOverlap" />
 
         </RelativeLayout>
 
@@ -65,7 +67,7 @@
                 android:id="@+id/amount_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount of products : 5"
+                android:text="@string/amount_of_products"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"/>
 
@@ -88,12 +90,14 @@
                     android:id="@+id/et_search"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:hint="Search"
+                    android:hint="@string/search_name"
                     android:textSize="15sp"
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
 
                 <Button
                     android:id="@+id/button_search"

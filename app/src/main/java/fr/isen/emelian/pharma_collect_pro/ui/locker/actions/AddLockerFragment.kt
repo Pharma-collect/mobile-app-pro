@@ -2,6 +2,8 @@ package fr.isen.emelian.pharma_collect_pro.ui.locker.actions
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -65,19 +67,28 @@ class AddLockerFragment : Fragment(), View.OnClickListener {
         question.text = "Add $amount container(s) to the pharmacy ?"
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.button_confirm.setOnClickListener {
             context?.let { lockerRepository.addContainer(amount, it) }
-            Handler().postDelayed({
-                alertDialog.dismiss()
-                activity?.onBackPressed()
-            }, 1000)
+            alertDialog.dismiss()
 
+            val builderTwo: AlertDialog.Builder = AlertDialog.Builder(context)
+            builderTwo.setCancelable(true)
+            val navViewTwo: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+            builderTwo.setView(navViewTwo)
+            val alertDialogTwo = builderTwo.create()
+            alertDialogTwo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialogTwo.show()
+
+            Handler().postDelayed({
+                alertDialogTwo.dismiss()
+                activity?.onBackPressed()
+            }, 6000)
         }
 
         navView.button_cancel.setOnClickListener {
-            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
             alertDialog.dismiss()
         }
     }

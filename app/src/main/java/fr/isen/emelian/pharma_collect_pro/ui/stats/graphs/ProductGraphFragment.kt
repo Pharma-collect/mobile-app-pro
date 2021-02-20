@@ -1,7 +1,9 @@
 package fr.isen.emelian.pharma_collect_pro.ui.stats.graphs
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -111,6 +113,7 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
                             // Code
                         }
 
+                        @SuppressLint("SetTextI18n")
                         override fun onValueSelected(e: Entry, h: Highlight){
                             val x = barChart.data.getDataSetForEntry(e).getEntryIndex(e as BarEntry?)
                             val type: String? = products[x].y.toString()
@@ -122,11 +125,12 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
                             val textViewType: TextView = navView.findViewById(R.id.name_product)
                             val textViewCapacity: TextView = navView.findViewById(R.id.capacity_product)
 
-                            textViewType.text = capa
+                            textViewType.text = "Amount in stock : " + capa?.toInt().toString()
                             textViewCapacity.text = type
 
                             builder.setView(navView)
                             val alertDialog = builder.create()
+                            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                             alertDialog.show()
                         }
                     })
