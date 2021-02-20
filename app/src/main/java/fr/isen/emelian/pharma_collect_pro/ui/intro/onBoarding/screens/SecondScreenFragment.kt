@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager2.widget.ViewPager2
 import fr.isen.emelian.pharma_collect_pro.LoginActivity
 import fr.isen.emelian.pharma_collect_pro.R
+import kotlinx.android.synthetic.main.fragment_second_screen.*
 import kotlinx.android.synthetic.main.fragment_second_screen.view.*
 
 class SecondScreenFragment : Fragment() {
@@ -18,23 +18,57 @@ class SecondScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_second_screen, container, false)
-
-        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
-
-        view.next2.setOnClickListener {
-            viewPager?.currentItem = 2
-        }
-
-        view.back2.setOnClickListener{
-            viewPager?.currentItem = 0
-        }
 
         view.skip2.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             context?.startActivity(intent)
             onBoardingFinished()
+        }
+
+        view.imageView5.setOnClickListener {
+            linear_prescription.visibility = View.VISIBLE
+            linear_basic.visibility = View.INVISIBLE
+            linear_locker.visibility = View.INVISIBLE
+            linear_pharmacy.visibility = View.INVISIBLE
+            linear_products.visibility = View.INVISIBLE
+            linear_stats.visibility = View.INVISIBLE
+        }
+
+        view.imageView4.setOnClickListener {
+            linear_prescription.visibility = View.INVISIBLE
+            linear_basic.visibility = View.INVISIBLE
+            linear_locker.visibility = View.VISIBLE
+            linear_pharmacy.visibility = View.INVISIBLE
+            linear_products.visibility = View.INVISIBLE
+            linear_stats.visibility = View.INVISIBLE
+        }
+
+        view.imageView6.setOnClickListener {
+            linear_prescription.visibility = View.INVISIBLE
+            linear_basic.visibility = View.INVISIBLE
+            linear_locker.visibility = View.INVISIBLE
+            linear_pharmacy.visibility = View.INVISIBLE
+            linear_products.visibility = View.VISIBLE
+            linear_stats.visibility = View.INVISIBLE
+        }
+
+        view.imageView7.setOnClickListener {
+            linear_prescription.visibility = View.INVISIBLE
+            linear_basic.visibility = View.INVISIBLE
+            linear_locker.visibility = View.INVISIBLE
+            linear_pharmacy.visibility = View.VISIBLE
+            linear_products.visibility = View.INVISIBLE
+            linear_stats.visibility = View.INVISIBLE
+        }
+
+        view.imageView3.setOnClickListener {
+            linear_prescription.visibility = View.INVISIBLE
+            linear_basic.visibility = View.INVISIBLE
+            linear_locker.visibility = View.INVISIBLE
+            linear_pharmacy.visibility = View.INVISIBLE
+            linear_products.visibility = View.INVISIBLE
+            linear_stats.visibility = View.VISIBLE
         }
 
         return view
@@ -49,5 +83,4 @@ class SecondScreenFragment : Fragment() {
         editor.putBoolean("Finished", true)
         editor.apply()
     }
-
 }

@@ -124,13 +124,13 @@ class ProductListFragment : Fragment(), AdapterView.OnItemSelectedListener {
                                         item["prescription_only"].toString())
                                 }
                             } else if (selectedCapacity == ">=0" && selectedPrice == 0 && minOrMax == "both" && presNeeded == "yes") {
-                                if(item["prescription_only"].toString() == "1") {
+                                if(item["prescription_only"].toString() == "0") {
                                     createItems(item["title"].toString(), item["image_url"].toString(), item["id"].toString(),
                                         item["description"].toString(), item["price"].toString(), item["capacity"].toString(),
                                         item["prescription_only"].toString())
                                 }
                             } else if (selectedCapacity == ">=0" && selectedPrice == 0 && minOrMax == "both" && presNeeded == "no") {
-                                if(item["prescription_only"].toString() == "0") {
+                                if(item["prescription_only"].toString() == "1") {
                                     createItems(item["title"].toString(), item["image_url"].toString(), item["id"].toString(),
                                         item["description"].toString(), item["price"].toString(), item["capacity"].toString(),
                                         item["prescription_only"].toString())

@@ -4,137 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0E3C72"
+    android:background="#AACCFF"
     tools:context=".ui.intro.onBoarding.screens.FirstScreenFragment">
 
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imageView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/my_pharma_pro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:text="@string/didactiel"
+        android:textColor="#0D3C72"
+        android:textSize="16sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="20dp">
+    <Button
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@android:color/transparent"
+        android:text="@string/skip"
+        android:textColor="#0D3C72"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/one_of_six"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/one_of_six"
-                android:textColor="#6E6E6E"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/my"
+        android:textColor="#0D3C72"
+        android:textSize="42sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <Button
-                android:id="@+id/skip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/skip"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="RelativeOverlap,RtlHardcoded" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo"
+        android:text="@string/pharmas"
+        android:textColor="#0D3C72"
+        android:textSize="56sp"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        </RelativeLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:textColor="#0D3C72"
+        android:text="@string/pharma_assistant"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <ImageView
-            android:id="@+id/image_view_header"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:contentDescription="@string/header_image"
-            android:src="@drawable/pro_header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="30dp"
-            android:layout_margin="30dp"
-            android:background="@drawable/shape_four"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/welcome_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome"
-                android:textColor="#6E6E6E"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp"
-                android:paddingBottom="20dp"/>
-
-            <TextView
-                android:id="@+id/explanation_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textSize="15sp"
-                android:textColor="#6E6E6E"
-                android:layout_marginTop="20dp"
-                android:paddingEnd="30dp"
-                android:paddingStart="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/see_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/see"
-                android:textSize="15sp"
-                android:textColor="#6E6E6E"
-                android:layout_marginTop="20dp"
-                android:paddingEnd="30dp"
-                android:paddingStart="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/navigation_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/slide"
-                android:textColor="#6E6E6E"
-                android:textSize="15sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:paddingEnd="30dp"
-                android:paddingStart="30dp"
-                android:gravity="center"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:layout_gravity="right"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_header"
-            tools:ignore="RtlHardcoded" />
-
-    </LinearLayout>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:src="@drawable/tab1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="40dp"
+        android:contentDescription="@string/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

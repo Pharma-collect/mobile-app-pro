@@ -17,36 +17,29 @@
     <string name="splash_logo">Splash my Pharma logo</string>
 
     <!-- Info fragment -->
-    <string name="one_of_six">1/6</string>
-    <string name="two_of_six">2/6</string>
-    <string name="three_of_six">3/6</string>
-    <string name="four_of_six">4/6</string>
-    <string name="five_of_six">5/6</string>
-    <string name="six_of_six">6/6</string>
+    <string name="my">My</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
     <string name="skip">Skip</string>
     <string name="finish">Finish</string>
-    <string name="welcome">Welcome on Pharma-collect !</string>
-    <string name="description">Pharma collect will be your best professionnal pharmacy assistant. It will make your life easier and will upgrade your result.</string>
-    <string name="see">We will see how it is working on the next page</string>
-    <string name="slide">Slide to go to the next page or click on the next button at the bottom right of the page</string>
-    <string name="your_pharmacy">Your pharmacy</string>
-    <string name="not_allowed">The application is only a support for orders and management. All actions about creation of a pharmacy, management of users and shop management must be done with the Base Object given with the application.</string>
-    <string name="not_allowed_next">Every action are management by the pharmacy boss. Any action except order management are allowed for basic users</string>
-    <string name="order_info">Order items allows you to see all waiting, in process or done orders. Preparator, id, pharmacy, client or locker are mentionned. A very useful part to manage orders of the pharmacy</string>
-    <string name="shop_infos"> This part allows you to get stats about the infulence on the app with graph</string>
-    <string name="locker_info">Locker item allows to see which locker is empty and available or not. You can manage it by adding or deleting and get their status.</string>
-    <string name="pharma_infos">Allow you to get all main information about the pharmacy you are working in.</string>
-    <string name="items">Pharma-collect items</string>
     <string name="pharmas">Pharma</string>
-    <string name="navbar">The bottom navbar</string>
-    <string name="navbar_description">The navbar allows you to access quickly to the different spaces of the application described on the previous page. It is a quick and intuitive navigation.</string>
-    <string name="navbar_image">Navbar image</string>
-    <string name="home_menu">The home page</string>
-    <string name="home_page">The home page allows you to get all important informations centralized in one page. It is the heart of the application and fetch user information, orders information or locker information</string>
-    <string name="home_image">Image description home disposition</string>
-    <string name="enjoy">Thanks for using PharmaCollect, ENJOY !</string>
+    <string name="enjoy">ENJOY !</string>
+    <string name="lets_start">Let\'s start</string>
+    <string name="didactiel">App explanation</string>
+    <string name="pharma_assistant">Your best pharmacy assistant</string>
+    <string name="thanks">Thanks for using phama collect mobile app, Enjoy</string>
+    <string name="basic">Composed of five different parts to manage your pharmacy like a pro, Click to have more information about them</string>
+    <string name="products_explanation">The product side of the app will allows you to display all products of yous pharmacy. You can also filter them and get information like the quantity in stock or the price</string>
+    <string name="pres_orders">Prescriptions &amp; Orders</string>
+    <string name="pres_explanation">The prescription side of the app will allows you to manage your orders. It will help you to make your order evolve with the different states of its life cycle. When taking in charge a prescription, you have to create an order with prescription information.</string>
+    <string name="statistics">Statistics</string>
+    <string name="stat_explanation">The statistics side of the app will allows you to display graphs about the phamacy.We can find for example the amount of order by state or product in stock. It is a useful tool to quickly visualize information</string>
+    <string name="pharma_explanation">The pharmacy side of the app will allows you to manage your information and update them</string>
+    <string name="locker_explanation">The locker side of the app will allows you to manage the locker of your pharmacy and their states (Available / Non available). There are necessary for order delivery for a client.</string>
+
+    <!-- Description didactiel -->
+    <string name="logo">Pharma collect professionnal logo</string>
+    <string name="pages">Pages</string>
 
     <!-- Login page string -->
     <string name="login">Login</string>

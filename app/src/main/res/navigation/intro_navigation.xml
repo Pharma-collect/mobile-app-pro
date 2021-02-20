@@ -23,5 +23,7 @@
         android:name="fr.isen.emelian.pharma_collect_pro.ui.intro.onBoarding.ViewPagerFragment"
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" >
+
     </fragment>
+
 </navigation>
