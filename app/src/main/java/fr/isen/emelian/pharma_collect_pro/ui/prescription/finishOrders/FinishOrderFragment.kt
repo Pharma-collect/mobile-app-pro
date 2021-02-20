@@ -87,7 +87,7 @@ class FinishOrderFragment : Fragment() , View.OnClickListener {
                         val product = JSONObject(item.get("product").toString())
                         val order = JSONObject(item.get("order").toString())
 
-                        listProduct.add(product["title"].toString())
+                        listProduct.add(product["title"].toString() + " x" + item["quantity"])
                         orderID.text = "ID : " + order["id"]
                         clientID.text = order["id_client"].toString()
                         statusOrder.text = "Order status : " + order["status"].toString()
