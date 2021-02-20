@@ -3,6 +3,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -123,6 +124,7 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
 
                         builder.setView(navView)
                         val alertDialog = builder.create()
+                        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                         Handler().postDelayed({
                             alertDialog.show()
                         }, 1250)
@@ -131,14 +133,22 @@ class SelectLockerFragment : Fragment(), View.OnClickListener {
                             context?.let { it1 -> presRepository.updatePresToContainer(orderIds, "container", it1) }
                             context?.let { it1 -> orderRepository.findOrderToUpdateContainer(myUser.pharma_id.toString(), orderIds, "container", listId[index], it1) }
                             context?.let { it1 -> lockerRepository.updateContainer("1", listId[index], it1) }
-                            Toast.makeText(context, "Order and container state successfully updated", Toast.LENGTH_LONG).show()
+                            alertDialog.dismiss()
+
+                            val builderTwo: AlertDialog.Builder = AlertDialog.Builder(context)
+                            builderTwo.setCancelable(true)
+                            val navViewTwo: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+                            builderTwo.setView(navViewTwo)
+                            val alertDialogTwo = builderTwo.create()
+                            alertDialogTwo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                            alertDialogTwo.show()
+
                             Handler().postDelayed({
-                                alertDialog.dismiss()
+                                alertDialogTwo.dismiss()
                                 navController.navigate((R.id.action_selectLockerFragment_to_navigation_prescription))
-                            }, 1250)
+                            }, 6000)
                         }
                         navView.button_cancel.setOnClickListener {
-                            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
                             alertDialog.dismiss()
                         }
                     }

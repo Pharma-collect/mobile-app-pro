@@ -2,6 +2,8 @@ package fr.isen.emelian.pharma_collect_pro.ui.prescription.pendingOrders
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -126,6 +128,7 @@ class DetailPrescriptionFragment : Fragment(), View.OnClickListener {
         context?.let { Glide.with(it).load(myUri).into(picture) }
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.button_back.setOnClickListener {

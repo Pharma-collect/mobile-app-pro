@@ -1,7 +1,6 @@
 package fr.isen.emelian.pharma_collect_pro.ui.prescription.readyOrders
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ import fr.isen.emelian.pharma_collect_pro.R
 import fr.isen.emelian.pharma_collect_pro.dataClass.IDs
 import fr.isen.emelian.pharma_collect_pro.dataClass.User
 import org.json.JSONObject
+import java.io.File
 import java.math.BigDecimal
 
 class ReadyOrderFragment : Fragment(), View.OnClickListener  {
@@ -88,18 +88,10 @@ class ReadyOrderFragment : Fragment(), View.OnClickListener  {
                     if(this.available > 0) {
                         val id = IDs(BigDecimal(orderIds))
                         val bundle = bundleOf("order_id" to id)
-                        navController.navigate(R.id.action_readyPresFragment_to_selectLockerFragment, bundle)
+                        navController.navigate(R.id.action_readyOrderFragment_to_selectOrderLockerFragment, bundle)
                     } else {
-                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                        builder.setCancelable(true)
-                        val navView: View = LayoutInflater.from(context).inflate(R.layout.dialog_product, null)
-                        val text = navView.findViewById<TextView>(R.id.name_product)
-                        val empty = navView.findViewById<TextView>(R.id.capacity_product)
-                        text.text = "No locker available"
-                        empty.text = ""
-                        builder.setView(navView)
-                        val alertDialog = builder.create()
-                        alertDialog.show()
+                        Toast.makeText(context, "No locker available for the moment", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
             }, Response.ErrorListener { error ->
@@ -130,6 +122,13 @@ class ReadyOrderFragment : Fragment(), View.OnClickListener  {
         val statusOrder: TextView = root.findViewById(R.id.status_order)
         val detailText: TextView = root.findViewById(R.id.detail_text)
         val preparator: TextView = root.findViewById(R.id.id_preparator)
+
+        val datas: String = File(context?.cacheDir?.absolutePath + "Data_user.json").readText()
+        if (datas.isNotEmpty()) {
+            val jsonObject = JSONObject(datas)
+            myUser.pharma_id = jsonObject.optInt("pharmaId")
+            myUser.token = jsonObject.optString("token")
+        }
 
         val requestQueue = Volley.newRequestQueue(context)
         val url = "$backUrl/order_detail/getOrderDetailsByOrder"

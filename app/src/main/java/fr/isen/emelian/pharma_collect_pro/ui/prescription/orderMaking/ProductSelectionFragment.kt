@@ -2,6 +2,8 @@ package fr.isen.emelian.pharma_collect_pro.ui.prescription.orderMaking
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -161,6 +163,7 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
 
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.confirm.setOnClickListener {
@@ -304,6 +307,7 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
         listId.adapter = adapter
         builder.setView(navView)
         val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         navView.button_confirm.setOnClickListener {
@@ -336,7 +340,6 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
                     it1)
                 }
                 context?.let { it1 -> productRepository.updateProductsofArray(this.myFinalArray, it1) }
-                Toast.makeText(context, "Order successfully updated", Toast.LENGTH_LONG).show()
             } else {
                 context?.let { it1 -> orderRepository.getClientId(orderId,
                     myUser.pharma_id.toString(),
@@ -348,16 +351,25 @@ class ProductSelectionFragment : Fragment(), View.OnClickListener {
                     it1)
                 }
                 context?.let { it1 -> productRepository.updateProductsofArray(this.myFinalArray, it1) }
-                Toast.makeText(context, "Order successfully updated", Toast.LENGTH_LONG).show()
             }
+
+            alertDialog.dismiss()
+            val builderTwo: AlertDialog.Builder = AlertDialog.Builder(context)
+            builderTwo.setCancelable(true)
+            val navViewTwo: View = LayoutInflater.from(context).inflate(R.layout.dialog_success, null)
+            builderTwo.setView(navViewTwo)
+            val alertDialogTwo = builderTwo.create()
+            alertDialogTwo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialogTwo.show()
+
             Handler().postDelayed({
-                alertDialog.dismiss()
+                alertDialogTwo.dismiss()
                 navController.navigate(R.id.action_selectProductFragment_to_navigation_prescription)
-            }, 1000)
+            }, 7000)
+
         }
 
         navView.button_cancel.setOnClickListener {
-            Toast.makeText(context, "Operation canceled", Toast.LENGTH_LONG).show()
             alertDialog.dismiss()
         }
     }

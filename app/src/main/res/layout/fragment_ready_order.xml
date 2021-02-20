@@ -127,9 +127,7 @@
                     tools:ignore="RelativeOverlap"
                     android:textColor="#6E6E6E"/>
 
-
             </RelativeLayout>
-
 
             <TextView
                 android:id="@+id/list_tv"
@@ -140,7 +138,6 @@
                 android:textStyle="bold"
                 android:textSize="20sp"/>
 
-
             <ListView
                 android:id="@+id/product_list"
                 android:layout_width="match_parent"
@@ -148,14 +145,12 @@
                 android:layout_marginTop="15dp"
                 android:padding="20dp"/>
 
-
             <TextView
                 android:id="@+id/detail_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/ras"
-                android:layout_centerVertical="true"
                 android:textStyle="bold"
                 android:textSize="15sp" />
 

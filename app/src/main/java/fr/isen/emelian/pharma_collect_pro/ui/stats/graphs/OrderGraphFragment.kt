@@ -2,6 +2,7 @@ package fr.isen.emelian.pharma_collect_pro.ui.stats.graphs
 
 import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -40,7 +41,6 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_order_graph, container, false)
         setView(view)
         return view
@@ -95,19 +95,35 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
                         val item = jsonArray.getJSONObject(i)
                         if(item.optString("status").toString() == "pending") {
                             pending++
-                            listPending.add("Order ID : " + item["id"].toString())
+                            if(item["id_prescription"].toString() == "null"){
+                                listPending.add("Order ID : " + item["id"].toString())
+                            } else {
+                                listPending.add("Order ID : " + item["id_prescription"].toString())
+                            }
                         }
                         if(item.optString("status").toString() == "ready") {
                             ready++
-                            listReady.add("Order ID : " + item["id"].toString())
+                            if(item["id_prescription"].toString() == "null"){
+                                listReady.add("Order ID : " + item["id"].toString())
+                            } else {
+                                listReady.add("Order ID : " + item["id_prescription"].toString())
+                            }
                         }
                         if(item.optString("status").toString() == "container") {
                             container++
-                            listContainer.add("Order ID : " + item["id"].toString())
+                            if(item["id_prescription"].toString() == "null"){
+                                listContainer.add("Order ID : " + item["id"].toString())
+                            } else {
+                                listContainer.add("Order ID : " + item["id_prescription"].toString())
+                            }
                         }
                         if(item.optString("status").toString() == "finish") {
                             finish++
-                            listFinish.add("Order ID : " + item["id"].toString())
+                            if(item["id_prescription"].toString() == "null"){
+                                listFinish.add("Order ID : " + item["id"].toString())
+                            } else {
+                                listFinish.add("Order ID : " + item["id_prescription"].toString())
+                            }
                         }
                     }
 
@@ -175,6 +191,7 @@ class OrderGraphFragment : Fragment(), View.OnClickListener {
 
                             builder.setView(navView)
                             val alertDialog = builder.create()
+                            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                             alertDialog.show()
                         }
                     })
