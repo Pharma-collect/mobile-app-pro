@@ -125,7 +125,7 @@ class ProductGraphFragment : Fragment(), View.OnClickListener {
                             val textViewType: TextView = navView.findViewById(R.id.name_product)
                             val textViewCapacity: TextView = navView.findViewById(R.id.capacity_product)
 
-                            textViewType.text = "Amount in stock : " + capa?.toInt().toString()
+                            textViewType.text = "Amount in stock : $capa"
                             textViewCapacity.text = type
 
                             builder.setView(navView)
